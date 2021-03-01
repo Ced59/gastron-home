@@ -39,16 +39,13 @@ class AppFixtures extends Fixture
 
         $user = new  User();
         $hash = $this->encoder->encodePassword($user, 'password');
-        $user->setRoles(['ROLE_USER'])
+        $user->setRoles(['ROLE_CLIENT'])
             ->setPassword($hash)
             ->setLastName('Caudron')
             ->setFirstName('Cedric')
             ->setEmail('ceduser@fake.com')
             ->setAdress('25 rue de moi')
-            ->setVille($ville)
-            ->setIsClient(true)
-            ->setIsLivreur(false)
-            ->setIsRestaurant(false);
+            ->setVille($ville);
 
         $manager->persist($user);
 
