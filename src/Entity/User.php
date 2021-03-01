@@ -75,11 +75,6 @@ class User implements UserInterface
      */
     private $commande;
 
-    /**
-     * @ORM\Column(type="string", length=15)
-     */
-    private $userType;
-
     public function __construct()
     {
         $this->commande = new ArrayCollection();
@@ -263,18 +258,6 @@ class User implements UserInterface
                 $commande->setUtilisateur(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getUserType(): ?string
-    {
-        return $this->userType;
-    }
-
-    public function setUserType(string $userType): self
-    {
-        $this->userType = $userType;
 
         return $this;
     }
