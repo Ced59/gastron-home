@@ -26,13 +26,16 @@ class AppFixtures extends Fixture
 
         $secteur1 = new Secteur();
         $secteur1->setNomSecteur('Ostrevent');
+        $manager->persist($secteur1);
 
         $secteur2 = new Secteur();
         $secteur2->setNomSecteur('Valenciennois');
+        $manager->persist($secteur2);
 
         $ville = new Ville();
         $ville->setNomVille('Somain')
             ->setSecteur($secteur1);
+        $manager->persist($ville);
 
         $user = new  User();
         $hash = $this->encoder->encodePassword($user, 'password');
@@ -47,6 +50,7 @@ class AppFixtures extends Fixture
             ->setIsLivreur(false)
             ->setIsRestaurant(false);
 
+        $manager->persist($user);
 
         $manager->flush();
     }
