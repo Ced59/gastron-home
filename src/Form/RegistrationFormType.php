@@ -21,7 +21,6 @@ class RegistrationFormType extends AbstractType
             ->add('firstName')
             ->add('lastName')
             ->add('adress')
-            ->add('ville')
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -31,7 +30,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('userType', ChoiceType::class,[
+            ->add('roles', ChoiceType::class,[
                 'label' => 'Qu\'êtes vous?',
                 'choices' => array(
                     'Client' => 'Client',

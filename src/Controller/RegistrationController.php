@@ -32,9 +32,6 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $ville = $form->get('ville')->getData();
-
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
