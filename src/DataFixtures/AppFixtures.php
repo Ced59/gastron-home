@@ -101,8 +101,7 @@ class AppFixtures extends Fixture
             ->setFirstName('Cédric')
             ->setEmail('admin@fake.com')
             ->setAdress('25 rue de moi')
-            ->setVille($ville)
-            ->setUserType('Client');
+            ->setVille($ville);
 
         $manager->persist($user);
 
