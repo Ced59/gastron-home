@@ -46,9 +46,7 @@ class AppFixtures extends Fixture
             ->setEmail('ceduser@fake.com')
             ->setAdress('25 rue de moi')
             ->setVille($ville)
-            ->setIsClient(true)
-            ->setIsLivreur(false)
-            ->setIsRestaurant(false);
+            ->setUserType('Client');
 
         $manager->persist($user);
 
