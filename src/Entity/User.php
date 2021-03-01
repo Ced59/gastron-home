@@ -76,19 +76,9 @@ class User implements UserInterface
     private $commande;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=15)
      */
-    private $isClient;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isLivreur;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isRestaurant;
+    private $userType;
 
     public function __construct()
     {
@@ -119,7 +109,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -146,7 +136,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -278,38 +268,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getIsClient(): ?bool
+    public function getUserType(): ?string
     {
-        return $this->isClient;
+        return $this->userType;
     }
 
-    public function setIsClient(bool $isClient): self
+    public function setUserType(string $userType): self
     {
-        $this->isClient = $isClient;
-
-        return $this;
-    }
-
-    public function getIsLivreur(): ?bool
-    {
-        return $this->isLivreur;
-    }
-
-    public function setIsLivreur(bool $isLivreur): self
-    {
-        $this->isLivreur = $isLivreur;
-
-        return $this;
-    }
-
-    public function getIsRestaurant(): ?bool
-    {
-        return $this->isRestaurant;
-    }
-
-    public function setIsRestaurant(bool $isRestaurant): self
-    {
-        $this->isRestaurant = $isRestaurant;
+        $this->userType = $userType;
 
         return $this;
     }
