@@ -75,6 +75,21 @@ class User implements UserInterface
      */
     private $commande;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isClient;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isLivreur;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isRestaurant;
+
     public function __construct()
     {
         $this->commande = new ArrayCollection();
@@ -259,6 +274,42 @@ class User implements UserInterface
                 $commande->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsClient(): ?bool
+    {
+        return $this->isClient;
+    }
+
+    public function setIsClient(bool $isClient): self
+    {
+        $this->isClient = $isClient;
+
+        return $this;
+    }
+
+    public function getIsLivreur(): ?bool
+    {
+        return $this->isLivreur;
+    }
+
+    public function setIsLivreur(bool $isLivreur): self
+    {
+        $this->isLivreur = $isLivreur;
+
+        return $this;
+    }
+
+    public function getIsRestaurant(): ?bool
+    {
+        return $this->isRestaurant;
+    }
+
+    public function setIsRestaurant(bool $isRestaurant): self
+    {
+        $this->isRestaurant = $isRestaurant;
 
         return $this;
     }
