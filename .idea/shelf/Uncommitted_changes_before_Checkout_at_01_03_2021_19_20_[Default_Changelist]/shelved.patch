@@ -1,0 +1,62 @@
+Index: .env
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># In all environments, the following files are loaded if they exist,\r\n# the latter taking precedence over the former:\r\n#\r\n#  * .env                contains default values for the environment variables needed by the app\r\n#  * .env.local          uncommitted file with local overrides\r\n#  * .env.$APP_ENV       committed environment-specific defaults\r\n#  * .env.$APP_ENV.local uncommitted environment-specific overrides\r\n#\r\n# Real environment variables win over .env files.\r\n#\r\n# DO NOT DEFINE PRODUCTION SECRETS IN THIS FILE NOR IN ANY OTHER COMMITTED FILES.\r\n#\r\n# Run \"composer dump-env prod\" to compile .env files for production use (requires symfony/flex >=1.2).\r\n# https://symfony.com/doc/current/best_practices.html#use-environment-variables-for-infrastructure-configuration\r\n\r\n###> symfony/framework-bundle ###\r\nAPP_ENV=dev\r\nAPP_SECRET=44c5717b8e2f84d9893d6753732fdabf\r\n###< symfony/framework-bundle ###\r\n\r\n###> symfony/mailer ###\r\n# MAILER_DSN=smtp://localhost\r\n###< symfony/mailer ###\r\n\r\n###> doctrine/doctrine-bundle ###\r\n# Format described at https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url\r\n# IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml\r\n#\r\n# DATABASE_URL=\"sqlite:///%kernel.project_dir%/var/data.db\"\r\n# DATABASE_URL=\"mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7\"\r\nDATABASE_URL=\"postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8\"\r\n###< doctrine/doctrine-bundle ###\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.env b/.env
+--- a/.env	(revision 998ba2edd30ef7c143f606d56cbc6d3509ab368e)
++++ b/.env	(date 1614622229302)
+@@ -27,6 +27,6 @@
+ # IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml
+ #
+ # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
+-# DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7"
+-DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
++ DATABASE_URL="mysql://root:Corentinandme59!@127.0.0.1:3306/gastronhome"
++# DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
+ ###< doctrine/doctrine-bundle ###
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_01_03_2021_19_10_[Default_Changelist]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_03_2021_19_10_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_03_2021_19_10_[Default_Changelist]/shelved.patch
+new file mode 100644
+--- /dev/null	(date 1614622224661)
++++ b/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_03_2021_19_10_[Default_Changelist]/shelved.patch	(date 1614622224661)
+@@ -0,0 +1,18 @@
++Index: .env
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+># In all environments, the following files are loaded if they exist,\r\n# the latter taking precedence over the former:\r\n#\r\n#  * .env                contains default values for the environment variables needed by the app\r\n#  * .env.local          uncommitted file with local overrides\r\n#  * .env.$APP_ENV       committed environment-specific defaults\r\n#  * .env.$APP_ENV.local uncommitted environment-specific overrides\r\n#\r\n# Real environment variables win over .env files.\r\n#\r\n# DO NOT DEFINE PRODUCTION SECRETS IN THIS FILE NOR IN ANY OTHER COMMITTED FILES.\r\n#\r\n# Run \"composer dump-env prod\" to compile .env files for production use (requires symfony/flex >=1.2).\r\n# https://symfony.com/doc/current/best_practices.html#use-environment-variables-for-infrastructure-configuration\r\n\r\n###> symfony/framework-bundle ###\r\nAPP_ENV=dev\r\nAPP_SECRET=44c5717b8e2f84d9893d6753732fdabf\r\n###< symfony/framework-bundle ###\r\n\r\n###> symfony/mailer ###\r\n# MAILER_DSN=smtp://localhost\r\n###< symfony/mailer ###\r\n\r\n###> doctrine/doctrine-bundle ###\r\n# Format described at https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url\r\n# IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml\r\n#\r\n# DATABASE_URL=\"sqlite:///%kernel.project_dir%/var/data.db\"\r\n DATABASE_URL=\"mysql://root:password@127.0.0.1:3306/gastronhome\"\r\n# DATABASE_URL=\"postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8\"\r\n###< doctrine/doctrine-bundle ###\r\n
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/.env b/.env
++--- a/.env	(revision 5022cb9d4ac45aaca30513129740b0adbc50745a)
+++++ b/.env	(date 1614622101059)
++@@ -27,6 +27,6 @@
++ # IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml
++ #
++ # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
++- DATABASE_URL="mysql://root:password@127.0.0.1:3306/gastronhome"
+++ DATABASE_URL="mysql://root:Corentinandme59!@127.0.0.1:3306/gastronhome"
++ # DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
++ ###< doctrine/doctrine-bundle ###
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_01_03_2021_19_10__Default_Changelist_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_03_2021_19_10__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_03_2021_19_10__Default_Changelist_.xml
+new file mode 100644
+--- /dev/null	(date 1614622238325)
++++ b/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_03_2021_19_10__Default_Changelist_.xml	(date 1614622238325)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Checkout_at_01_03_2021_19_10_[Default_Changelist]" date="1614622229364" recycled="true" deleted="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_03_2021_19_10_[Default_Changelist]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 01/03/2021 19:10 [Default Changelist]" />
++</changelist>
+\ No newline at end of file
