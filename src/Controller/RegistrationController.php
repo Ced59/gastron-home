@@ -41,6 +41,8 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $imageFile = $form->get('image')->getData();
+
             if($imageFile)
             {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);

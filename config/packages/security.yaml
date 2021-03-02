@@ -40,3 +40,4 @@ security:
          - { path: ^/restaurateur, roles: ROLE_RESTO }
          - { path: ^/livreur, roles: ROLE_LIVREUR }
          - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
+         - { path: ^/utilisateur, roles: [ROLE_CLIENT , ROLE_RESTO , ROLE_LIVREUR , ROLE_SUPER_ADMIN]}

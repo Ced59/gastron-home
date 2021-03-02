@@ -36,7 +36,7 @@
                     <a class="nav-link" href="{{ path('ville_index') }}">Gérer les villes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Votre Profil</a>
+                    <a class="nav-link" href="{{ path('profil_page') }}">Votre Profil</a>
                 </li>
             {% endif %}
             {% if is_granted('ROLE_CLIENT') %}
@@ -47,7 +47,7 @@
                     <a class="nav-link" href="#">Passer une commande</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Votre Profil</a>
+                    <a class="nav-link" href="{{ path('profil_page') }}">Votre Profil</a>
                 </li>
             {% endif %}
             {% if is_granted('ROLE_LIVREUR') %}
@@ -61,7 +61,7 @@
                     <a class="nav-link" href="#">Historique livraison</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Votre Profil</a>
+                    <a class="nav-link" href="{{ path('profil_page') }}">Votre Profil</a>
                 </li>
             {% endif %}
             {% if is_granted('ROLE_RESTO') %}
@@ -78,7 +78,7 @@
                     <a class="nav-link" href="{{ path('plats_index') }}">Gérer vos plats</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Votre Profil</a>
+                    <a class="nav-link" href="{{ path('profil_page') }} ">Votre Profil</a>
                 </li>
             {% endif %}
         </ul>

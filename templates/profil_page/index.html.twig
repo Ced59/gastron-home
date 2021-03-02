@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilPageController!{% endblock %}
+
+{% block body %}
+    <h1 class="text-center mt-4 mb-4">Votre profil</h1>
+
+    <div class="col-md offset-lg-2 col-lg-8">
+        <div class="card">
+
+            {% set imagePath = 'img/profil/' ~ app.user.imageFileName %}
+
+            <img class="rounded-circle img-thumbnail offset-4 col-4"
+                 src="{{ asset(imagePath) }}"
+                 alt="Photo de profil">
+
+            <div class="card-body offset-2">
+
+                <h5 class="card-title">{{ app.user.firstName }} {{ app.user.lastName }}</h5>
+
+                <p class="card-text">
+                <div class="row">
+                    <div class="col-5">Mail :</div>
+                    <div class="col-5">{{ app.user.email }}</div>
+                </div>
+
+
+                <p class="card-text">
+                <div class="row">
+                    <div class="col-5">Rôle :</div>
+                    {% if is_granted('ROLE_SUPER_ADMIN') == true %}
+                        <div class="col-5">Administrateur</div>
+                    {% elseif is_granted('ROLE_CLIENT') == true %}
+                        <div class="col-5">Client</div>
+                    {% elseif is_granted('ROLE_RESTO') == true %}
+                        <div class="col-5">Restaurateur</div>
+                    {% elseif is_granted('ROLE_LIVREUR') == true %}
+                        <div class="col-5">Livreur</div>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <a class="btn btn-info align-content-center" href="/">Retour</a>
+    </div>
+{% endblock %}
