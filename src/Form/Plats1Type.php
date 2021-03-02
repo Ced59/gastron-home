@@ -16,8 +16,6 @@ class Plats1Type extends AbstractType
             ->add('price')
             ->add('qte')
             ->add('categoriePlats')
-            ->add('restaurant')
-            ->add('commande')
         ;
     }
 

@@ -13,7 +13,6 @@ class CategorieRestaurantType extends AbstractType
     {
         $builder
             ->add('libelle')
-            ->add('restaurant')
         ;
     }
 

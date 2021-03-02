@@ -37,7 +37,7 @@ class Plats
 
     /**
      * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="plats")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $restaurant;
 
