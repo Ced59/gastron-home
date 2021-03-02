@@ -3,33 +3,39 @@
 {% block title %}CategorieRestaurant index{% endblock %}
 
 {% block body %}
-    <h1>CategorieRestaurant index</h1>
+    <div class="offset-2 col-8">
+        <h1 class="text-center">Categorie Restaurant index</h1>
 
-    <table class="table">
-        <thead>
+        <table class="table table-hover text-center">
+            <thead>
             <tr>
-                <th>Id</th>
-                <th>Libelle</th>
-                <th>actions</th>
+                <th>Nom de la catégorie</th>
+                <th></th>
+                <th></th>
             </tr>
-        </thead>
-        <tbody>
-        {% for categorie_restaurant in categorie_restaurants %}
-            <tr>
-                <td>{{ categorie_restaurant.id }}</td>
-                <td>{{ categorie_restaurant.libelle }}</td>
-                <td>
-                    <a href="{{ path('categorie_restaurant_show', {'id': categorie_restaurant.id}) }}">show</a>
-                    <a href="{{ path('categorie_restaurant_edit', {'id': categorie_restaurant.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('categorie_restaurant_new') }}">Create new</a>
+            </thead>
+            <tbody>
+            {% for categorie_restaurant in categorie_restaurants %}
+                <tr>
+                    <td>{{ categorie_restaurant.libelle }}</td>
+                    <td>
+                        <a href="{{ path('categorie_restaurant_show', {'id': categorie_restaurant.id}) }}"
+                           class="btn btn-info">Voir la catégorie</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('categorie_restaurant_edit', {'id': categorie_restaurant.id}) }}"
+                           class="btn btn-success">Editer la catégorie</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucune catégorie trouvée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <a href="{{ path('categorie_restaurant_new') }}" class="btn btn-primary">Ajouter une Catégorie</a>
+        </div>
+    </div>
 {% endblock %}

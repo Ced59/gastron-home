@@ -3,11 +3,14 @@
 {% block title %}Edit Ville{% endblock %}
 
 {% block body %}
-    <h1>Edit Ville</h1>
+<div class="offset-2 col-8">
+    <h1 class="text-center">Editer la ville</h1>
 
-    {{ include('ville/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('ville/_form.html.twig') }}
 
-    <a href="{{ path('ville_index') }}">back to list</a>
+    <div class="d-flex justify-content-around">
+    <a href="{{ path('ville_index') }}" class="btn btn-primary">Retour à la liste</a>
 
     {{ include('ville/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

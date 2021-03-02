@@ -1,35 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CategoriePlats index{% endblock %}
+{% block title %}Categorie Plats index{% endblock %}
 
 {% block body %}
-    <h1>CategoriePlats index</h1>
+    <div class="offset-2 col-8">
+        <h1 class="text-center">Categorie Plats index</h1>
 
-    <table class="table">
-        <thead>
+        <table class="table table-hover text-center">
+            <thead>
             <tr>
-                <th>Id</th>
-                <th>Libelle</th>
-                <th>actions</th>
+                <th>Nom de la catégorie</th>
+                <th></th>
+                <th></th>
             </tr>
-        </thead>
-        <tbody>
-        {% for categorie_plat in categorie_plats %}
-            <tr>
-                <td>{{ categorie_plat.id }}</td>
-                <td>{{ categorie_plat.libelle }}</td>
-                <td>
-                    <a href="{{ path('categorie_plats_show', {'id': categorie_plat.id}) }}">show</a>
-                    <a href="{{ path('categorie_plats_edit', {'id': categorie_plat.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('categorie_plats_new') }}">Create new</a>
+            </thead>
+            <tbody>
+            {% for categorie_plat in categorie_plats %}
+                <tr>
+                    <td>{{ categorie_plat.libelle }}</td>
+                    <td>
+                        <a href="{{ path('categorie_plats_show', {'id': categorie_plat.id}) }}" class="btn btn-info">Voir
+                            la catégorie</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('categorie_plats_edit', {'id': categorie_plat.id}) }}" class="btn btn-success">Editer
+                            la catégorie</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucune catégorie trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <a href="{{ path('categorie_plats_new') }}" class="btn btn-primary">Nouvelle catégorie</a>
+        </div>
+    </div>
 {% endblock %}
