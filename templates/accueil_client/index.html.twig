@@ -2,18 +2,47 @@
 
 {% block title %}Hello AccueilClientController!{% endblock %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags('navbarLeft') }}
+{% endblock %}
+
 {% block body %}
-
-
-    <div>
-        <h1> Connecté </h1>
-
-        <a href="a_definir_le_chemin.html.twig">Profils</a>
-        <a href="a_definir_le_chemin.html.twig">Historique des Commandes</a>
-        <a href="a_definir_le_chemin.html.twig">Se Déconnecter</a>
-
+    <div class="vertical-nav" id="sidebar">
+        <ul class="nav flex-column mb-0">
+            <li class="nav-item">
+                <a class="nav-link font-italic">
+                   Catégorie 1
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-italic">
+                    Catégorie 2
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-italic">
+                    Catégorie 3
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-italic">
+                    Catégorie 4
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-italic">
+                    Catégorie 5
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-italic">
+                    Catégorie 6
+                </a>
+            </li>
+        </ul>
     </div>
-    <div>
+
+    <div class="page-content">
         <table>
             <thead>
             <tr>
@@ -26,7 +55,5 @@
             </thead>
 
         </table>
-
     </div>
-
 {% endblock %}
