@@ -59,7 +59,8 @@ class AppFixtures extends Fixture
             ->setEmail('user@fake.com')
             ->setAdress('25 rue de moi')
             ->setVille($ville1)
-            ->setUserType('CLIENT');
+            ->setUserType('CLIENT')
+            ->setImageFileName('vincent.jpg');
 
 
         $manager->persist($user);
@@ -79,7 +80,8 @@ class AppFixtures extends Fixture
             ->setEmail('livreur@fake.com')
             ->setAdress('25 rue de moi')
             ->setVille($ville2)
-            ->setUserType('LIVREUR');
+            ->setUserType('LIVREUR')
+            ->setImageFileName('theo.jpg');
 
         $manager->persist($user1);
 
@@ -105,7 +107,8 @@ class AppFixtures extends Fixture
             ->setEmail('admin@fake.com')
             ->setAdress('25 rue de moi')
             ->setVille($ville4)
-            ->setUserType('ADMIN');
+            ->setUserType('ADMIN')
+            ->setImageFileName('ced.jpg');
 
         $manager->persist($user2);
 
@@ -118,7 +121,8 @@ class AppFixtures extends Fixture
             ->setEmail('resto@fake.com')
             ->setAdress('25 rue de moi')
             ->setVille($ville3)
-            ->setUserType('RESTO');
+            ->setUserType('RESTO')
+            ->setImageFileName('charlotte.jpg');
 
         $manager->persist($user3);
 
