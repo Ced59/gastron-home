@@ -3,37 +3,41 @@
 {% block title %}Plats index{% endblock %}
 
 {% block body %}
-    <h1>Plats index</h1>
 
-    <table class="table">
+    <div class="offset-2 col-8">
+    <h1>Plats index</h1>
+    <table class="table table-hover text-center">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Qte</th>
-                <th>actions</th>
+                <th>Nom du plat</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Voir le plat</th>
+                <th>Editer le plat</th>
             </tr>
         </thead>
         <tbody>
         {% for plat in plats %}
             <tr>
-                <td>{{ plat.id }}</td>
                 <td>{{ plat.name }}</td>
                 <td>{{ plat.price }}</td>
                 <td>{{ plat.qte }}</td>
                 <td>
-                    <a href="{{ path('plats_show', {'id': plat.id}) }}">show</a>
-                    <a href="{{ path('plats_edit', {'id': plat.id}) }}">edit</a>
+                    <a href="{{ path('plats_show', {'id': plat.id}) }}" class="btn btn-primary">Voir</a>
+                </td>
+                <td>
+                    <a href="{{ path('plats_edit', {'id': plat.id}) }}" class="btn btn-primary">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5"><h3>Aucun Plat trouvé, veuillez en ajouter</h3></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('plats_new') }}">Create new</a>
+<div class="d-flex justify-content-end">
+    <a href="{{ path('plats_new') }}" class="btn btn-primary">Ajouter un plat</a>
+</div>
+    </div>
 {% endblock %}
