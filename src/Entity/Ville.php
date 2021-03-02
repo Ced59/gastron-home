@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Ville
 {
+    public function __toString()
+    {
+        return $this->nom_ville;
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

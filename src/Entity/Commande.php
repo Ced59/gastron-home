@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommandeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,6 +50,16 @@ class Commande
      * @ORM\OneToOne(targetEntity=Livraison::class, mappedBy="commande", cascade={"persist", "remove"})
      */
     private $livraison;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Plats::class, mappedBy="commande")
+     */
+    private $plats;
+
+    public function __construct()
+    {
+        $this->plats = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -127,6 +139,33 @@ class Commande
         }
 
         $this->livraison = $livraison;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Plats[]
+     */
+    public function getPlats(): Collection
+    {
+        return $this->plats;
+    }
+
+    public function addPlat(Plats $plat): self
+    {
+        if (!$this->plats->contains($plat)) {
+            $this->plats[] = $plat;
+            $plat->addCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlat(Plats $plat): self
+    {
+        if ($this->plats->removeElement($plat)) {
+            $plat->removeCommande($this);
+        }
 
         return $this;
     }
