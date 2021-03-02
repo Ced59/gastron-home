@@ -1,20 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}
+   {{ encore_entry_link_tags('accueil') }}
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Bureau/Cours BAC+3/Projet/projet-mars-2021-symfony/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Bureau/Cours BAC+3/Projet/projet-mars-2021-symfony/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+    <img src="{{ asset('img/logo/gastronhomelogo.png') }}" alt="img-logo"
+         class="rounded mx-auto d-block col-md-6 col-lg-4 mt-4 col-10 mb-5">
+
+    <h1 class="text-center mt-3">Bienvenue sur Gastron'Home le tout nouveau site de livraison de repas 100% français!</h1>
+
+    <p class="text-center h5 mt-3">Marre des solutions étrangères pour commander vos repas à domicile?</p>
+    <p class="text-center h5 mt-3">Vous êtes au bon endroit!!</p>
+    <p class="text-center h5 mt-3">Gastron'Home est un site 100% français, respectueux des lois, et qui respecte ses clients, les restaurateurs et les livreurs avec son système de rémunération juste et équitable!</p>
+    <p class="text-center h5 mt-3">Pour découvrir nos nombreux restaurants partenaires, vous pouvez vous créer un compte.</p>
+    <p class="text-center h5 mt-3">Restaurateur? Découvrez la puissance de la livraison 100% française en nous rejoignant!</p>
+    <p class="text-center h5 mt-3 mb-5">Livreur? Inscrivez vous afin de faire partie de notre grande communauté avec des revenus justes à la hauteur de votre travail!</p>
+
+
 {% endblock %}
