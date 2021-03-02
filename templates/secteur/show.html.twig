@@ -5,18 +5,31 @@
 {% block body %}
     <h1>Secteur</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ secteur.id }}</td>
-            </tr>
-            <tr>
-                <th>NomSecteur</th>
-                <td>{{ secteur.nomSecteur }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ secteur.nomSecteur }}</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+            </div>
+        </div>
+    </div>
+
+{# TODO: faire la liste des villes du secteur#}
+
+{#    <table class="table">#}
+{#        <tbody>#}
+{#            <tr>#}
+{#                <th>Id</th>#}
+{#                <td>{{ secteur.id }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>NomSecteur</th>#}
+{#                <td>{{ secteur.nomSecteur }}</td>#}
+{#            </tr>#}
+{#        </tbody>#}
+{#    </table>#}
 
     <a href="{{ path('secteur_index') }}">back to list</a>
 

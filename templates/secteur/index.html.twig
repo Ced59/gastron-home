@@ -3,33 +3,38 @@
 {% block title %}Secteur index{% endblock %}
 
 {% block body %}
-    <h1>Secteur index</h1>
+<div class="offset-2 col-8">
+    <h1 class="text-center">Secteur index</h1>
 
-    <table class="table">
+    <table class="table table-hover text-center">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomSecteur</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>NomSecteur</th>
+            <th></th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
         {% for secteur in secteurs %}
             <tr>
-                <td>{{ secteur.id }}</td>
                 <td>{{ secteur.nomSecteur }}</td>
                 <td>
-                    <a href="{{ path('secteur_show', {'id': secteur.id}) }}">show</a>
-                    <a href="{{ path('secteur_edit', {'id': secteur.id}) }}">edit</a>
+                    <a href="{{ path('secteur_show', {'id': secteur.id}) }}" class="btn btn-info">Voir</a>
+
+                </td>
+                <td>
+                    <a href="{{ path('secteur_edit', {'id': secteur.id}) }}" class="btn btn-success">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Aucun secteur trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('secteur_new') }}">Create new</a>
-{% endblock %}
+    <div class="d-flex justify-content-end">
+        <a href="{{ path('secteur_new') }}" class="btn btn-primary">Ajouter un plat</a>
+    </div>
+    {% endblock %}
