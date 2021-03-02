@@ -7,12 +7,12 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 ===================================================================
 diff --git a/.env b/.env
 --- a/.env	(revision 5022cb9d4ac45aaca30513129740b0adbc50745a)
-+++ b/.env	(date 1614622415648)
++++ b/.env	(date 1614626668200)
 @@ -27,6 +27,6 @@
  # IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml
  #
  # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
 - DATABASE_URL="mysql://root:password@127.0.0.1:3306/gastronhome"
-+ DATABASE_URL="mysql://root:root@127.0.0.1:3306/gastronhome"
++DATABASE_URL="mysql://root:@127.0.0.1:3306/gastronhome"
  # DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
  ###< doctrine/doctrine-bundle ###
