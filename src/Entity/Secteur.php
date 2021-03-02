@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Secteur
 {
+    public function __toString()
+    {
+        return $this->nomSecteur;
+    }
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

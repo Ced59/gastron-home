@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Commande
 {
+    public function __toString()
+    {
+        return $this->status;
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

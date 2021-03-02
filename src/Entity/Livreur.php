@@ -34,6 +34,11 @@ class Livreur
      */
     private $livraisons;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDisponible;
+
     public function __construct()
     {
         $this->livraisons = new ArrayCollection();
@@ -104,6 +109,18 @@ class Livreur
                 $livraison->setLivreur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsDisponible(): ?bool
+    {
+        return $this->isDisponible;
+    }
+
+    public function setIsDisponible(bool $isDisponible): self
+    {
+        $this->isDisponible = $isDisponible;
 
         return $this;
     }

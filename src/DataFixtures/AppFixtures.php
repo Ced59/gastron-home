@@ -158,19 +158,22 @@ class AppFixtures extends Fixture
         $plat1 = new Plats();
         $plat1->setPrice(5)
             ->setName('Sushis saumons 12 pc')
-            ->setCategoriePlats($categoryPlats1);
+            ->setCategoriePlats($categoryPlats1)
+            ->setQte(50);
         $manager->persist($plat1);
 
         $plat2 = new Plats();
         $plat2->setPrice(17)
             ->setName('Maki saumon 12 pc')
-            ->setCategoriePlats($categoryPlats2);
+            ->setCategoriePlats($categoryPlats2)
+            ->setQte(10);
         $manager->persist($plat2);
 
         $plat3 = new Plats();
         $plat3->setPrice(15)
             ->setName('Canard à l\'orange')
-            ->setCategoriePlats($categoryPlats3);
+            ->setCategoriePlats($categoryPlats3)
+            ->setQte(0);
         $manager->persist($plat3);
 
 
@@ -207,7 +210,8 @@ class AppFixtures extends Fixture
 
         $livreur = new Livreur();
         $livreur->setUtilisateur($user1)
-            ->setTypeVehicule('Voiture');
+            ->setTypeVehicule('Voiture')
+            ->setIsDisponible(false);
 
 
         $livraison = new Livraison();
