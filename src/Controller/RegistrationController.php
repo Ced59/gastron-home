@@ -35,11 +35,11 @@ class RegistrationController extends AbstractController
 
             $role = $form->get('userType')->getData();
             if ($role === 'Client'){
-                $user->setRoles('ROLE_CLIENT');
+                $user->setRoles(['ROLE_CLIENT']);
             } elseif ($role === 'Livreur'){
-                $user->setRoles('ROLE_LIVREUR');
+                $user->setRoles(['ROLE_LIVREUR']);
             }elseif ($role === 'Restaurateur'){
-                $user->setRoles('ROLE_RESTAURATEUR');
+                $user->setRoles(['ROLE_RESTAURATEUR']);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
