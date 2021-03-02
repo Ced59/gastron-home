@@ -18,7 +18,7 @@ class Livraison
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateLivraison;
 
@@ -28,7 +28,7 @@ class Livraison
     private $adresseLivraison;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=50)
      */
     private $status;
 

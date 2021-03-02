@@ -4,6 +4,9 @@ namespace App\DataFixtures;
 
 use App\Entity\CategoriePlats;
 use App\Entity\CategorieRestaurant;
+use App\Entity\Commande;
+use App\Entity\Livraison;
+use App\Entity\Livreur;
 use App\Entity\Plats;
 use App\Entity\Restaurant;
 use App\Entity\Secteur;
@@ -67,9 +70,9 @@ class AppFixtures extends Fixture
             ->setSecteur($secteur2);
         $manager->persist($ville2);
 
-        $user = new  User();
-        $hash = $this->encoder->encodePassword($user, 'password');
-        $user->setRoles(['ROLE_LIVREUR'])
+        $user1 = new  User();
+        $hash = $this->encoder->encodePassword($user1, 'password');
+        $user1->setRoles(['ROLE_LIVREUR'])
             ->setPassword($hash)
             ->setLastName('Van Hoorde')
             ->setFirstName('Théo')
@@ -78,7 +81,7 @@ class AppFixtures extends Fixture
             ->setVille($ville2)
             ->setUserType('LIVREUR');
 
-        $manager->persist($user);
+        $manager->persist($user1);
 
 
 
@@ -93,9 +96,9 @@ class AppFixtures extends Fixture
             ->setSecteur($secteur2);
         $manager->persist($ville4);
 
-        $user = new  User();
-        $hash = $this->encoder->encodePassword($user, 'password');
-        $user->setRoles(['ROLE_SUPER_ADMIN'])
+        $user2 = new  User();
+        $hash = $this->encoder->encodePassword($user2, 'password');
+        $user2->setRoles(['ROLE_SUPER_ADMIN'])
             ->setPassword($hash)
             ->setLastName('Caudron')
             ->setFirstName('Cédric')
@@ -104,11 +107,11 @@ class AppFixtures extends Fixture
             ->setVille($ville4)
             ->setUserType('ADMIN');
 
-        $manager->persist($user);
+        $manager->persist($user2);
 
-        $user = new  User();
-        $hash = $this->encoder->encodePassword($user, 'password');
-        $user->setRoles(['ROLE_RESTO'])
+        $user3 = new  User();
+        $hash = $this->encoder->encodePassword($user3, 'password');
+        $user3->setRoles(['ROLE_RESTO'])
             ->setPassword($hash)
             ->setLastName('Druvent')
             ->setFirstName('Charlotte')
@@ -117,7 +120,7 @@ class AppFixtures extends Fixture
             ->setVille($ville3)
             ->setUserType('RESTO');
 
-        $manager->persist($user);
+        $manager->persist($user3);
 
 
 
@@ -180,6 +183,43 @@ class AppFixtures extends Fixture
             ->addPlat($plat3)
             ->setCompanyName('Gronichonyah')
             ->setUtilisateur($user);
+
+
+        $command1 = new Commande();
+
+        $dateCommand1 = $faker->dateTimeBetween('2019-03-20T00:00:00.012345Z', 'now');
+        $command1->setHeureCommande($dateCommand1)
+            ->setStatus('Prête')
+            ->setUtilisateur($user)
+            ->setRestaurant($restoChinois)
+            ->addPlat($plat1)
+            ->addPlat($plat1)
+            ->addPlat($plat2);
+
+        $prixTotal = 0;
+        foreach ($command1->getPlats() as $plat)
+        {
+            $prixTotal += $plat->getPrice();
+        }
+        $prixTotal += 3;
+
+        $command1->setTotalPrice($prixTotal);
+
+        $livreur = new Livreur();
+        $livreur->setUtilisateur($user1)
+            ->setTypeVehicule('Voiture');
+
+
+        $livraison = new Livraison();
+        $livraison->setAdresseLivraison($user->getAdress())
+            ->setStatus('Prise en charge livreur')
+            ->setCommande($command1)
+            ->setLivreur($livreur);
+
+        $manager->persist($command1);
+        $manager->persist($livreur);
+        $manager->persist($livraison);
+        $manager->persist($restoChinois);
 
 
 
