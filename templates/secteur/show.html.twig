@@ -3,37 +3,39 @@
 {% block title %}Secteur{% endblock %}
 
 {% block body %}
-    <h1>Secteur</h1>
+    <div class="offset-2 col-8">
+        <h1 class="text-center">Secteur</h1>
 
-    <div class="d-flex justify-content-center">
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{ secteur.nomSecteur }}</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
+        <div class="d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ secteur.nomSecteur }}</h5>
+                </div>
             </div>
         </div>
+
+        {# TODO: faire la liste des villes du secteur#}
+
+        {#    <table class="table">#}
+        {#        <tbody>#}
+        {#            <tr>#}
+        {#                <th>Id</th>#}
+        {#                <td>{{ secteur.id }}</td>#}
+        {#            </tr>#}
+        {#            <tr>#}
+        {#                <th>NomSecteur</th>#}
+        {#                <td>{{ secteur.nomSecteur }}</td>#}
+        {#            </tr>#}
+        {#        </tbody>#}
+        {#    </table>#}
+
+        <div class="d-flex justify-content-around mt-4">
+            <a href="{{ path('secteur_index') }}" class="btn btn-primary">Retour à la liste</a>
+
+            <a href="{{ path('secteur_edit', {'id': secteur.id}) }}" class="btn btn-success">Editer le secteur</a>
+
+            {{ include('secteur/_delete_form.html.twig') }}
+        </div>
     </div>
-
-{# TODO: faire la liste des villes du secteur#}
-
-{#    <table class="table">#}
-{#        <tbody>#}
-{#            <tr>#}
-{#                <th>Id</th>#}
-{#                <td>{{ secteur.id }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>NomSecteur</th>#}
-{#                <td>{{ secteur.nomSecteur }}</td>#}
-{#            </tr>#}
-{#        </tbody>#}
-{#    </table>#}
-
-    <a href="{{ path('secteur_index') }}">back to list</a>
-
-    <a href="{{ path('secteur_edit', {'id': secteur.id}) }}">edit</a>
-
-    {{ include('secteur/_delete_form.html.twig') }}
 {% endblock %}
