@@ -9,36 +9,14 @@
 {% block body %}
     <div class="vertical-nav" id="sidebar">
         <ul class="nav flex-column mb-0">
+
+                {% for categorieRestaurant in categorieRestaurants %}
             <li class="nav-item">
                 <a class="nav-link font-italic">
-                   Catégorie 1
+                   {{ categorieRestaurant.libelle }}
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link font-italic">
-                    Catégorie 2
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link font-italic">
-                    Catégorie 3
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link font-italic">
-                    Catégorie 4
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link font-italic">
-                    Catégorie 5
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link font-italic">
-                    Catégorie 6
-                </a>
-            </li>
+                {% endfor %}
         </ul>
     </div>
 
@@ -46,13 +24,32 @@
         <table>
             <thead>
             <tr>
-                <th>Adresse</th>
-                // récupérer les catégories restaurants
-                <th></th>
+                <th>Votre Adresse <br> {{ user }}</th>
 
+                <th> Nom Restaurant  </th>
+                <th> Adresse </th>
+                <th> Type de Restaurant</th>
 
             </tr>
             </thead>
+
+            <tbody>
+            <tr>
+
+                {% for restaurant in restaurants %}
+                    <td>{{ restaurant.utilisateur.adress }}</td>
+                    {% for rest in restaurant.categorieRestaurants %}
+                    <td>{{ rest.libelle }}</td>
+
+                {% endfor %}
+
+
+                {% endfor %}
+
+            </tr>
+            </tbody>
+
+
 
         </table>
     </div>

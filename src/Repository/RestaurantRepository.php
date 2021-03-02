@@ -19,32 +19,53 @@ class RestaurantRepository extends ServiceEntityRepository
         parent::__construct($registry, Restaurant::class);
     }
 
-    // /**
-    //  * @return Restaurant[] Returns an array of Restaurant objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param $typeRestaurant
+     * @return Restaurant[]
+     */
+    public function getUserAndCategorieRestaurantFromRestaurant($typeRestaurant): array
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Restaurant
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT r
+            FROM App\Entity\Restaurant r
+            WHERE r.categorieRestaurants == :typeRestaurant
+            '
+        )->setParameter('typeRestaurant', $typeRestaurant);
+
+        // returns an array of Product objects
+        return $query->getResult();
     }
-    */
+
+
+// /**
+//  * @return Restaurant[] Returns an array of Restaurant objects
+//  */
+/*
+public function findByExampleField($value)
+{
+    return $this->createQueryBuilder('r')
+        ->andWhere('r.exampleField = :val')
+        ->setParameter('val', $value)
+        ->orderBy('r.id', 'ASC')
+        ->setMaxResults(10)
+        ->getQuery()
+        ->getResult()
+    ;
+}
+*/
+
+/*
+public function findOneBySomeField($value): ?Restaurant
+{
+    return $this->createQueryBuilder('r')
+        ->andWhere('r.exampleField = :val')
+        ->setParameter('val', $value)
+        ->getQuery()
+        ->getOneOrNullResult()
+    ;
+}
+*/
 }
