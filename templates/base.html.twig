@@ -22,6 +22,23 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('main') }}">Page d'accueil</a>
             </li>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('categorie_plats_index') }}">Gérer les catégories de plats</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('categorie_restaurant_index') }}">Gérer les catégories de restaurants</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('secteur_index') }}">Gérer les secteurs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('ville_index') }}">Gérer les villes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Votre Profil</a>
+                </li>
+            {% endif %}
             {% if is_granted('ROLE_CLIENT') %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('client') }}">Client</a>
@@ -58,7 +75,7 @@
                     <a class="nav-link" href="#">Historique commandes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Ajouter des plats</a>
+                    <a class="nav-link" href="{{ path('plats_index') }}">Gérer vos plats</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Votre Profil</a>

@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CategoriePlats
 {
+    public function __toString()
+    {
+        return $this->libelle;
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

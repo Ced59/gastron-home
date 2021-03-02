@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Restaurant
 {
+    public function __toString()
+    {
+        return $this->companyName;
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

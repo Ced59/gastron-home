@@ -105,6 +105,9 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
         }elseif ($role == ['ROLE_RESTO']){
             return new RedirectResponse($this->urlGenerator->generate('restaurant'));
         }
+        elseif ($role == ['ROLE_SUPER_ADMIN']){
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
+        }
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }

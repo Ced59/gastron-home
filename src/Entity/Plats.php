@@ -46,6 +46,11 @@ class Plats
      */
     private $commande;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $qte;
+
     public function __construct()
     {
         $this->commande = new ArrayCollection();
@@ -124,6 +129,18 @@ class Plats
     public function removeCommande(Commande $commande): self
     {
         $this->commande->removeElement($commande);
+
+        return $this;
+    }
+
+    public function getQte(): ?int
+    {
+        return $this->qte;
+    }
+
+    public function setQte(int $qte): self
+    {
+        $this->qte = $qte;
 
         return $this;
     }
