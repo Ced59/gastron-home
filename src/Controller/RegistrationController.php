@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Ville;
 use App\Form\RegistrationFormType;
 use App\Security\LoginAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,6 +32,15 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            $role = $form->get('userType')->getData();
+            if ($role === 'Client'){
+                $user->setRoles('ROLE_CLIENT');
+            } elseif ($role === 'Livreur'){
+                $user->setRoles('ROLE_LIVREUR');
+            }elseif ($role === 'Restaurateur'){
+                $user->setRoles('ROLE_RESTAURATEUR');
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
