@@ -51,6 +51,11 @@ class Plats
      */
     private $qte;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image_file_plat;
+
     public function __construct()
     {
         $this->commande = new ArrayCollection();
@@ -141,6 +146,18 @@ class Plats
     public function setQte(int $qte): self
     {
         $this->qte = $qte;
+
+        return $this;
+    }
+
+    public function getImageFilePlat(): ?string
+    {
+        return $this->image_file_plat;
+    }
+
+    public function setImageFilePlat(?string $image_file_plat): self
+    {
+        $this->image_file_plat = $image_file_plat;
 
         return $this;
     }
