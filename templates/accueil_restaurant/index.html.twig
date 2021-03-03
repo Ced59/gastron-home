@@ -72,27 +72,32 @@
                             <div class="row mt-1">
                                 <p class="font-weight-bolder col-8">Commandes en attente : </p>
                                 <p class="col-1"> {{ nbreCommandesAtente }} </p>
-                                <a href="#" class="btn btn-primary col-1">Voir</a>
+                                <a href="{{ path('view_commandes_attente') }}" class="btn btn-primary col-1">Voir</a>
                             </div>
                             <div class="row mt-1">
                                 <p class="font-weight-bolder col-8">Commandes acceptées : </p>
                                 <p class="col-1"> {{ nbreCommandesAcceptees }} </p>
-                                <a href="#" class="btn btn-primary col-1">Voir</a>
+                                <a href="{{ path('view_commandes_acceptee') }}" class="btn btn-primary col-1">Voir</a>
                             </div>
                             <div class="row mt-1">
                                 <p class="font-weight-bolder col-8">Commandes prête : </p>
                                 <p class="col-1"> {{ nbreCommandesPretes }} </p>
-                                <a href="#" class="btn btn-primary col-1">Voir</a>
+                                <a href="{{ path('view_commandes_pretes') }}" class="btn btn-primary col-1">Voir</a>
                             </div>
                             <div class="row mt-1">
                                 <p class="font-weight-bolder col-8">Commandes prise en charge par le livreur : </p>
                                 <p class="col-1"> {{ nbreCommandesPriseEnCharge }} </p>
-                                <a href="#" class="btn btn-primary col-1">Voir</a>
+                                <a href="{{ path('view_commandes_pec') }}" class="btn btn-primary col-1">Voir</a>
+                            </div>
+                            <div class="row mt-1">
+                                <p class="font-weight-bolder col-8">Commandes livrées : </p>
+                                <p class="col-1"> {{ nbreCommandesLivrees }} </p>
+                                <a href="{{ path('view_commandes_livree') }}" class="btn btn-primary col-1">Voir</a>
                             </div>
                             <div class="row mt-1">
                                 <p class="font-weight-bolder col-8">Commandes totales : </p>
                                 <p class="col-1"> {{ nbreCommandesTotales }} </p>
-                                <a href="#" class="btn btn-primary col-1">Voir</a>
+                                <a href="{{ path('view_commandes_totales') }}" class="btn btn-primary col-1">Voir</a>
                             </div>
                         </div>
 

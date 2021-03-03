@@ -51,6 +51,7 @@ class AcceuilLivreurController extends AbstractController
         $livraison = $repository->find($id);
         $livraison->setStatus('Livré');
         $livraison->setDateLivraison(new \DateTime());
+        $livraison->getCommande()->setStatus("Livré");
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($livraison);
