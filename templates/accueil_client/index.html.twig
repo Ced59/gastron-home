@@ -30,7 +30,7 @@
                         <h5 class="card-title">{{ restaurant.companyName }}</h5>
                         <p class="card-text">{{ restaurant.utilisateur.adress }}</p>
                         <p>{{ restaurant.utilisateur.ville.nomVille }}</p>
-                        <a href="#" class="btn btn-primary">Voir la carte</a>
+                        <a href="{{ path('restaurant_menu', {'id': restaurant.id}) }}" class="btn btn-primary">Voir la carte</a>
                     </div>
                     <div class="card-footer text-muted">
                         <div class="d-flex justify-content-around">

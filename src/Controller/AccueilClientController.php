@@ -3,16 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\CategorieRestaurant;
+use App\Entity\Plats;
 use App\Entity\Restaurant;
 use App\Form\RestaurantType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * @Route("/client")
+ */
 class AccueilClientController extends AbstractController
 {
     /**
-     * @Route("/client/accueil", name="client")
+     * @Route("/accueil", name="client")
      */
     public function index(): Response
     {
@@ -34,7 +39,7 @@ class AccueilClientController extends AbstractController
     }
 
     /**
-     * @Route("/client/accueil/{id}", name="view_resto")
+     * @Route("/accueil/{id}", name="view_resto")
      */
     public function viewRestaurant($id): Response
     {
@@ -55,5 +60,16 @@ class AccueilClientController extends AbstractController
             ]);
     }
 
+
+    /**
+     * @Route("/restaurant/{id}/menu", name="restaurant_menu")
+     */
+    public function viewRestaurantMenu(int $id): Response
+    {
+        $plats = $this->getDoctrine()->getRepository(Plats::class)->findByRestaurantAndPositifStock($id);
+        return $this->render('restaurant/plat.html.twig',[
+            'plats' => $plats
+        ]);
+    }
 
 }

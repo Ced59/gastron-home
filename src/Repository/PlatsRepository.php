@@ -19,22 +19,21 @@ class PlatsRepository extends ServiceEntityRepository
         parent::__construct($registry, Plats::class);
     }
 
-    // /**
-    //  * @return Plats[] Returns an array of Plats objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Plats[] Returns an array of Plats objects
+      */
+
+    public function findByRestaurantAndPositifStock($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+            ->andWhere('p.restaurant = :val')
+            ->andWhere('p.qte > 0')
             ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Plats
