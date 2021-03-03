@@ -127,8 +127,6 @@ class PlatsController extends AbstractController
         }
             $this->getDoctrine()->getManager()->flush();
 
-            $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('plats_index');
         }
 
