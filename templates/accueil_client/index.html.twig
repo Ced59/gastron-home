@@ -21,37 +21,28 @@
     </div>
 
     <div class="page-content">
-        <h3> Votre adresse : {{ app.user.adress }} {{ app.user.ville.nomVille }}</h3>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th> Nom Restaurant</th>
-                <th> Adresse</th>
-                <th> Ville</th>
-                <th> Type de Restaurant</th>
-            </tr>
-            </thead>
+        <h3 class="text-center"> Votre adresse : {{ app.user.adress }} {{ app.user.ville.nomVille }}</h3>
+        <div class="d-flex justify-content-around mt-5">
+            {% for restaurant in restaurants %}
+                {% set imagePath = 'img/restaurant/' ~ restaurant.imageFileRestaurant %}
 
-            <tbody>
-            <tr>
-
-                {% for restaurant in restaurants %}
-                    <td>{{ restaurant.companyName }}</td>
-                    <td>{{ restaurant.utilisateur.adress }}</td>
-                    <td>{{ restaurant.utilisateur.ville.nomVille }}</td>
-                    <td>
-                        {% for rest in restaurant.categorieRestaurants %}
-                            {{ rest.libelle }}
-                        {% endfor %}
-                    </td>
-
-
-                {% endfor %}
-
-            </tr>
-            </tbody>
-
-
-        </table>
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ asset(imagePath) }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ restaurant.companyName }}</h5>
+                        <p class="card-text">{{ restaurant.utilisateur.adress }}</p>
+                        <p>{{ restaurant.utilisateur.ville.nomVille }}</p>
+                        <a href="{{ path('restaurant_menu', {'id': restaurant.id}) }}" class="btn btn-primary">Voir la carte</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="d-flex justify-content-around">
+                            {% for rest in restaurant.categorieRestaurants %}
+                                <div>{{ rest.libelle }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

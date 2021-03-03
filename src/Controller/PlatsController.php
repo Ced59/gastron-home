@@ -65,6 +65,8 @@ class PlatsController extends AbstractController
             {
                 $plat->setImageFilePlat('plat-default.jpg');
             }
+
+            $this->getDoctrine()->getManager()->flush();
             $entityManager = $this->getDoctrine()->getManager();
             $restaurant = $this->getUser()->getRestaurant();
             $plat->setRestaurant($restaurant);
@@ -103,7 +105,8 @@ class PlatsController extends AbstractController
 
         $imageFile = $form->get('image')->getData();
 
-        if ($imageFile) {
+        if ($imageFile)
+        {
             $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
             $safeFilename = $slugger->slug($originalFilename);
             $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
@@ -122,6 +125,7 @@ class PlatsController extends AbstractController
         } else {
             $plat->setImageFilePlat('plat-default.jpg');
         }
+            $this->getDoctrine()->getManager()->flush();
 
             $this->getDoctrine()->getManager()->flush();
 
@@ -147,4 +151,5 @@ class PlatsController extends AbstractController
 
         return $this->redirectToRoute('plats_index');
     }
+
 }

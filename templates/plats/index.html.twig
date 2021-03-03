@@ -21,9 +21,9 @@
             <tbody>
             {% for plat in plats %}
                 <tr>
-                   <td><img src="{{ asset('img/plat/' ~ plat.imageFilePlat) }}"> </td>
+                   <td><img src="{{ asset('img/plat/' ~ plat.imageFilePlat) }}" class= "img-thumbnail offset-4 col-4"> </td>
                     <td>{{ plat.name }}</td>
-                    <td>{{ plat.price }}</td>
+                    <td>{{ plat.price | format_currency('EUR') }}</td>
                     <td>{{ plat.qte }}</td>
                     <td>
                         <a href="{{ path('plats_show', {'id': plat.id}) }}" class="btn btn-info">Voir</a>

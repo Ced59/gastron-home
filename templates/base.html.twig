@@ -43,7 +43,7 @@
                     <a class="nav-link" href="{{ path('client') }}">Client</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Passer une commande</a>
+                    <a class="nav-link" href="{{ path('view_commandes_client') }}">Historique commande</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('profil_page') }}">Votre Profil</a>
@@ -69,9 +69,6 @@
             </li>
             {% endif %}
             {% if is_granted('ROLE_RESTO') and app.user.restaurant.companyName != null %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Commandes en attentes</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Historique commandes</a>
                 </li>

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccueilClientController!{% endblock %}
+
+
+{% block body %}
+    <div class="offset-2 col-8 mt-5">
+        <h2 class="text-center"> Menus </h2>
+        <table class="table table-hover mt-5">
+            <thead>
+            <tr>
+                <th>Nom du plat</th>
+                <th>Prix du plat</th>
+                <th>Catégorie du plat</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for plat in plats %}
+                <tr>
+                    <td>{{ plat.name }}</td>
+                    <td>{{ plat.price | format_currency('EUR') }}</td>
+                    <td>{{ plat.categoriePlats }}</td>
+                    <td>
+                        <button class="btn btn-primary">Ajouter au panier</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

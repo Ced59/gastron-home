@@ -11,6 +11,9 @@
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ ville.nomVille }}</h5>
+                    {% for secteurs in ville.Secteur %}
+                        <h5>{{ secteurs.nomSecteur }} </h5>
+                    {% endfor %}
                 </div>
             </div>
         </div>

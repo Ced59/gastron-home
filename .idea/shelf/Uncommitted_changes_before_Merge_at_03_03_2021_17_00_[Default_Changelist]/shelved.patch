@@ -1,0 +1,87 @@
+Index: templates/plats/index.html.twig
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends 'base.html.twig' %}\r\n\r\n{% block title %}Plats index{% endblock %}\r\n\r\n{% block body %}\r\n\r\n    {% if app.user.restaurant.companyName != null %}\r\n    <div class=\"offset-2 col-8\">\r\n        <h1 class=\"text-center\">Plats index</h1>\r\n        <table class=\"table table-hover text-center\">\r\n            <thead>\r\n            <tr>\r\n                <th>Image</th>\r\n                <th>Nom du plat</th>\r\n                <th>Prix</th>\r\n                <th>Quantité</th>\r\n                <th>Voir le plat</th>\r\n                <th>Editer le plat</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody>\r\n            {% for plat in plats %}\r\n                <tr>\r\n                   <td><img src=\"{{ asset('img/plat/' ~ plat.imageFilePlat) }}\"> </td>\r\n                    <td>{{ plat.name }}</td>\r\n                    <td>{{ plat.price | format_currency('EUR') }}</td>\r\n                    <td>{{ plat.qte }}</td>\r\n                    <td>\r\n                        <a href=\"{{ path('plats_show', {'id': plat.id}) }}\" class=\"btn btn-info\">Voir</a>\r\n                    </td>\r\n                    <td>\r\n                        <a href=\"{{ path('plats_edit', {'id': plat.id}) }}\" class=\"btn btn-success\">Editer</a>\r\n                    </td>\r\n                </tr>\r\n            {% else %}\r\n                <tr>\r\n                    <td colspan=\"5\"><h3>Aucun Plat trouvé, veuillez en ajouter</h3></td>\r\n                </tr>\r\n            {% endfor %}\r\n            </tbody>\r\n        </table>\r\n        <div class=\"d-flex justify-content-end\">\r\n            <a href=\"{{ path('plats_new') }}\" class=\"btn btn-primary\">Ajouter un plat</a>\r\n        </div>\r\n    </div>\r\n    {% else %}\r\n        <h1 class=\"text-center\">Veuillez finaliser votre inscription avant de gérer vos plats!</h1>\r\n        <a href=\"{{ path('restaurant') }}\" class=\"btn btn-primary d-flex justify-content-center ml-5 mr-5 mt-5\">Retour</a>\r\n    {% endif %}\r\n{% endblock %}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/plats/index.html.twig b/templates/plats/index.html.twig
+--- a/templates/plats/index.html.twig	(revision d8d50c5443597a0a7170b3938711909b3513b428)
++++ b/templates/plats/index.html.twig	(date 1614786483890)
+@@ -21,7 +21,7 @@
+             <tbody>
+             {% for plat in plats %}
+                 <tr>
+-                   <td><img src="{{ asset('img/plat/' ~ plat.imageFilePlat) }}"> </td>
++                   <td><img src="{{ asset('img/plat/' ~ plat.imageFilePlat) }}" style="max-width: 60px"> </td>
+                     <td>{{ plat.name }}</td>
+                     <td>{{ plat.price | format_currency('EUR') }}</td>
+                     <td>{{ plat.qte }}</td>
+Index: src/DataFixtures/AppFixtures.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\DataFixtures;\r\n\r\nuse App\\Entity\\CategoriePlats;\r\nuse App\\Entity\\CategorieRestaurant;\r\nuse App\\Entity\\Commande;\r\nuse App\\Entity\\Livraison;\r\nuse App\\Entity\\Livreur;\r\nuse App\\Entity\\Plats;\r\nuse App\\Entity\\Restaurant;\r\nuse App\\Entity\\Secteur;\r\nuse App\\Entity\\User;\r\nuse App\\Entity\\Ville;\r\nuse Doctrine\\Bundle\\FixturesBundle\\Fixture;\r\nuse Doctrine\\Persistence\\ObjectManager;\r\nuse Faker\\Factory;\r\nuse Symfony\\Component\\Security\\Core\\Encoder\\UserPasswordEncoderInterface;\r\n\r\nclass AppFixtures extends Fixture\r\n{\r\n\r\n    private $encoder;\r\n\r\n    public function __construct(UserPasswordEncoderInterface $encoder)\r\n    {\r\n        $this->encoder = $encoder;\r\n    }\r\n\r\n    public function load(ObjectManager $manager)\r\n    {\r\n        $faker = Factory::create('fr_FR');\r\n\r\n        $ville = new Ville();\r\n        $ville->setNomVille('Somain');\r\n        $manager->persist($ville);\r\n\r\n        $secteur1 = new Secteur();\r\n        $secteur1->setNomSecteur('Ostrevent')\r\n        ->addVille($ville);\r\n        $manager->persist($secteur1);\r\n\r\n        $secteur2 = new Secteur();\r\n        $secteur2->setNomSecteur('Valenciennois');\r\n        $manager->persist($secteur2);\r\n\r\n\r\n        $ville1 = new Ville();\r\n        $ville1->setNomVille('Bruay sur Escaut')\r\n            ->setSecteur($secteur2);\r\n        $manager->persist($ville1);\r\n\r\n        $user = new  User();\r\n        $hash = $this->encoder->encodePassword($user, 'password');\r\n        $user->setRoles(['ROLE_CLIENT'])\r\n            ->setPassword($hash)\r\n            ->setLastName('Brocheton')\r\n            ->setFirstName('Vincent')\r\n            ->setEmail('user@fake.com')\r\n            ->setAdress('25 rue de moi')\r\n            ->setVille($ville1)\r\n            ->setUserType('CLIENT')\r\n            ->setImageFileName('vincent.jpg');\r\n\r\n\r\n        $manager->persist($user);\r\n\r\n\r\n        $ville2 = new Ville();\r\n        $ville2->setNomVille('Valenciennes')\r\n            ->setSecteur($secteur2);\r\n        $manager->persist($ville2);\r\n\r\n        $user1 = new  User();\r\n        $hash = $this->encoder->encodePassword($user1, 'password');\r\n        $user1->setRoles(['ROLE_LIVREUR'])\r\n            ->setPassword($hash)\r\n            ->setLastName('Van Hoorde')\r\n            ->setFirstName('Théo')\r\n            ->setEmail('livreur@fake.com')\r\n            ->setAdress('25 rue de moi')\r\n            ->setVille($ville2)\r\n            ->setUserType('LIVREUR')\r\n            ->setImageFileName('theo.jpg');\r\n\r\n        $manager->persist($user1);\r\n\r\n\r\n\r\n        $ville3 = new Ville();\r\n        $ville3->setNomVille('Anzin')\r\n            ->setSecteur($secteur2);\r\n        $manager->persist($ville3);\r\n\r\n\r\n        $ville4 = new Ville();\r\n        $ville4->setNomVille('St-Saulve')\r\n            ->setSecteur($secteur2);\r\n        $manager->persist($ville4);\r\n\r\n        $user2 = new  User();\r\n        $hash = $this->encoder->encodePassword($user2, 'password');\r\n        $user2->setRoles(['ROLE_SUPER_ADMIN'])\r\n            ->setPassword($hash)\r\n            ->setLastName('Caudron')\r\n            ->setFirstName('Cédric')\r\n            ->setEmail('admin@fake.com')\r\n            ->setAdress('25 rue de moi')\r\n            ->setVille($ville4)\r\n            ->setUserType('ADMIN')\r\n            ->setImageFileName('ced.jpg');\r\n\r\n        $manager->persist($user2);\r\n\r\n        $user3 = new  User();\r\n        $hash = $this->encoder->encodePassword($user3, 'password');\r\n        $user3->setRoles(['ROLE_RESTO'])\r\n            ->setPassword($hash)\r\n            ->setLastName('Druvent')\r\n            ->setFirstName('Charlotte')\r\n            ->setEmail('resto@fake.com')\r\n            ->setAdress('25 rue de moi')\r\n            ->setVille($ville3)\r\n            ->setUserType('RESTO')\r\n            ->setImageFileName('charlotte.jpg');\r\n\r\n        $manager->persist($user3);\r\n\r\n\r\n\r\n        $categoryResto1 = new CategorieRestaurant();\r\n        $categoryResto1->setLibelle(\"Fast Food\");\r\n        $manager->persist($categoryResto1);\r\n\r\n        $categoryResto2 = new CategorieRestaurant();\r\n        $categoryResto2->setLibelle(\"Chinois\");\r\n        $manager->persist($categoryResto2);\r\n\r\n\r\n\r\n        $categoryPlats1 = new CategoriePlats();\r\n        $categoryPlats1->setLibelle('Sushis');\r\n        $manager->persist($categoryPlats1);\r\n\r\n        $categoryPlats2 = new CategoriePlats();\r\n        $categoryPlats2->setLibelle('Makis');\r\n        $manager->persist($categoryPlats2);\r\n\r\n        $categoryPlats3 = new CategoriePlats();\r\n        $categoryPlats3->setLibelle('Plats chauds');\r\n        $manager->persist($categoryPlats3);\r\n\r\n        $categoryPlats4 = new CategoriePlats();\r\n        $categoryPlats4->setLibelle('Dessert');\r\n        $manager->persist($categoryPlats4);\r\n\r\n        $categoryPlats5 = new CategoriePlats();\r\n        $categoryPlats5->setLibelle('Entrée');\r\n        $manager->persist($categoryPlats5);\r\n\r\n\r\n        $plat1 = new Plats();\r\n        $plat1->setPrice(5)\r\n            ->setName('Sushis saumons 12 pc')\r\n            ->setCategoriePlats($categoryPlats1)\r\n            ->setQte(50);\r\n        $manager->persist($plat1);\r\n\r\n        $plat2 = new Plats();\r\n        $plat2->setPrice(17)\r\n            ->setName('Maki saumon 12 pc')\r\n            ->setCategoriePlats($categoryPlats2)\r\n            ->setQte(10);\r\n        $manager->persist($plat2);\r\n\r\n        $plat3 = new Plats();\r\n        $plat3->setPrice(15)\r\n            ->setName('Canard à l\\'orange')\r\n            ->setCategoriePlats($categoryPlats3)\r\n            ->setQte(0);\r\n        $manager->persist($plat3);\r\n\r\n\r\n        $restoChinois = new Restaurant();\r\n        $restoChinois->addCategorieRestaurant($categoryResto1)\r\n            ->addCategorieRestaurant($categoryResto2)\r\n            ->addCategorieRestaurant($categoryResto1)\r\n            ->addPlat($plat1)\r\n            ->addPlat($plat2)\r\n            ->addPlat($plat3)\r\n            ->setCompanyName('Gronichonyah')\r\n            ->setUtilisateur($user3);\r\n\r\n\r\n        $command1 = new Commande();\r\n\r\n        $dateCommand1 = $faker->dateTimeBetween('2019-03-20T00:00:00.012345Z', 'now');\r\n        $command1->setHeureCommande($dateCommand1)\r\n            ->setStatus('Prise en charge')\r\n            ->setUtilisateur($user)\r\n            ->setRestaurant($restoChinois)\r\n            ->addPlat($plat1)\r\n            ->addPlat($plat1)\r\n            ->addPlat($plat2);\r\n\r\n        $prixTotal = 0;\r\n        foreach ($command1->getPlats() as $plat)\r\n        {\r\n            $prixTotal += $plat->getPrice();\r\n        }\r\n        $prixTotal += 3;\r\n\r\n        $command1->setTotalPrice($prixTotal);\r\n\r\n        $livreur = new Livreur();\r\n        $livreur->setUtilisateur($user1)\r\n            ->setTypeVehicule('Voiture')\r\n            ->setIsDisponible(false);\r\n\r\n\r\n        $livraison = new Livraison();\r\n        $livraison->setAdresseLivraison($user->getAdress())\r\n            ->setStatus('Prise en charge livreur')\r\n            ->setCommande($command1)\r\n            ->setLivreur($livreur);\r\n\r\n        $manager->persist($command1);\r\n        $manager->persist($livreur);\r\n        $manager->persist($livraison);\r\n        $manager->persist($restoChinois);\r\n\r\n\r\n\r\n        $categoryResto = new CategorieRestaurant();\r\n        $categoryResto->setLibelle(\"Indien\");\r\n        $manager->persist($categoryResto);\r\n\r\n        $categoryResto = new CategorieRestaurant();\r\n        $categoryResto->setLibelle(\"Pizzeria\");\r\n        $manager->persist($categoryResto);\r\n\r\n\r\n\r\n\r\n        $categoryPlats = new CategoriePlats();\r\n        $categoryPlats->setLibelle('Burgers');\r\n        $manager->persist($categoryPlats);\r\n\r\n        $categoryPlats = new CategoriePlats();\r\n        $categoryPlats->setLibelle('Pâtes');\r\n        $manager->persist($categoryPlats);\r\n\r\n        $categoryPlats = new CategoriePlats();\r\n        $categoryPlats->setLibelle('Pizzas');\r\n        $manager->persist($categoryPlats);\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n        $manager->flush();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+--- a/src/DataFixtures/AppFixtures.php	(revision d8d50c5443597a0a7170b3938711909b3513b428)
++++ b/src/DataFixtures/AppFixtures.php	(date 1614786114544)
+@@ -163,21 +163,24 @@
+         $plat1->setPrice(5)
+             ->setName('Sushis saumons 12 pc')
+             ->setCategoriePlats($categoryPlats1)
+-            ->setQte(50);
++            ->setQte(50)
++            ->setImageFilePlat('sushi-603f9720290ee.jpg');
+         $manager->persist($plat1);
+ 
+         $plat2 = new Plats();
+         $plat2->setPrice(17)
+             ->setName('Maki saumon 12 pc')
+             ->setCategoriePlats($categoryPlats2)
+-            ->setQte(10);
++            ->setQte(10)
++            ->setImageFilePlat('maki-saumon.jpg');
+         $manager->persist($plat2);
+ 
+         $plat3 = new Plats();
+         $plat3->setPrice(15)
+             ->setName('Canard à l\'orange')
+             ->setCategoriePlats($categoryPlats3)
+-            ->setQte(0);
++            ->setQte(0)
++            ->setImageFilePlat('magret-canard-orange.jpg');;
+         $manager->persist($plat3);
+ 
+ 
+@@ -188,8 +191,9 @@
+             ->addPlat($plat1)
+             ->addPlat($plat2)
+             ->addPlat($plat3)
+-            ->setCompanyName('Gronichonyah')
+-            ->setUtilisateur($user3);
++            ->setCompanyName('Au bonheur asiatique')
++            ->setUtilisateur($user3)
++            ->setImageFileRestaurant('restaurant-default.jpg');
+ 
+ 
+         $command1 = new Commande();
+Index: .env
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># In all environments, the following files are loaded if they exist,\r\n# the latter taking precedence over the former:\r\n#\r\n#  * .env                contains default values for the environment variables needed by the app\r\n#  * .env.local          uncommitted file with local overrides\r\n#  * .env.$APP_ENV       committed environment-specific defaults\r\n#  * .env.$APP_ENV.local uncommitted environment-specific overrides\r\n#\r\n# Real environment variables win over .env files.\r\n#\r\n# DO NOT DEFINE PRODUCTION SECRETS IN THIS FILE NOR IN ANY OTHER COMMITTED FILES.\r\n#\r\n# Run \"composer dump-env prod\" to compile .env files for production use (requires symfony/flex >=1.2).\r\n# https://symfony.com/doc/current/best_practices.html#use-environment-variables-for-infrastructure-configuration\r\n\r\n###> symfony/framework-bundle ###\r\nAPP_ENV=dev\r\nAPP_SECRET=44c5717b8e2f84d9893d6753732fdabf\r\n###< symfony/framework-bundle ###\r\n\r\n###> symfony/mailer ###\r\n# MAILER_DSN=smtp://localhost\r\n###< symfony/mailer ###\r\n\r\n###> doctrine/doctrine-bundle ###\r\n# Format described at https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url\r\n# IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml\r\n#\r\n# DATABASE_URL=\"sqlite:///%kernel.project_dir%/var/data.db\"\r\nDATABASE_URL=\"mysql://root:root@127.0.0.1:3306/gastronhome\"\r\n# DATABASE_URL=\"postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8\"\r\n###< doctrine/doctrine-bundle ###\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.env b/.env
+--- a/.env	(revision d8d50c5443597a0a7170b3938711909b3513b428)
++++ b/.env	(date 1614785243705)
+@@ -27,6 +27,6 @@
+ # IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml
+ #
+ # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
+-DATABASE_URL="mysql://root:root@127.0.0.1:3306/gastronhome"
++DATABASE_URL="mysql://root:Corentinandme59!@127.0.0.1:3306/gastronhome"
+ # DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
+ ###< doctrine/doctrine-bundle ###
