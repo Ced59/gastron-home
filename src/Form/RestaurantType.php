@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Restaurant;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class RestaurantType extends AbstractType
 {
@@ -13,8 +15,24 @@ class RestaurantType extends AbstractType
     {
         $builder
             ->add('companyName')
-            ->add('utilisateur')
+           // ->add('utilisateur')
             ->add('categorieRestaurants')
+            ->add('imageResto', FileType::class, [
+                'label' => 'Image de plat',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2048k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png'
+                        ],
+                        'mimeTypesMessage' => 'Seulement des fichiers de type .jpg, .jpeg ou png 2MB max.'
+                    ])
+                ]
+            ])
+
         ;
     }
 
