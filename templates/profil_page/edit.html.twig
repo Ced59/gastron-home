@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Mon Profil{% endblock %}
+
+{% block body %}
+    <div class="offset-2 col-8">
+        <h1 class="text-center">Editer votre Profil</h1>
+
+        {{ form_start(form, {'attr':{'class':'form-group'}}) }}
+        <div class="col">
+            {{ form_row(form.email, {'attr':{'class':'form-control'}}) }}
+            {{ form_row(form.firstName, {'attr':{'class':'form-control'}}) }}
+            {{ form_row(form.lastName, {'attr':{'class':'form-control'}}) }}
+            {{ form_row(form.adress, {'attr':{'class':'form-control'}}) }}
+            {{ form_row(form.ville, {'attr':{'class':'form-control'}}) }}
+            {{ form_row(form.image, {'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-primary mt-5">{{ button_label|default('Mettre à jour') }}</button>
+        </div
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

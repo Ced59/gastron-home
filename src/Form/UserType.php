@@ -2,23 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Restaurant;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class RestaurantType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('companyName')
-           // ->add('utilisateur')
-            ->add('categorieRestaurants')
-            ->add('imageResto', FileType::class, [
-                'label' => 'Image de Restaurant',
+            ->add('email')
+            ->add('firstName')
+            ->add('lastName')
+            ->add('adress')
+            ->add('ville')
+            ->add('image', FileType::class, [
+                'label' => 'Image de Profil ',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -39,7 +41,7 @@ class RestaurantType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Restaurant::class,
+            'data_class' => User::class,
         ]);
     }
 }

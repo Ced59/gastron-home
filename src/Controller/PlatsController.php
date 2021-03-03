@@ -103,7 +103,6 @@ class PlatsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
         $imageFile = $form->get('image')->getData();
 
         if ($imageFile)
@@ -128,8 +127,11 @@ class PlatsController extends AbstractController
         }
             $this->getDoctrine()->getManager()->flush();
 
+            $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('plats_index');
         }
+
         return $this->render('plats/edit.html.twig', [
             'plat' => $plat,
             'form' => $form->createView(),
