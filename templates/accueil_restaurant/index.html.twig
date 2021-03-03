@@ -4,9 +4,9 @@
 
 {% block body %}
     <div class="offset-2 col-8 mt-5">
+{% if restaurant.companyName is not null %}
         <div class="card text-center">
             <div class="card-header">
-
                 {{ restaurant.companyName }}
             </div>
             <div class="card-body">
@@ -24,5 +24,9 @@
                 </div>
             </div>
         </div>
+        {% else %}
+        <a href="{{ path('edit_restaurant', {'id': restaurant.id}) }}" class="btn btn-primary">Modifier votre
+            nom</a>
+        {% endif %}
     </div>
 {% endblock %}
