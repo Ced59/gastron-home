@@ -24,8 +24,10 @@
         <h3 class="text-center"> Votre adresse : {{ app.user.adress }} {{ app.user.ville.nomVille }}</h3>
         <div class="d-flex justify-content-around mt-5">
             {% for restaurant in restaurants %}
+                {% set imagePath = 'img/restaurant/' ~ restaurant.imageFileRestaurant %}
+
                 <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="{{ asset(imagePath) }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ restaurant.companyName }}</h5>
                         <p class="card-text">{{ restaurant.utilisateur.adress }}</p>
