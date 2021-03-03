@@ -9,20 +9,21 @@
             <div class="card text-center">
                 <div class="card-header">
                     {{ livreur.utilisateur.firstName }} {{ livreur.utilisateur.lastName }}
-                    {{ livreur.isDisponible? 'Disponible' : 'Non Disponible' }}
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title"></h5>
+                    <h5 class="card-title">
+                        {{ livreur.isDisponible? 'Disponible' : 'Non Disponible' }}
+                    </h5>
 
                     <p class="card-text">Text description</p>
                     <a href="{{ path('edit_livreur', {'id': livreur.id}) }}" class="btn btn-primary">Modifier votre
                         compte</a>
                 </div>
-            <div class="card-footer text-muted">
-                <div class="d-flex justify-content-around">
+                <div class="card-footer text-muted">
+                    <div class="d-flex justify-content-around">
                         <div>{{ livreur.typeVehicule }}</div>
+                    </div>
                 </div>
-            </div>
             </div>
         {% else %}
             <a href="{{ path('edit_restaurant', {'id': livreur.id}) }}" class="btn btn-primary">Modifier votre
