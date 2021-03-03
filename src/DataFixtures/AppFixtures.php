@@ -163,21 +163,24 @@ class AppFixtures extends Fixture
         $plat1->setPrice(5)
             ->setName('Sushis saumons 12 pc')
             ->setCategoriePlats($categoryPlats1)
-            ->setQte(50);
+            ->setQte(50)
+            ->setImageFilePlat('sushi-603f9720290ee.jpg');
         $manager->persist($plat1);
 
         $plat2 = new Plats();
         $plat2->setPrice(17)
             ->setName('Maki saumon 12 pc')
             ->setCategoriePlats($categoryPlats2)
-            ->setQte(10);
+            ->setQte(10)
+            ->setImageFilePlat('maki-saumon.jpg');
         $manager->persist($plat2);
 
         $plat3 = new Plats();
         $plat3->setPrice(15)
             ->setName('Canard à l\'orange')
             ->setCategoriePlats($categoryPlats3)
-            ->setQte(0);
+            ->setQte(0)
+            ->setImageFilePlat('magret-canard-orange.jpg');;
         $manager->persist($plat3);
 
 
@@ -188,8 +191,9 @@ class AppFixtures extends Fixture
             ->addPlat($plat1)
             ->addPlat($plat2)
             ->addPlat($plat3)
-            ->setCompanyName('Gronichonyah')
-            ->setUtilisateur($user3);
+            ->setCompanyName('Au bonheur asiatique')
+            ->setUtilisateur($user3)
+            ->setImageFileRestaurant('restaurant-default.jpg');
 
 
         $command1 = new Commande();
