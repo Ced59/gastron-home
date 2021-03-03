@@ -27,10 +27,13 @@ class AccueilRestaurantController extends AbstractController
      */
     public function ListeCommande(): Response
     {
-        $commande = $this->getDoctrine()->getRepository(commande::class)->findAll();
+        $user = $this->getUser()->getRestaurant()->getId();
+        $repo = $this->getDoctrine()->getRepository(Commande::class);
+        $commandes = $repo->findBy(['restaurant'=>$user]);
+
 
         return $this->render('accueil_restaurant/liste_commande.html.twig', [
-            'commandes' => $commande,
+            'commandes' => $commandes,
         ]);
     }
 }

@@ -1,20 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ViewCommandeController!{% endblock %}
+{% block title %}Voir les commandes {{ type }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {% if commandes is not empty %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/BIENVENUE/PhpstormProjects/projet-mars-2021/src/Controller/ViewCommandeController.php'|file_link(0) }}">src/Controller/ViewCommandeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/BIENVENUE/PhpstormProjects/projet-mars-2021/templates/view_commande/index.html.twig'|file_link(0) }}">templates/view_commande/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <h2 class="text-center">Liste des commandes {{ type }}</h2>
+
+        <table class="table table-hover offset-2 col-8 mt-5">
+            <thead>
+            <tr class="text-center">
+                <td>Commandes</td>
+                <th>Client</th>
+                <th>Description</th>
+                <th>Prix total</th>
+                <th>Date de la commande</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for commande in commandes %}
+                <tr class="text-center">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ commande.totalPrice }}</td>
+                    <td>{{ commande.heureCommande | date("d/m/Y h:i:s", "Europe/Paris") }}</td>
+                    <td>{{ commande.status }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    {% else %}
+        <h2 class="text-center">Vous n'avez pas de commande {{ type }}</h2>
+    {% endif %}
+
 {% endblock %}

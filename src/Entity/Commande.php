@@ -97,6 +97,12 @@ class Commande
 
     public function getTotalPrice(): ?float
     {
+        foreach ($this->plats as $plat)
+        {
+            $this->totalPrice += $plat->getPrice();
+        }
+        $this->totalPrice += 3;
+
         return $this->totalPrice;
     }
 
