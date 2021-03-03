@@ -16,7 +16,7 @@ class AccueilRestaurantController extends AbstractController
      */
     public function index(): Response
     {
-    $restaurant = $this->getDoctrine()->getRepository(Restaurant::class);
+        $restaurant = $this->getUser()->getRestaurant();
 
 
        return $this->render('accueil_restaurant/index.html.twig', [
