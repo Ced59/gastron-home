@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AcceuilLivreurController extends AbstractController
 {
     /**
-     * @Route("/accueil", name="accueil")
+     * @Route("/accueil", name="livreur")
      */
     public function index(): Response
     {
