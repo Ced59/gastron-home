@@ -4,6 +4,7 @@
 
 {% block body %}
 
+    {% if app.user.restaurant.companyName != null %}
     <div class="offset-2 col-8">
         <h1 class="text-center">Plats index</h1>
         <table class="table table-hover text-center">
@@ -40,4 +41,8 @@
             <a href="{{ path('plats_new') }}" class="btn btn-primary">Ajouter un plat</a>
         </div>
     </div>
+    {% else %}
+        <h1 class="text-center">Veuillez finaliser votre inscription avant de gérer vos plats!</h1>
+        <a href="{{ path('restaurant') }}" class="btn btn-primary d-flex justify-content-center ml-5 mr-5 mt-5">Retour</a>
+    {% endif %}
 {% endblock %}

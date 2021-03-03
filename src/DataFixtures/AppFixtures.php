@@ -196,7 +196,7 @@ class AppFixtures extends Fixture
 
         $dateCommand1 = $faker->dateTimeBetween('2019-03-20T00:00:00.012345Z', 'now');
         $command1->setHeureCommande($dateCommand1)
-            ->setStatus('Prête')
+            ->setStatus('Prise en charge')
             ->setUtilisateur($user)
             ->setRestaurant($restoChinois)
             ->addPlat($plat1)
