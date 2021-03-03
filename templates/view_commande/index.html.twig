@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Voir les commandes {{ type }}{% endblock %}
+{% block title %} {{ title }} {% endblock %}
 
 {% block body %}
 
     {% if commandes is not empty %}
 
-        <h2 class="text-center">Liste des commandes {{ type }}</h2>
+        <h2 class="text-center"> {{ title }}</h2>
 
         <table class="table table-hover offset-2 col-8 mt-5">
             <thead>

@@ -24,9 +24,6 @@ class AccueilClientController extends AbstractController
 
         $restaurant = $this->getDoctrine()->getRepository(Restaurant::class)->findAll();
 
-
-
-
         return $this->render('accueil_client/index.html.twig',
             [
                 'user' => $user,
@@ -34,8 +31,6 @@ class AccueilClientController extends AbstractController
                 'restaurants' => $restaurant,
 
             ]);
-
-
     }
 
     /**
