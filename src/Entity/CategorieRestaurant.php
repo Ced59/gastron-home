@@ -32,6 +32,10 @@ class CategorieRestaurant
 
     /**
      * @ORM\ManyToMany(targetEntity=Restaurant::class, inversedBy="categorieRestaurants")
+     * @ORM\JoinTable(name="categorie_restaurant_restaurant",
+     *      joinColumns={@ORM\JoinColumn(name="categorie_restaurant_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="restaurant_id", referencedColumnName="id")}
+     *      )
      */
     private $restaurant;
 

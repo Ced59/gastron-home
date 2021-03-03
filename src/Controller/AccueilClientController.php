@@ -17,23 +17,18 @@ class AccueilClientController extends AbstractController
     {
 
         $user = $this->getUser()->getAdress();
-
-        // formulaire boutton ChoiceType
-        //  $form = $this->createForm(CategorieRestaurantType::class);
+        $idSecteur = $this->getUser()->getVille()->getSecteur()->getId();
 
         $categorieRestaurants = $this->getDoctrine()->getRepository(CategorieRestaurant::class)
             ->findAll();
 
+//        $repo = $this->getDoctrine()->getRepository(CategorieRestaurant::class);
+//        $categories = $repo->find(21);
+//        $restaurant = $categories->getRestaurant();
 
-        $typeRestaurant = 10;
-        // $restaurant = $this->getUserAndCategorieRestaurantFromRestaurant($typeRestaurant);
-
-        //requete sur restaurant conportant un findby [id-categorierestaurant]
-
-
-        $repo = $this->getDoctrine()->getRepository(Restaurant::class);
-        $restaurant = $repo->findBy(['categorieRestaurants' => 10 ]);
-
+        $repo = $this->getDoctrine()->getRepository(CategorieRestaurant::class);
+        $restaurant = $repo->findByCategorieAndSecteur(21, $idSecteur);
+        dd($restaurant);
 
 
         return $this->render('accueil_client/index.html.twig',

@@ -10,26 +10,25 @@
     <div class="vertical-nav" id="sidebar">
         <ul class="nav flex-column mb-0">
 
-                {% for categorieRestaurant in categorieRestaurants %}
-            <li class="nav-item">
-                <a class="nav-link font-italic">
-                   {{ categorieRestaurant.libelle }}
-                </a>
-            </li>
-                {% endfor %}
+            {% for categorieRestaurant in categorieRestaurants %}
+                <li class="nav-item">
+                    <a class="nav-link font-italic">
+                        {{ categorieRestaurant.libelle }}
+                    </a>
+                </li>
+            {% endfor %}
         </ul>
     </div>
 
     <div class="page-content">
-        <table>
+        <h3> Votre adresse : {{ app.user.adress }} {{ app.user.ville.nomVille }}</h3>
+        <table class="table table-hover">
             <thead>
             <tr>
-                <th>Votre Adresse <br> {{ user }}</th>
-
-                <th> Nom Restaurant  </th>
-                <th> Adresse </th>
+                <th> Nom Restaurant</th>
+                <th> Adresse</th>
+                <th> Ville</th>
                 <th> Type de Restaurant</th>
-
             </tr>
             </thead>
 
@@ -37,18 +36,20 @@
             <tr>
 
                 {% for restaurant in restaurants %}
+                    <td>{{ restaurant.companyName }}</td>
                     <td>{{ restaurant.utilisateur.adress }}</td>
-                    {% for rest in restaurant.categorieRestaurants %}
-                    <td>{{ rest.libelle }}</td>
-
-                {% endfor %}
+                    <td>{{ restaurant.utilisateur.ville.nomVille }}</td>
+                    <td>
+                        {% for rest in restaurant.categorieRestaurants %}
+                            {{ rest.libelle }}
+                        {% endfor %}
+                    </td>
 
 
                 {% endfor %}
 
             </tr>
             </tbody>
-
 
 
         </table>
