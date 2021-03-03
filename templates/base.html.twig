@@ -51,10 +51,10 @@
             {% endif %}
             {% if is_granted('ROLE_LIVREUR') %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('livreur') }}">Livreur</a>
+                    <a class="nav-link" href="{{ path('accueil') }}">Livreur</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Voir livraison</a>
+                    <a class="nav-link" href="{{ path('livreur_commande') }}">Voir livraison</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Historique livraison</a>
