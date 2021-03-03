@@ -1,0 +1,36 @@
+Index: src/Controller/RegistrationController.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Controller;\r\n\r\nuse App\\Entity\\User;\r\nuse App\\Entity\\Ville;\r\nuse App\\Form\\RegistrationFormType;\r\nuse App\\Security\\LoginAuthenticator;\r\nuse Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController;\r\nuse Symfony\\Component\\HttpFoundation\\File\\Exception\\FileException;\r\nuse Symfony\\Component\\HttpFoundation\\Request;\r\nuse Symfony\\Component\\HttpFoundation\\Response;\r\nuse Symfony\\Component\\Routing\\Annotation\\Route;\r\nuse Symfony\\Component\\Security\\Core\\Encoder\\UserPasswordEncoderInterface;\r\nuse Symfony\\Component\\Security\\Guard\\GuardAuthenticatorHandler;\r\nuse Symfony\\Component\\String\\Slugger\\SluggerInterface;\r\n\r\nclass RegistrationController extends AbstractController\r\n{\r\n    /**\r\n     * @Route(\"/register\", name=\"app_register\")\r\n     * @param Request $request\r\n     * @param UserPasswordEncoderInterface $passwordEncoder\r\n     * @param GuardAuthenticatorHandler $guardHandler\r\n     * @param LoginAuthenticator $authenticator\r\n     * @param SluggerInterface $slugger\r\n     * @return Response\r\n     */\r\n    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginAuthenticator $authenticator , SluggerInterface $slugger): Response\r\n    {\r\n        $user = new User();\r\n        $form = $this->createForm(RegistrationFormType::class, $user);\r\n        $form->handleRequest($request);\r\n\r\n        if ($form->isSubmitted() && $form->isValid()) {\r\n            // encode the plain password\r\n            $user->setPassword(\r\n                $passwordEncoder->encodePassword(\r\n                    $user,\r\n                    $form->get('plainPassword')->getData()\r\n                )\r\n            );\r\n\r\n            $imageFile = $form->get('image')->getData();\r\n\r\n            if($imageFile)\r\n            {\r\n                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);\r\n                $safeFilename = $slugger->slug($originalFilename);\r\n                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();\r\n                try {\r\n                    $imageFile->move(\r\n                        $this->getParameter('profil_directory'),\r\n                        $newFilename\r\n                    );\r\n                } catch (FileException $e) {\r\n                    $newFilename = 'profil-default.jpg';\r\n                }\r\n\r\n                // updates the 'brochureFilename' property to store the PDF file name\r\n                // instead of its contents\r\n                $user->setImageFileName($newFilename);\r\n            }\r\n            else\r\n            {\r\n                $user->setImageFileName('profil-default.jpg');\r\n            }\r\n\r\n            $role = $form->get('userType')->getData();\r\n            if ($role === 'Client'){\r\n                $user->setRoles(['ROLE_CLIENT']);\r\n            } elseif ($role === 'Livreur'){\r\n                $user->setRoles(['ROLE_LIVREUR']);\r\n            }elseif ($role === 'Restaurateur'){\r\n                $user->setRoles(['ROLE_RESTO']);\r\n            }\r\n\r\n            $entityManager = $this->getDoctrine()->getManager();\r\n            $entityManager->persist($user);\r\n            $entityManager->flush();\r\n            // do anything else you need here, like send an email\r\n\r\n            return $guardHandler->authenticateUserAndHandleSuccess(\r\n                $user,\r\n                $request,\r\n                $authenticator,\r\n                'main' // firewall name in security.yaml\r\n            );\r\n        }\r\n\r\n        return $this->render('registration/register.html.twig', [\r\n            'registrationForm' => $form->createView(),\r\n        ]);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Controller/RegistrationController.php b/src/Controller/RegistrationController.php
+--- a/src/Controller/RegistrationController.php	(revision 6ec78995a09bac410ccf3d4db07e0a668d7aff38)
++++ b/src/Controller/RegistrationController.php	(date 1614766410648)
+@@ -3,7 +3,6 @@
+ namespace App\Controller;
+ 
+ use App\Entity\User;
+-use App\Entity\Ville;
+ use App\Form\RegistrationFormType;
+ use App\Security\LoginAuthenticator;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+Index: templates/plats/index.html.twig
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends 'base.html.twig' %}\r\n\r\n{% block title %}Plats index{% endblock %}\r\n\r\n{% block body %}\r\n\r\n    <div class=\"offset-2 col-8\">\r\n        <h1 class=\"text-center\">Plats index</h1>\r\n        <table class=\"table table-hover text-center\">\r\n            <thead>\r\n            <tr>\r\n                <th>Nom du plat</th>\r\n                <th>Prix</th>\r\n                <th>Quantité</th>\r\n                <th>Voir le plat</th>\r\n                <th>Editer le plat</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody>\r\n            {% for plat in plats %}\r\n                <tr>\r\n                    <td>{{ plat.name }}</td>\r\n                    <td>{{ plat.price }}</td>\r\n                    <td>{{ plat.qte }}</td>\r\n                    <td>\r\n                        <a href=\"{{ path('plats_show', {'id': plat.id}) }}\" class=\"btn btn-info\">Voir</a>\r\n                    </td>\r\n                    <td>\r\n                        <a href=\"{{ path('plats_edit', {'id': plat.id}) }}\" class=\"btn btn-success\">Editer</a>\r\n                    </td>\r\n                </tr>\r\n            {% else %}\r\n                <tr>\r\n                    <td colspan=\"5\"><h3>Aucun Plat trouvé, veuillez en ajouter</h3></td>\r\n                </tr>\r\n            {% endfor %}\r\n            </tbody>\r\n        </table>\r\n        <div class=\"d-flex justify-content-end\">\r\n            <a href=\"{{ path('plats_new') }}\" class=\"btn btn-primary\">Ajouter un plat</a>\r\n        </div>\r\n    </div>\r\n{% endblock %}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/plats/index.html.twig b/templates/plats/index.html.twig
+--- a/templates/plats/index.html.twig	(revision 6ec78995a09bac410ccf3d4db07e0a668d7aff38)
++++ b/templates/plats/index.html.twig	(date 1614763477631)
+@@ -9,6 +9,7 @@
+         <table class="table table-hover text-center">
+             <thead>
+             <tr>
++
+                 <th>Nom du plat</th>
+                 <th>Prix</th>
+                 <th>Quantité</th>
