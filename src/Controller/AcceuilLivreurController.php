@@ -22,7 +22,6 @@ class AcceuilLivreurController extends AbstractController
     {
         $livreur = $this->getUser()->getLivreur();
         return $this->render('acceuil_livreur/accueil.html.twig', [
-            'controller_name' => 'AccueilAdminController',
             'livreur' => $livreur
         ]);
     }
@@ -61,6 +60,29 @@ class AcceuilLivreurController extends AbstractController
             'controller_name' => 'AcceuilLivreurController',
             'livraison' => $livraison
         ]);
+    }
+
+    /**
+     * @Route("/change-disponibilite", name="change_disponibilite")
+     */
+    public function changeDispo(): Response
+    {
+        $livreur = $this->getUser()->getLivreur();
+
+        if ($livreur->getIsDisponible())
+        {
+            $livreur->setIsDisponible(false);
+        }
+        else
+        {
+            $livreur->setIsDisponible(true);
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($livreur);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('livreur');
     }
 
     /**
