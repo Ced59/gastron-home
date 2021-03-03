@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RestaurantController!{% endblock %}
+{% block title %}Modification du restaurant{% endblock %}
 
 {% block body %}
     {{ form_start(form, {'attr':{'class':'form-group'}}) }}
@@ -10,6 +10,7 @@
         </div>
         <div class="col">
             {{ form_row(form.categorieRestaurants, {'attr':{'class':'form-control'}}) }}
+            <p class="mt-2">Vous pouvez selectionner plusieurs catégories pour votre restaurant</p>
         </div>
     </div>
     <div class="d-flex justify-content-center">

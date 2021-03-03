@@ -59,6 +59,14 @@
                     </div>
                 {% endif %}
 
+                {% if is_granted('ROLE_RESTO') == true %}
+                    <p class="card-text">
+                    <div class="row">
+                        <div class="col-5">Nombre de commandes reçues et livrées :</div>
+                        <div class="col-5">{{ app.user.commande | length }}</div>
+                    </div>
+                {% endif %}
+
                 {% if is_granted('ROLE_LIVREUR') == true %}
 
                     {% set nbreLivraisonEffectuee = 0 %}
