@@ -20,8 +20,10 @@ class PlatsController extends AbstractController
      */
     public function index(PlatsRepository $platsRepository): Response
     {
+        $restaurant = $this->getUser()->getRestaurant()->getId();
+
         return $this->render('plats/index.html.twig', [
-            'plats' => $platsRepository->findAll(),
+            'plats' => $platsRepository->findBy(['restaurant' => $restaurant])
         ]);
     }
 
@@ -36,6 +38,8 @@ class PlatsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $restaurant = $this->getUser()->getRestaurant();
+            $plat->setRestaurant($restaurant);
             $entityManager->persist($plat);
             $entityManager->flush();
 

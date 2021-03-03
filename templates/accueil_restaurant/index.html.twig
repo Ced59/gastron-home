@@ -25,8 +25,9 @@
             </div>
         </div>
         {% else %}
-        <a href="{{ path('edit_restaurant', {'id': restaurant.id}) }}" class="btn btn-primary">Modifier votre
-            nom</a>
+            <h1 class="text-center">Merci de finaliser votre inscription en tant que restaurateur en suivant ce lien :</h1>
+
+        <a href="{{ path('edit_restaurant', {'id': restaurant.id}) }}" class="btn btn-primary d-flex justify-content-center ml-5 mr-5 mt-5">Poursuivre votre enregistrement</a>
         {% endif %}
     </div>
 {% endblock %}
