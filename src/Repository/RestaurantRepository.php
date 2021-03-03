@@ -60,6 +60,23 @@ public function findByCategorieAndSecteur($idCategorie, $idSecteur)
     ;
 }
 
+    /**
+     * @return Restaurant[] Returns an array of Restaurant objects
+     */
+
+    public function findBySecteur($idSecteur)
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.utilisateur', 'u')
+            ->join('u.ville', 'v')
+            ->join('v.Secteur', 's')
+            ->andWhere('s.id = :sect')
+            ->setParameter('sect', $idSecteur)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 
 /*
 public function findOneBySomeField($value): ?Restaurant
