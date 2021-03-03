@@ -16,6 +16,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    public function __toString()
+    {
+        return $this->firstName." ".$this->lastName;
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
