@@ -64,9 +64,11 @@
                 </li>
             {% endif %}
             {% if is_granted('ROLE_RESTO') %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('restaurant') }}">Restaurateur</a>
-                </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('restaurant') }}">Restaurateur</a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_RESTO') and app.user.restaurant.companyName != null %}
                 <li class="nav-item">
                     <a class="nav-link" href="#">Commandes en attentes</a>
                 </li>
