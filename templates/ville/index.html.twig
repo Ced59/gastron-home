@@ -10,6 +10,8 @@
         <thead>
             <tr>
                 <th>Nom Ville</th>
+                <th>Secteur</th>
+                <th>Code Postal</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -18,6 +20,8 @@
         {% for ville in villes %}
             <tr>
                 <td>{{ ville.nomVille }}</td>
+                <td>{{ ville.Secteur.nomSecteur }}</td>
+                <td>{{ ville.codePostal }}</td>
                 <td>
                     <a href="{{ path('ville_show', {'id': ville.id}) }}" class="btn btn-info">Voir</a>
                 </td>

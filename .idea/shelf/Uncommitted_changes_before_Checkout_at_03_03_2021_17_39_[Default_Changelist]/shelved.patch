@@ -1,0 +1,40 @@
+Index: templates/ville/show.html.twig
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends 'base.html.twig' %}\r\n\r\n{% block title %}Ville{% endblock %}\r\n\r\n{% block body %}\r\n    <div class=\"offset-2 col-8\">\r\n        <h1 class=\"text-center\">Ville</h1>\r\n\r\n        <div class=\"d-flex justify-content-center\">\r\n            <div class=\"card\" style=\"width: 18rem;\">\r\n                <img src=\"...\" class=\"card-img-top\" alt=\"...\">\r\n                <div class=\"card-body\">\r\n                    <h5 class=\"card-title\">{{ ville.nomVille }}</h5>\r\n                    {% for secteurs in ville.Secteur %}\r\n                        <h5>{{ secteurs.nomSecteur }} </h5>\r\n                    {% endfor %}\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"d-flex justify-content-around mt-4\">\r\n            <a href=\"{{ path('ville_index') }}\" class=\"btn btn-primary\">Retour à la liste</a>\r\n\r\n            <a href=\"{{ path('ville_edit', {'id': ville.id}) }}\" class=\"btn btn-success\">Editer la ville</a>\r\n\r\n            {{ include('ville/_delete_form.html.twig') }}\r\n        </div>\r\n    </div>\r\n{% endblock %}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/ville/show.html.twig b/templates/ville/show.html.twig
+--- a/templates/ville/show.html.twig	
++++ b/templates/ville/show.html.twig	
+@@ -3,20 +3,20 @@
+ {% block title %}Ville{% endblock %}
+ 
+ {% block body %}
++
+     <div class="offset-2 col-8">
+-        <h1 class="text-center">Ville</h1>
+-
++        <h1 class="text-center">Ville : </h1>
+         <div class="d-flex justify-content-center">
+-            <div class="card" style="width: 18rem;">
+-                <img src="..." class="card-img-top" alt="...">
+-                <div class="card-body">
+-                    <h5 class="card-title">{{ ville.nomVille }}</h5>
+-                    {% for secteurs in ville.Secteur %}
+-                        <h5>{{ secteurs.nomSecteur }} </h5>
+-                    {% endfor %}
++            <div class="card border-danger mb-3" style="max-width: 18rem;">
++                <h4><div class="card-header">{{ ville.nomVille }}</div></h4>
++                <div class="card-body text-danger">
++                    <p class="card-text">
++                    <h6>{{ ville.Secteur.nomSecteur }} </h6>
++                    </p>
+                 </div>
+             </div>
+         </div>
++    </div>
+         <div class="d-flex justify-content-around mt-4">
+             <a href="{{ path('ville_index') }}" class="btn btn-primary">Retour à la liste</a>
+ 
