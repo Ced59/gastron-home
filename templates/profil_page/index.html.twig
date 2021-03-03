@@ -83,11 +83,11 @@
                         <div class="col-5">{{ nbreLivraisonEffectuee }}</div>
                     </div>
                 {% endif %}
-            </div>
 
+            </div>
+            <a class="btn btn-info align-content-center" href="{{ path('profil_edit', {'id':app.user.id}) }}">Modifier</a>
         </div>
     </div>
-
     <div class="text-center mt-5">
         <a class="btn btn-info align-content-center" href="/">Retour</a>
     </div>

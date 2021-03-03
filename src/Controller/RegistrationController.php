@@ -70,6 +70,7 @@ class RegistrationController extends AbstractController
             } elseif ($role === 'Livreur') {
                 $user->setRoles(['ROLE_LIVREUR'])
                     ->setLivreur(new Livreur());
+                    $user->getLivreur()->setIsDisponible(true);
             } elseif ($role === 'Restaurateur') {
                 $user->setRoles(['ROLE_RESTO'])
                     ->setRestaurant(new Restaurant());

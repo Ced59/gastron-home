@@ -100,10 +100,6 @@ class PlatsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('plats_index');
-        }
 
         $imageFile = $form->get('image')->getData();
 
@@ -125,6 +121,11 @@ class PlatsController extends AbstractController
             $plat->setImageFilePlat($newFilename);
         } else {
             $plat->setImageFilePlat('plat-default.jpg');
+        }
+
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('plats_index');
         }
 
         return $this->render('plats/edit.html.twig', [
