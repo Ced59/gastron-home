@@ -189,7 +189,7 @@ class AppFixtures extends Fixture
             ->addPlat($plat2)
             ->addPlat($plat3)
             ->setCompanyName('Gronichonyah')
-            ->setUtilisateur($user);
+            ->setUtilisateur($user3);
 
 
         $command1 = new Commande();
