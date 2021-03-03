@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PanierController!{% endblock %}
+
+{% block body %}
+<div class="offset-2 col-8">
+    <h2 class="text-center">Votre panier</h2>
+    {% if items | length > 0 %}
+        <table class="table table-hover text-center">
+            <thead>
+            <tr>
+                <th>Nom du produit</th>
+                <th>Prix du produit</th>
+                <th>Quantité</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.plat.name }}</td>
+                    <td>{{ item.plat.price | format_currency('EUR') }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ (item.plat.price * item.quantity) | format_currency('EUR') }}</td>
+                    <td>
+                        <a href="{{ path('panier_remove', {'id': item.plat.id}) }}" class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Sous-Total : </td>
+                <td>{{ sousTotal | format_currency('EUR') }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right">Frais de livraison : </td>
+                <td>{{ fraisLivraisons | format_currency('EUR') }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right">Total : </td>
+                <td>{{ total | format_currency('EUR') }}</td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+
+    {% else %}
+        <h3 class="text-center">Votre Panier est vide, dépêchez-vous de commander !</h3>
+    {% endif %}
+</div>
+{% endblock %}

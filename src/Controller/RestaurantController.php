@@ -32,6 +32,7 @@ class RestaurantController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+
             $imageFile = $form->get('imageResto')->getData();
 
             if($imageFile)

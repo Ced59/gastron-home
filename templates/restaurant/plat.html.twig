@@ -22,7 +22,7 @@
                     <td>{{ plat.price | format_currency('EUR') }}</td>
                     <td>{{ plat.categoriePlats }}</td>
                     <td>
-                        <button class="btn btn-primary">Ajouter au panier</button>
+                        <a href="{{ path('panier_add', {'id':plat.id, 'idRestaurant':plat.restaurant.id}) }}" class="btn btn-primary">Ajouter au panier</a>
                     </td>
                 </tr>
             {% endfor %}

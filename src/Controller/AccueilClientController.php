@@ -23,11 +23,12 @@ class AccueilClientController extends AbstractController
     {
 
         $user = $this->getUser()->getAdress();
+        $idSecteur = $this->getUser()->getVille()->getSecteur()->getId();
 
         $categorieRestaurants = $this->getDoctrine()->getRepository(CategorieRestaurant::class)
             ->findAll();
 
-        $restaurant = $this->getDoctrine()->getRepository(Restaurant::class)->findAll();
+        $restaurant = $this->getDoctrine()->getRepository(Restaurant::class)->findBySecteur($idSecteur);
 
         return $this->render('accueil_client/index.html.twig',
             [
