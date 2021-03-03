@@ -56,10 +56,7 @@ class AcceuilLivreurController extends AbstractController
         $entityManager->persist($livraison);
         $entityManager->flush();
 
-        return $this->render('acceuil_livreur/validation.html.twig', [
-            'controller_name' => 'AcceuilLivreurController',
-            'livraison' => $livraison
-        ]);
+        return $this->redirectToRoute('livreur_commande');
     }
 
     /**
@@ -98,6 +95,7 @@ class AcceuilLivreurController extends AbstractController
 
             return $this->redirectToRoute('livreur');
         }
+
         return $this->render('acceuil_livreur/edit.html.twig', [
             'livreur' => $livreur,
             'form' => $form->createView(),
