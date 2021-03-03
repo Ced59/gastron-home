@@ -29,14 +29,14 @@
                     <td>{{ commande.totalPrice | format_currency('EUR') }}</td>
                     <td>{{ commande.heureCommande | date("d/m/Y h:i:s", "Europe/Paris") }}</td>
                     <td>{{ commande.status }}</td>
-                    <td><a href="" class="btn btn-primary">Voir détail</a></td>
+                    <td><a href="{{ path('show_commande', {'id':commande.id}) }}" class="btn btn-primary">Voir détail</a></td>
                 </tr>
             {% endfor %}
 
             </tbody>
         </table>
     {% else %}
-        <h2 class="text-center">Vous n'avez pas de commande {{ type }}</h2>
+        <h2 class="text-center">Vous n'avez pas de commande {{ title }}</h2>
     {% endif %}
 
 {% endblock %}

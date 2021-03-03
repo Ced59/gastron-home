@@ -32,7 +32,8 @@ class AppFixtures extends Fixture
         $faker = Factory::create('fr_FR');
 
         $ville = new Ville();
-        $ville->setNomVille('Somain');
+        $ville->setNomVille('Somain')
+        ->setCodePostal('59490');
         $manager->persist($ville);
 
         $secteur1 = new Secteur();
@@ -47,7 +48,8 @@ class AppFixtures extends Fixture
 
         $ville1 = new Ville();
         $ville1->setNomVille('Bruay sur Escaut')
-            ->setSecteur($secteur2);
+            ->setSecteur($secteur2)
+            ->setCodePostal('59320');
         $manager->persist($ville1);
 
         $user = new  User();
@@ -68,7 +70,8 @@ class AppFixtures extends Fixture
 
         $ville2 = new Ville();
         $ville2->setNomVille('Valenciennes')
-            ->setSecteur($secteur2);
+            ->setSecteur($secteur2)
+            ->setCodePostal('59300');
         $manager->persist($ville2);
 
         $user1 = new  User();
@@ -89,13 +92,15 @@ class AppFixtures extends Fixture
 
         $ville3 = new Ville();
         $ville3->setNomVille('Anzin')
-            ->setSecteur($secteur2);
+            ->setSecteur($secteur2)
+            ->setCodePostal('59350');
         $manager->persist($ville3);
 
 
         $ville4 = new Ville();
         $ville4->setNomVille('St-Saulve')
-            ->setSecteur($secteur2);
+            ->setSecteur($secteur2)
+            ->setCodePostal('59421');
         $manager->persist($ville4);
 
         $user2 = new  User();

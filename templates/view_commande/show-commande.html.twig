@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block body %}
+    <div class="card offset-3 col-6 mt-4">
+        <img class="card-img-top" src="{{ asset('img/resources/commander-en-ligne.jpg') }}"
+             alt="Card image cap">
+
+        <div class="card-body">
+
+            <h5 class="card-title text-center">
+                Command n° {{ commande.id }}
+            </h5>
+
+
+            <p class="card-text text-center">Nombre de plat : {{ commande.plats | length }}</p>
+            <p class="card-text">Liste des plats</p>
+            <p class="card-text">
+                {% for plat in commande.plats %}
+                    <p>{{ plat.name }}</p>
+                {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

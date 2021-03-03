@@ -20,7 +20,7 @@ class ViewCommandeController extends AbstractController
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'title' => 'Voir les commandes en attente'
+            'title' => 'en attente'
         ]);
     }
 
@@ -35,7 +35,7 @@ class ViewCommandeController extends AbstractController
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'title' => 'Voir les commandes acceptées'
+            'title' => 'acceptées'
         ]);
     }
 
@@ -50,7 +50,7 @@ class ViewCommandeController extends AbstractController
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'title' => 'Voir les commandes prêtes'
+            'title' => 'prêtes'
         ]);
     }
 
@@ -64,7 +64,7 @@ class ViewCommandeController extends AbstractController
         $commandes = $repo->findBy(['restaurant'=>$user, "status" => "Prise en charge"]);
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'title' => 'Voir les commandes Prises en charges'
+            'title' => 'prises en charges'
         ]);
     }
 
@@ -79,7 +79,7 @@ class ViewCommandeController extends AbstractController
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'title' => 'Voir les commandes livrées'
+            'title' => 'livrées'
         ]);
     }
 
@@ -94,7 +94,7 @@ class ViewCommandeController extends AbstractController
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'title' => 'Voir toutes les commandes'
+            'title' => 'les commandes'
         ]);
     }
 
@@ -110,6 +110,22 @@ class ViewCommandeController extends AbstractController
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
             'title' => 'Voir les commandes'
+        ]);
+    }
+
+    /**
+     * @Route("/view/commande/{id}", name="show_commande")
+     * @param int $id
+     * @return Response
+     */
+    public function show(int $id): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Commande::class);
+        $commande = $repository->find($id);
+
+        return $this->render('view_commande/show-commande.html.twig', [
+            'commande' => $commande,
+            'title' => 'Détail de la commande'
         ]);
     }
 
