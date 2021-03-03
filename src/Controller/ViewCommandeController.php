@@ -20,7 +20,7 @@ class ViewCommandeController extends AbstractController
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'type' => 'en attente'
+            'title' => 'Voir les commandes en attente'
         ]);
     }
 
@@ -35,7 +35,7 @@ class ViewCommandeController extends AbstractController
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'type' => 'acceptées'
+            'title' => 'Voir les commandes acceptées'
         ]);
     }
 
@@ -50,7 +50,7 @@ class ViewCommandeController extends AbstractController
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'type' => 'prêtes'
+            'title' => 'Voir les commandes prêtes'
         ]);
     }
 
@@ -64,7 +64,7 @@ class ViewCommandeController extends AbstractController
         $commandes = $repo->findBy(['restaurant'=>$user, "status" => "Prise en charge"]);
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'type' => 'prises en charge livreur'
+            'title' => 'Voir les commandes Prises en charges'
         ]);
     }
 
@@ -79,7 +79,7 @@ class ViewCommandeController extends AbstractController
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'type' => 'livrées'
+            'title' => 'Voir les commandes livrées'
         ]);
     }
 
@@ -94,7 +94,23 @@ class ViewCommandeController extends AbstractController
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
-            'type' => 'totales'
+            'title' => 'Voir toutes les commandes'
         ]);
     }
+
+    /**
+     * @Route("/client/commandes", name="view_commandes_client")
+     */
+    public function viewCommandClient(): Response
+    {
+        $user = $this->getUser()->getId();
+        $repo = $this->getDoctrine()->getRepository(Commande::class);
+        $commandes = $repo->findBy(['utilisateur'=>$user], ['id'=>'DESC']);
+
+        return $this->render('view_commande/index.html.twig', [
+            'commandes' => $commandes,
+            'title' => 'Voir les commandes'
+        ]);
+    }
+
 }
