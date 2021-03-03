@@ -12,7 +12,7 @@
 
             {% for categorieRestaurant in categorieRestaurants %}
                 <li class="nav-item">
-                    <a class="nav-link font-italic">
+                    <a class="nav-link font-italic" href="{{ path('view_resto', {'id': categorieRestaurant.id}) }}">
                         {{ categorieRestaurant.libelle }}
                     </a>
                 </li>

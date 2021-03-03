@@ -40,22 +40,26 @@ class RestaurantRepository extends ServiceEntityRepository
     }
 
 
-// /**
-//  * @return Restaurant[] Returns an array of Restaurant objects
-//  */
-/*
-public function findByExampleField($value)
+ /**
+  * @return Restaurant[] Returns an array of Restaurant objects
+  */
+
+public function findByCategorieAndSecteur($idCategorie, $idSecteur)
 {
     return $this->createQueryBuilder('r')
-        ->andWhere('r.exampleField = :val')
-        ->setParameter('val', $value)
-        ->orderBy('r.id', 'ASC')
-        ->setMaxResults(10)
+        ->join('r.categorieRestaurants','cr')
+        ->join('r.utilisateur', 'u')
+        ->join('u.ville', 'v')
+        ->join('v.Secteur', 's')
+        ->andWhere('cr.id = :val')
+        ->andWhere('s.id = :sect')
+        ->setParameter('val', $idCategorie)
+        ->setParameter('sect', $idSecteur)
         ->getQuery()
         ->getResult()
     ;
 }
-*/
+
 
 /*
 public function findOneBySomeField($value): ?Restaurant
