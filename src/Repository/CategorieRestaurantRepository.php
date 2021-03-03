@@ -19,31 +19,25 @@ class CategorieRestaurantRepository extends ServiceEntityRepository
         parent::__construct($registry, CategorieRestaurant::class);
     }
 
-    /**
-     * @return CategorieRestaurant[] Returns an array of CategorieRestaurant objects
-     */
+//    /**
+//     * @return CategorieRestaurant[] Returns an array of CategorieRestaurant objects
+//     */
+//
+//    public function findByCategorieAndSecteur($idCategorie, $idSecteur)
+//    {
 
-    public function findByCategorieAndSecteur($idCategorie, $idSecteur)
-    {
-        $entityManager = $this->getEntityManager();
-        $query = $entityManager
-            ->createQuery('SELECT r FROM App\Entity\CategorieRestaurant c JOIN App\Entity\Restaurant r WHERE r.utilisateur.ville.Secteur.id = :secteur AND c.id = :categorie ')
-            ->setParameter('secteur', $idSecteur)
-            ->setParameter('categorie', $idCategorie);
-
-        return $query->getResult() ;
 
 //        return $this->createQueryBuilder('categorieRestaurant')
-//            ->join('categorieRestaurant.id', 'restaurant')
+//            ->join('categorieRestaurant.restaurant', 'restaurant')
 //            ->andWhere('categorieRestaurant.id = :id')
-//            ->andWhere('user.ville.Secteur = :secteur')
+////            ->andWhere('restaurant.utilisateur.ville.Secteur = :secteur')
 //            ->setParameter('id', $idCategorie)
-//            ->setParameter('secteur', $idSecteur)
+////            ->setParameter('secteur', $idSecteur)
 //            ->orderBy('categorieRestaurant.id', 'ASC')
 //            ->getQuery()
 //            ->getResult()
-        ;
-    }
+//        ;
+//    }
 
 
     /*
