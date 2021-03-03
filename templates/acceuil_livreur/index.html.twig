@@ -12,7 +12,7 @@
                 <th>Ville de Livraison</th>
                 <th>Status de la commande</th>
                 <th>numéro de commande</th>
-                <th>Valider la commande</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -23,9 +23,11 @@
                     <td>{{ livraison.livreur.utilisateur.ville }}</td>
                     <td>{{ livraison.status }}</td>
                     <td>{{ livraison.commande.id }}</td>
+                    {% if livraison.status == "Prise en charge livreur" %}
                     <td>
                         <a href="/livreur/validation/{{ livraison.id }}" class="btn btn-primary">Valider la livraison</a>
                     </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
 
