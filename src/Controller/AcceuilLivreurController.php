@@ -74,7 +74,7 @@ class AcceuilLivreurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('accueil');
+            return $this->redirectToRoute('livreur');
         }
         return $this->render('acceuil_livreur/edit.html.twig', [
             'livreur' => $livreur,
