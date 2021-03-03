@@ -146,4 +146,5 @@ class PlatsController extends AbstractController
 
         return $this->redirectToRoute('plats_index');
     }
+
 }
