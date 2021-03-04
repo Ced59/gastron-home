@@ -34,7 +34,7 @@ class CategoriePlatsController extends AbstractController
         $form = $this->createForm(CategoriePlatsType::class, $categoriePlat);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($categoriePlat);
             $entityManager->flush();

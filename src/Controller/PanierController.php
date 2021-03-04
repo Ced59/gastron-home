@@ -28,18 +28,18 @@ class PanierController extends AbstractController
 
         $panierData = [];
 
-        foreach ($panier as $id => $quantity){
-            $panierData[]=[
+        foreach ($panier as $id => $quantity) {
+            $panierData[] = [
                 'plat' => $platsRepository->find($id),
                 'quantity' => $quantity
             ];
         }
 
-        $total = 0 ;
+        $total = 0;
 
         $fraisLivraisons = 3;
 
-        foreach ($panierData as $item){
+        foreach ($panierData as $item) {
             $totalItem = $item['plat']->getPrice() * $item['quantity'];
             $total += $totalItem;
         }
@@ -53,9 +53,9 @@ class PanierController extends AbstractController
         $repoLivreur = $this->getDoctrine()->getRepository(Livreur::class);
         $livreurs = $repoLivreur->findByDispoAndSecteur($idSecteur);
 
-        if (!empty($livreurs)){
-        $idLivreur = array_rand($livreurs);
-        $livreur = $livreurs[$idLivreur];
+        if (!empty($livreurs)) {
+            $idLivreur = array_rand($livreurs);
+            $livreur = $livreurs[$idLivreur];
         } else {
             $livreur = [];
         }
@@ -89,7 +89,7 @@ class PanierController extends AbstractController
 
         $session->set('panier', $panier);
 
-        return $this->redirectToRoute('restaurant_menu', ['id'=>$idRestaurant]);
+        return $this->redirectToRoute('restaurant_menu', ['id' => $idRestaurant]);
     }
 
     /**
@@ -102,10 +102,10 @@ class PanierController extends AbstractController
     {
         $panier = $session->get('panier', []);
 
-        if (!empty($panier[$id])){
+        if (!empty($panier[$id])) {
             $panier[$id]--;
         }
-        if($panier[$id] == 0){
+        if ($panier[$id] == 0) {
             unset($panier[$id]);
         }
 
@@ -126,18 +126,18 @@ class PanierController extends AbstractController
 
         $panier = $session->get('panier', []);
 
-        foreach ($panier as $id => $quantity){
-            $panierData[]=[
+        foreach ($panier as $id => $quantity) {
+            $panierData[] = [
                 'plat' => $platsRepository->find($id),
                 'quantity' => $quantity
             ];
         }
 
-        $total = 0 ;
+        $total = 0;
 
         $fraisLivraisons = 3;
 
-        foreach ($panierData as $item){
+        foreach ($panierData as $item) {
             $totalItem = $item['plat']->getPrice() * $item['quantity'];
             $total += $totalItem;
         }
@@ -155,7 +155,7 @@ class PanierController extends AbstractController
         $entityManager->flush();
 
 
-        foreach ($panierData as $item){
+        foreach ($panierData as $item) {
             $commandePlat = new CommandePlat();
             $commandePlat->setCommande($commande);
             $commandePlat->setPlats($item['plat']);

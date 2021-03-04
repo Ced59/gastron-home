@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Plats;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,7 +20,7 @@ class Plats1Type extends AbstractType
             ->add('name', TextType::class,['label'=>'Nom du Plat'])
             ->add('price',TextType::class,['label'=>'Prix'])
             ->add('qte',IntegerType::class,['label'=>'Quantité'])
-            ->add('categoriePlats', TextType::class,['label'=>'Catégorie du plat'])
+            ->add('categoriePlats')
             ->add('description', TextType::class,['label'=>'Description'])
             ->add('image', FileType::class, [
                 'label' => 'Image de plat',

@@ -22,7 +22,7 @@
 
     <div class="page-content">
         {% set lastCommande = commandUser | last %}
-        {% if lastCommande is not null %}
+        {% if lastCommande is not null and lastCommande is not empty %}
             <div>votre commande numéro {{ lastCommande.id }} est {{ lastCommande.status }}</div>
         {% endif %}
         <h3 class="text-center"> Votre adresse : {{ app.user.adress }} {{ app.user.ville.nomVille }}</h3>
