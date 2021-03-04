@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\CategoriePlats;
 use App\Entity\CategorieRestaurant;
 use App\Entity\Commande;
+use App\Entity\CommandePlat;
 use App\Entity\Livraison;
 use App\Entity\Livreur;
 use App\Entity\Plats;
@@ -203,21 +204,29 @@ class AppFixtures extends Fixture
 
         $command1 = new Commande();
 
+        $commandPlat1 = new CommandePlat();
+        $commandPlat1->setPlats($plat1)
+            ->setQuantite(6);
+
+        $manager->persist($commandPlat1);
+
+
+        $commandPlat2 = new CommandePlat();
+        $commandPlat2->setPlats($plat2)
+            ->setQuantite(12);
+
+        $manager->persist($commandPlat2);
+
         $dateCommand1 = $faker->dateTimeBetween('2019-03-20T00:00:00.012345Z', 'now');
         $command1->setHeureCommande($dateCommand1)
             ->setStatus('Prise en charge')
             ->setUtilisateur($user)
             ->setRestaurant($restoChinois)
-            ->addPlat($plat1)
-            ->addPlat($plat1)
-            ->addPlat($plat2);
+            ->addCommandePlat($commandPlat1)
+            ->addCommandePlat($commandPlat2);
 
         $prixTotal = 0;
-        foreach ($command1->getPlats() as $plat)
-        {
-            $prixTotal += $plat->getPrice();
-        }
-        $prixTotal += 3;
+
 
         $command1->setTotalPrice($prixTotal);
 
