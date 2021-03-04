@@ -1,0 +1,26 @@
+Index: templates/acceuil_livreur/accueil.html.twig
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends 'base.html.twig' %}\r\n\r\n{% block title %}Hello AcceuilLivreurController!{% endblock %}\r\n\r\n{% block body %}\r\n\r\n    <div class=\"offset-2 col-8 mt-5\">\r\n        {% if livreur.typeVehicule is not null %}\r\n            <div class=\"card text-center\">\r\n                <div class=\"card-header\">\r\n                    {{ livreur.utilisateur.firstName }} {{ livreur.utilisateur.lastName }}\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <h5 class=\"card-title\">\r\n                        <a href=\"{{ path('change_disponibilite')}}\" class=\"btn btn-primary\">{{ livreur.isDisponible? 'Disponible' : 'Non Disponible' }}</a>\r\n                    </h5>\r\n\r\n                    <p class=\"card-text\">{{ livreur.description }}</p>\r\n                    <a href=\"{{ path('edit_livreur', {'id': livreur.id}) }}\" class=\"btn btn-primary\">Modifier votre\r\n                        compte</a>\r\n                </div>\r\n                <div class=\"card-footer text-muted\">\r\n                    <div class=\"d-flex justify-content-around\">\r\n                        <div>{{ livreur.typeVehicule }}</div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        {% else %}\r\n            <a href=\"{{ path('edit_livreur', {'id': livreur.id}) }}\" class=\"btn btn-primary\">Modifier votre\r\n                compte</a>\r\n        {% endif %}\r\n    </div>\r\n\r\n{% endblock %}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/acceuil_livreur/accueil.html.twig b/templates/acceuil_livreur/accueil.html.twig
+--- a/templates/acceuil_livreur/accueil.html.twig	(revision 0d8406de3049887bffff3c98247f5f2157ee88ce)
++++ b/templates/acceuil_livreur/accueil.html.twig	(date 1614866762827)
+@@ -1,6 +1,6 @@
+ {% extends 'base.html.twig' %}
+ 
+-{% block title %}Hello AcceuilLivreurController!{% endblock %}
++{% block title %}Accueil Livreur{% endblock %}
+ 
+ {% block body %}
+ 
+@@ -12,6 +12,7 @@
+                 </div>
+                 <div class="card-body">
+                     <h5 class="card-title">
++
+                         <a href="{{ path('change_disponibilite')}}" class="btn btn-primary">{{ livreur.isDisponible? 'Disponible' : 'Non Disponible' }}</a>
+                     </h5>
+ 
