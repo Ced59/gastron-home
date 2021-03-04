@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilClientController!{% endblock %}
+{% block title %} Bonjour, {{ app.user.firstName }} ! {% endblock %}
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('navbarLeft') }}
