@@ -32,6 +32,7 @@ class CommandePlat
      */
     private $quantite;
 
+
     public function getId(): ?int
     {
         return $this->id;
