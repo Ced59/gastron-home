@@ -33,7 +33,7 @@ class AcceuilLivreurController extends AbstractController
     {
         $user = $this->getUser()->getLivreur()->getId();
         $repo = $this->getDoctrine()->getRepository(Livraison::class);
-        $livraison = $repo->findBy(['livreur' => $user, 'status' => 'Prise en charge livreur']);
+        $livraison = $repo->findBy(['livreur' => $user]);
 
         return $this->render('acceuil_livreur/index.html.twig', [
             'controller_name' => 'AcceuilLivreurController',
@@ -51,6 +51,23 @@ class AcceuilLivreurController extends AbstractController
         $livraison->setStatus('Livré');
         $livraison->setDateLivraison(new \DateTime());
         $livraison->getCommande()->setStatus("Livré");
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($livraison);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('livreur_commande');
+    }
+
+    /**
+     * @Route("/prise/{id}", name="take_commande")
+     */
+    public function takeComand(int $id): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Livraison::class);
+        $livraison = $repository->find($id);
+        $livraison->setStatus('Prise en charge');
+        $livraison->getCommande()->setStatus("Prise en charge");
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($livraison);

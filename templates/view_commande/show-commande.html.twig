@@ -18,13 +18,13 @@
                 {% if commande.status == 'Attente' %}
 
                     <div class="text-center">
-                        <a href="" class="btn btn-primary text-center">Accepter</a>
+                        <a href="{{ path('accept_command', {'id': commande.id}) }}" class="btn btn-primary text-center">Accepter</a>
                     </div>
 
                     {% elseif commande.status == 'Acceptée' %}
 
                         <div class="text-center">
-                            <a href="" class="btn btn-primary text-center">Afficher comme prête</a>
+                            <a href="{{ path('ready_command', {'id': commande.id}) }}" class="btn btn-primary text-center">Afficher comme prête</a>
                         </div>
 
                 {% endif %}

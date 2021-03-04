@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Entity\Livraison;
+use App\Entity\Livreur;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -129,6 +131,75 @@ class ViewCommandeController extends AbstractController
             'plats' => $plats,
             'title' => 'Détail de la commande'
         ]);
+    }
+
+    /**
+     * @Route("/restaurant/commandes/{id}/accept", name="accept_command")
+     */
+    public function acceptCommand(int $id): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Commande::class);
+        $commande = $repo->find($id);
+
+        $commande->setStatus('Acceptée');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($commande);
+        $entityManager->flush();
+
+        $adresseLivraison = $commande->getUtilisateur()->getAdress();
+        $cpLivraison = $commande->getUtilisateur()->getVille()->getCodePostal();
+        $villeLivraison = $commande->getUtilisateur()->getVille();
+
+        $finalAdress = $adresseLivraison." ".$cpLivraison." ".$villeLivraison;
+
+        $idSecteur = $this->getUser()->getVille()->getSecteur()->getId();
+
+        $repoLivreur = $this->getDoctrine()->getRepository(Livreur::class);
+        $livreurs = $repoLivreur->findByDispoAndSecteur($idSecteur);
+
+        $idLivreur = array_rand($livreurs);
+
+        $livreurs[$idLivreur]->setIsDisponible(false);
+
+        $livraison = new Livraison();
+        $livraison->setStatus("Acceptée");
+        $livraison->setCommande($commande);
+        $livraison->setLivreur($livreurs[$idLivreur]);
+        $livraison->setAdresseLivraison($finalAdress);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($livraison);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('view_commandes_attente');
+    }
+
+    /**
+     * @Route("/restaurant/commandes/{id}/ready", name="ready_command")
+     */
+    public function readyCommand(int $id): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Commande::class);
+        $commande = $repo->find($id);
+
+        $commande->setStatus('Prête');
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($commande);
+        $entityManager->flush();
+
+        $idLivraison = $commande->getLivraison()->getId();
+        $repoLivraison = $this->getDoctrine()->getRepository(Livraison::class);
+        $livraison = $repoLivraison->find($idLivraison) ;
+        $livraison->setStatus("Prête");
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($livraison);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('view_commandes_acceptee');
     }
 
 }

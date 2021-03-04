@@ -19,22 +19,26 @@ class LivreurRepository extends ServiceEntityRepository
         parent::__construct($registry, Livreur::class);
     }
 
-    // /**
-    //  * @return Livreur[] Returns an array of Livreur objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param $idSecteur
+     * @return Livreur[] Returns an array of Livreur objects
+     */
+
+    public function findByDispoAndSecteur($idSecteur)
     {
         return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
+            ->join('l.utilisateur', 'u')
+            ->join('u.ville', 'v')
+            ->join('v.Secteur', 's')
+            ->andWhere('s.id = :val')
+            ->andWhere('l.isDisponible = :bool')
+            ->setParameter('bool', true)
+            ->setParameter('val', $idSecteur)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Livreur

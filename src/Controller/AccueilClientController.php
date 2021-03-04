@@ -53,6 +53,10 @@ class AccueilClientController extends AbstractController
         $user = $this->getUser()->getAdress();
         $idSecteur = $this->getUser()->getVille()->getSecteur()->getId();
 
+        $userId = $this->getUser()->getId();
+        $commande = $this->getDoctrine()->getRepository(Commande::class);
+        $commandeUser = $commande->findBy(['utilisateur'=> $userId]);
+
         $categorieRestaurants = $this->getDoctrine()->getRepository(CategorieRestaurant::class)
             ->findAll();
 
@@ -61,6 +65,7 @@ class AccueilClientController extends AbstractController
 
         return $this->render('accueil_client/index.html.twig',
             [
+                'commandUser' => $commandeUser,
                 'user' => $user,
                 'categorieRestaurants' => $categorieRestaurants,
                 'restaurants' => $restaurant,
