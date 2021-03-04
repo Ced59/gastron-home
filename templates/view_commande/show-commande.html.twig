@@ -14,13 +14,22 @@
             </h5>
 
 
-            <p class="card-text text-center">Nombre de plat : {{ commande.plats | length }}</p>
             <p class="card-text">Liste des plats</p>
             <p class="card-text">
-                {% for plat in commande.plats %}
-                    <p>{{ plat.name }}</p>
-                {% endfor %}
+                {% for command in commande.commandePlats %}
 
+                <div class="card col-3 mt-4">
+                    <img class="card-img-top" src="{{ asset('img/plat/' ~  command.plats.imageFilePlat) }}"
+                         alt="image">
+
+                    <p>  {{ command.plats.name }} </p>
+
+                </div>
+
+            {% endfor %}
+
+
+            </p>
         </div>
     </div>
 {% endblock %}

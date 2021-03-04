@@ -18,6 +18,7 @@ class Plats1Type extends AbstractType
             ->add('price')
             ->add('qte')
             ->add('categoriePlats')
+            ->add('description')
             ->add('image', FileType::class, [
                 'label' => 'Image de plat',
                 'mapped' => false,

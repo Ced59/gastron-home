@@ -15,7 +15,7 @@
                         <a href="{{ path('change_disponibilite')}}" class="btn btn-primary">{{ livreur.isDisponible? 'Disponible' : 'Non Disponible' }}</a>
                     </h5>
 
-                    <p class="card-text">Text description</p>
+                    <p class="card-text">{{ livreur.description }}</p>
                     <a href="{{ path('edit_livreur', {'id': livreur.id}) }}" class="btn btn-primary">Modifier votre
                         compte</a>
                 </div>

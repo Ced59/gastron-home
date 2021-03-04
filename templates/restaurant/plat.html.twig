@@ -10,6 +10,7 @@
             <thead>
             <tr>
                 <th>Nom du plat</th>
+                <th>Description du plat</th>
                 <th>Prix du plat</th>
                 <th>Catégorie du plat</th>
                 <th></th>
@@ -19,6 +20,7 @@
             {% for plat in plats %}
                 <tr>
                     <td>{{ plat.name }}</td>
+                    <td>{{ plat.description }}</td>
                     <td>{{ plat.price | format_currency('EUR') }}</td>
                     <td>{{ plat.categoriePlats }}</td>
                     <td>

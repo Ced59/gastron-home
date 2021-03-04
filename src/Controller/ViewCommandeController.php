@@ -122,9 +122,11 @@ class ViewCommandeController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository(Commande::class);
         $commande = $repository->find($id);
+        $plats = $commande->getCommandePlats();
 
         return $this->render('view_commande/show-commande.html.twig', [
             'commande' => $commande,
+            'plats' => $plats,
             'title' => 'Détail de la commande'
         ]);
     }
