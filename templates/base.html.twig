@@ -6,8 +6,9 @@
     {{ encore_entry_link_tags('app') }}
     {{ encore_entry_link_tags('accueil') }}
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
     {% endblock %}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -104,7 +105,9 @@
             {% if app.user %}
                 {% if is_granted('ROLE_CLIENT') %}
                     <li class="nav-item">
-                        <a class=" btn btn-primary mr-4" href="{{ path('panier') }}">Panier <i class="bi bi-cart"></i></a>
+                        <a class=" btn btn-primary mr-4" href="{{ path('panier') }}">Panier
+                            <i class="bi bi-cart"></i>
+                        </a>
                     </li>
                 {% endif %}
                 <li class="nav-item">

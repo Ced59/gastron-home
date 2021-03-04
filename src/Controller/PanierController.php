@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
+use App\Entity\CommandePlat;
 use App\Repository\PlatsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +35,9 @@ class PanierController extends AbstractController
         }
 
         $total = 0 ;
+
         $fraisLivraisons = 3;
+
         foreach ($panierData as $item){
             $totalItem = $item['plat']->getPrice() * $item['quantity'];
             $total += $totalItem;
@@ -94,5 +98,61 @@ class PanierController extends AbstractController
         $session->set('panier', $panier);
 
         return $this->redirectToRoute('panier');
+    }
+
+    /**
+     * @Route("/panier/validate", name="panier_validate")
+     * @param SessionInterface $session
+     * @param PlatsRepository $platsRepository
+     * @return Response
+     * @throws \Exception
+     */
+    public function sendCommande(SessionInterface $session, PlatsRepository $platsRepository): Response
+    {
+
+        $panier = $session->get('panier', []);
+
+        foreach ($panier as $id => $quantity){
+            $panierData[]=[
+                'plat' => $platsRepository->find($id),
+                'quantity' => $quantity
+            ];
+        }
+
+        $total = 0 ;
+
+        $fraisLivraisons = 3;
+
+        foreach ($panierData as $item){
+            $totalItem = $item['plat']->getPrice() * $item['quantity'];
+            $total += $totalItem;
+        }
+
+        $total += $fraisLivraisons;
+
+        $commande = new Commande();
+        $commande->setHeureCommande(new \DateTime());
+        $commande->setRestaurant($panierData[0]['plat']->getRestaurant());
+        $commande->setStatus('Attente');
+        $commande->setUtilisateur($this->getUser());
+        $commande->setTotalPrice($total);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($commande);
+        $entityManager->flush();
+
+
+        foreach ($panierData as $item){
+            $commandePlat = new CommandePlat();
+            $commandePlat->setCommande($commande);
+            $commandePlat->setPlats($item['plat']);
+            $commandePlat->setQuantite($item['quantity']);
+            $entityManager->persist($commandePlat);
+            $entityManager->flush();
+        }
+
+        $session->clear();
+
+        return $this->redirectToRoute('client');
+
     }
 }

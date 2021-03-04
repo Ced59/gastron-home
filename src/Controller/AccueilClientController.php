@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\CategorieRestaurant;
+use App\Entity\Commande;
 use App\Entity\Plats;
 use App\Entity\Restaurant;
 use App\Form\RestaurantType;
@@ -23,7 +24,11 @@ class AccueilClientController extends AbstractController
     {
 
         $user = $this->getUser()->getAdress();
+        $userId = $this->getUser()->getId();
         $idSecteur = $this->getUser()->getVille()->getSecteur()->getId();
+
+        $commande = $this->getDoctrine()->getRepository(Commande::class);
+        $commandeUser = $commande->findBy(['utilisateur'=> $userId]);
 
         $categorieRestaurants = $this->getDoctrine()->getRepository(CategorieRestaurant::class)
             ->findAll();
@@ -32,6 +37,7 @@ class AccueilClientController extends AbstractController
 
         return $this->render('accueil_client/index.html.twig',
             [
+                'commandUser' => $commandeUser,
                 'user' => $user,
                 'categorieRestaurants' => $categorieRestaurants,
                 'restaurants' => $restaurant,
