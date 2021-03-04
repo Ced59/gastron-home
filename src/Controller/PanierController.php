@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commande;
 use App\Entity\CommandePlat;
+use App\Entity\Livreur;
 use App\Repository\PlatsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,8 +48,16 @@ class PanierController extends AbstractController
 
         $total += $fraisLivraisons;
 
+        $idSecteur = $this->getUser()->getVille()->getSecteur()->getId();
+
+        $repoLivreur = $this->getDoctrine()->getRepository(Livreur::class);
+        $livreurs = $repoLivreur->findByDispoAndSecteur($idSecteur);
+
+        $idLivreur = array_rand($livreurs);
+
         return $this->render('panier/index.html.twig', [
             'controller_name' => 'PanierController',
+            'livreurs' => $livreurs[$idLivreur],
             'items' => $panierData,
             'total' => $total,
             'sousTotal' => $sousTotal,
