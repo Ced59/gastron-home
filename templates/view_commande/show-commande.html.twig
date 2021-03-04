@@ -24,7 +24,7 @@
                     {% elseif commande.status == 'Acceptée' %}
 
                         <div class="text-center">
-                            <a href="{{ path('ready_command', {'id': commande.id}) }}" class="btn btn-primary text-center {{ if livreurs is empty? 'disabled' : '' }}">Afficher comme prête</a>
+                            <a href="{{ path('ready_command', {'id': commande.id}) }}" class="btn btn-primary text-center {{ livreurs is empty? 'disabled' : '' }}">Afficher comme prête</a>
                         </div>
 
                 {% endif %}

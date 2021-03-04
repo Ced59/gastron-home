@@ -53,11 +53,16 @@ class PanierController extends AbstractController
         $repoLivreur = $this->getDoctrine()->getRepository(Livreur::class);
         $livreurs = $repoLivreur->findByDispoAndSecteur($idSecteur);
 
+        if (!empty($livreurs)){
         $idLivreur = array_rand($livreurs);
+        $livreur = $livreurs[$idLivreur];
+        } else {
+            $livreur = [];
+        }
 
         return $this->render('panier/index.html.twig', [
             'controller_name' => 'PanierController',
-            'livreurs' => $livreurs[$idLivreur],
+            'livreurs' => $livreur,
             'items' => $panierData,
             'total' => $total,
             'sousTotal' => $sousTotal,
