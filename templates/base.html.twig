@@ -43,6 +43,9 @@
             </li>
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ path('admin') }}">Administrateur</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ path('categorie_plats_index') }}">Gérer les catégories de plats</a>
                 </li>
                 <li class="nav-item">
