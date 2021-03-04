@@ -50,7 +50,7 @@
             </tfoot>
         </table>
         <div class="d-flex justify-content-end mr-2 mt-5">
-            <a href="{{ path('panier_validate') }}" class="btn btn-success {{ livreurs is empty? 'disabled' : '' }}">Valider la commande</a>
+            <a href="{{ path('panier_validate') }}" class="btn btn-success {{ livreurs is empty? 'disabled' : '' }}">{{ livreurs is empty? 'Pas de livreur disponible' : 'Valider la commande' }}</a>
         </div>
 
     {% else %}

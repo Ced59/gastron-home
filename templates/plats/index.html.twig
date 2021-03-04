@@ -1,50 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Plats index{% endblock %}
+{% block title %}Voici la liste de vos plats{% endblock %}
 
 {% block body %}
 
     {% if app.user.restaurant.companyName != null %}
-    <div class="offset-2 col-8">
-        <h1 class="text-center">Plats index</h1>
-        <table class="table table-hover text-center">
-            <thead>
-            <tr>
-                <th>Image</th>
-                <th>Nom du plat</th>
-                <th>Prix</th>
-                <th>Quantité</th>
-                <th>Voir le plat</th>
-                <th>Modifier le plat</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for plat in plats %}
-                <tr>
-                   <td><img src="{{ asset('img/plat/' ~ plat.imageFilePlat) }}" style="max-width: 60px"> </td>
-                    <td>{{ plat.name }}</td>
-                    <td>{{ plat.price | format_currency('EUR') }}</td>
-                    <td>{{ plat.qte }}</td>
-                    <td>
-                        <a href="{{ path('plats_show', {'id': plat.id}) }}" class="btn btn-info">Voir</a>
-                    </td>
-                    <td>
-                        <a href="{{ path('plats_edit', {'id': plat.id}) }}" class="btn btn-success">Modifier</a>
-                    </td>
-                </tr>
+        <div class="offset-2 col-8">
+            <h1 class="text-center">Voici la liste de vos plats</h1>
+            {% if plats is not empty %}
+
+                <table class="table table-hover text-center">
+                    <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Nom du plat</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Voir le plat</th>
+                        <th>Modifier le plat</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for plat in plats %}
+                        <tr>
+                            <td><img src="{{ asset('img/plat/' ~ plat.imageFilePlat) }}" style="max-width: 60px"></td>
+                            <td>{{ plat.name }}</td>
+                            <td>{{ plat.price | format_currency('EUR') }}</td>
+                            <td>{{ plat.qte }}</td>
+                            <td>
+                                <a href="{{ path('plats_show', {'id': plat.id}) }}" class="btn btn-info">Voir</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('plats_edit', {'id': plat.id}) }}" class="btn btn-success">Modifier</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
             {% else %}
-                <tr>
-                    <td colspan="5"><h3>Aucun Plat trouvé, veuillez en ajouter</h3></td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <div class="d-flex justify-content-end">
-            <a href="{{ path('plats_new') }}" class="btn btn-primary">Ajouter un plat</a>
+                <h3 class="text-center mt-5">Aucun Plat trouvé, veuillez en ajouter</h3>
+
+                <div class="d-flex justify-content-end mt-3">
+                    <a href="{{ path('plats_new') }}" class="btn btn-primary">Ajouter un plat</a>
+                </div>
+            {% endif %}
         </div>
-    </div>
     {% else %}
         <h1 class="text-center">Veuillez finaliser votre inscription avant de gérer vos plats!</h1>
-        <a href="{{ path('restaurant') }}" class="btn btn-primary d-flex justify-content-center ml-5 mr-5 mt-5">Retour</a>
+        <a href="{{ path('restaurant') }}"
+           class="btn btn-primary d-flex justify-content-center ml-5 mr-5 mt-5">Retour</a>
     {% endif %}
 {% endblock %}
