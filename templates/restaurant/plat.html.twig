@@ -6,6 +6,7 @@
 {% block body %}
     <div class="offset-2 col-8 mt-5">
         <h2 class="text-center"> Menus </h2>
+        {% if plats is not empty %}
         <table class="table table-hover mt-5">
             <thead>
             <tr>
@@ -37,5 +38,8 @@
             {% endfor %}
             </tbody>
         </table>
+            {% else %}
+            <h3 class="text-center mt-5">Désolé il n'y a plus de menu disponible dans ce restaurant...</h3>
+        {% endif %}
     </div>
 {% endblock %}

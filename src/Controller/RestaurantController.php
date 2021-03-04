@@ -36,11 +36,10 @@ class RestaurantController extends AbstractController
 
             $imageFile = $form->get('imageResto')->getData();
 
-            if($imageFile)
-            {
+            if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
                 try {
                     $imageFile->move(
                         $this->getParameter('restaurant_directory'),
@@ -53,16 +52,11 @@ class RestaurantController extends AbstractController
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
                 $restaurant->setImageFileRestaurant($newFilename);
+            } else {
+                if ($restaurant->getImageFileRestaurant() == 'restaurant-default.jpg') {
+                    $restaurant->setImageFileRestaurant('restaurant-default.jpg');
+                }
             }
-            else
-            {
-                $restaurant->setImageFileRestaurant('restaurant-default.jpg');
-            }
-//            $datacate = $form->get('categorieRestaurants')->getData();
-//
-//            dd($datacate);
-//
-//            $categorieRepo = $this->getDoctrine()->getRepository(CategorieRestaurant::class);
 
             $this->getDoctrine()->getManager()->flush();
 

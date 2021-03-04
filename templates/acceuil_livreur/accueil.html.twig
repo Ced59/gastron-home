@@ -11,9 +11,18 @@
                     {{ livreur.utilisateur.firstName }} {{ livreur.utilisateur.lastName }}
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{{ path('change_disponibilite')}}" class="btn btn-primary">{{ livreur.isDisponible? 'Disponible' : 'Non Disponible' }}</a>
-                    </h5>
+                    {% if livreur.livraisons is not empty %}
+                    {% set livraisons = livreur.livraisons | last %}
+                        <h5 class="card-title">
+                            <a href="{{ path('change_disponibilite') }}"
+                               class="btn btn-primary {{ livraisons.status == 'Livré'? '':'disabled' }}">{{ livreur.isDisponible? 'Disponible' : 'Non Disponible' }}</a>
+                        </h5>
+                        {% elseif livreur.livraisons is empty %}
+                            <h5 class="card-title">
+                                <a href="{{ path('change_disponibilite') }}"
+                                   class="btn btn-primary">{{ livreur.isDisponible? 'Disponible' : 'Non Disponible' }}</a>
+                            </h5>
+                    {% endif %}
 
                     <p class="card-text">{{ livreur.description }}</p>
                     <a href="{{ path('edit_livreur', {'id': livreur.id}) }}" class="btn btn-primary">Modifier votre
@@ -26,8 +35,16 @@
                 </div>
             </div>
         {% else %}
-            <a href="{{ path('edit_livreur', {'id': livreur.id}) }}" class="btn btn-primary">Modifier votre
-                compte</a>
+            <div class="card text-center">
+                <div class="card-header">
+                    {{ livreur.utilisateur.firstName }} {{ livreur.utilisateur.lastName }}
+                </div>
+                <div class="card-body">
+                    <a href="{{ path('edit_livreur', {'id': livreur.id}) }}" class="btn btn-primary">Modifier votre
+                        compte</a>
+                </div>
+            </div>
+
         {% endif %}
     </div>
 
