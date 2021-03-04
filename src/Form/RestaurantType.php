@@ -6,7 +6,6 @@ use App\Entity\CategorieRestaurant;
 use App\Entity\Restaurant;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,13 +17,13 @@ class RestaurantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('companyName')
+            ->add('companyName', TextType::class, ['label'=>'Nom de l\'entreprise'])
             ->add('categorieRestaurants', EntityType::class, [
                 'class' => CategorieRestaurant::class,
                 'by_reference' => false,
                 'multiple' => true
             ])
-            ->add('description')
+            ->add('description', TextType::class, ['label'=>'Description'])
             ->add('imageResto', FileType::class, [
                 'label' => 'Image de Restaurant',
                 'mapped' => false,
