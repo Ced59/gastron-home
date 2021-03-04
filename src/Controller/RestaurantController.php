@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CategorieRestaurant;
 use App\Entity\Restaurant;
 use App\Form\RestaurantType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,7 +58,11 @@ class RestaurantController extends AbstractController
             {
                 $restaurant->setImageFileRestaurant('restaurant-default.jpg');
             }
-
+//            $datacate = $form->get('categorieRestaurants')->getData();
+//
+//            dd($datacate);
+//
+//            $categorieRepo = $this->getDoctrine()->getRepository(CategorieRestaurant::class);
 
             $this->getDoctrine()->getManager()->flush();
 

@@ -35,7 +35,7 @@ class Restaurant
     private $utilisateur;
 
     /**
-     * @ORM\ManyToMany(targetEntity=CategorieRestaurant::class, mappedBy="restaurant")
+     * @ORM\ManyToMany(targetEntity=CategorieRestaurant::class, mappedBy="restaurant", cascade={"persist"})
      * @ORM\JoinTable(name="categorie_restaurant_restaurant",
      *      joinColumns={@ORM\JoinColumn(name="restaurant_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="categorie_restaurant_id", referencedColumnName="id")}
