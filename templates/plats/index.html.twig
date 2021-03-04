@@ -15,7 +15,7 @@
                 <th>Prix</th>
                 <th>Quantité</th>
                 <th>Voir le plat</th>
-                <th>Editer le plat</th>
+                <th>Modifier le plat</th>
             </tr>
             </thead>
             <tbody>
@@ -29,7 +29,7 @@
                         <a href="{{ path('plats_show', {'id': plat.id}) }}" class="btn btn-info">Voir</a>
                     </td>
                     <td>
-                        <a href="{{ path('plats_edit', {'id': plat.id}) }}" class="btn btn-success">Editer</a>
+                        <a href="{{ path('plats_edit', {'id': plat.id}) }}" class="btn btn-success">Modifier</a>
                     </td>
                 </tr>
             {% else %}
