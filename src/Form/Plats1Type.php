@@ -17,11 +17,26 @@ class Plats1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class,['label'=>'Nom du Plat'])
-            ->add('price',TextType::class,['label'=>'Prix'])
+            ->add('name', TextType::class,[
+                'label'=>'Nom du Plat',
+                'attr'=>[
+                    'placeholder'=>'Entrez le nom du plat'
+                ]
+            ])
+            ->add('price',TextType::class,[
+                'label'=>'Prix',
+                'attr'=>[
+                    'placeholder'=>'Entrez le prix du plat'
+                ]
+            ])
             ->add('qte',IntegerType::class,['label'=>'Quantité'])
             ->add('categoriePlats')
-            ->add('description', TextType::class,['label'=>'Description'])
+            ->add('description', TextType::class,[
+                'label'=>'Description',
+                'attr'=>[
+                    'placeholder'=>'Entrez la description du plat'
+                ]
+                ])
             ->add('image', FileType::class, [
                 'label' => 'Image de plat',
                 'mapped' => false,
