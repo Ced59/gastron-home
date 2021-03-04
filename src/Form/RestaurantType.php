@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\CategorieRestaurant;
 use App\Entity\Restaurant;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -16,7 +18,11 @@ class RestaurantType extends AbstractType
     {
         $builder
             ->add('companyName')
-            ->add('categorieRestaurants')
+            ->add('categorieRestaurants', EntityType::class, [
+                'class' => CategorieRestaurant::class,
+                'by_reference' => false,
+                'multiple' => true
+            ])
             ->add('description')
             ->add('imageResto', FileType::class, [
                 'label' => 'Image de Restaurant',
