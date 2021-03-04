@@ -58,6 +58,11 @@ class Restaurant
      */
     private $image_file_restaurant;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->categorieRestaurants = new ArrayCollection();
@@ -199,6 +204,18 @@ class Restaurant
     public function setImageFileRestaurant(?string $image_file_restaurant): self
     {
         $this->image_file_restaurant = $image_file_restaurant;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

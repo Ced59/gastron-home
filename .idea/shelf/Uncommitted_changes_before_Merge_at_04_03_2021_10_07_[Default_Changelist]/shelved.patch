@@ -1,0 +1,223 @@
+Index: src/Entity/Plats.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Entity;\r\n\r\nuse App\\Repository\\PlatsRepository;\r\nuse Doctrine\\Common\\Collections\\ArrayCollection;\r\nuse Doctrine\\Common\\Collections\\Collection;\r\nuse Doctrine\\ORM\\Mapping as ORM;\r\n\r\n/**\r\n * @ORM\\Entity(repositoryClass=PlatsRepository::class)\r\n */\r\nclass Plats\r\n{\r\n    /**\r\n     * @ORM\\Id\r\n     * @ORM\\GeneratedValue\r\n     * @ORM\\Column(type=\"integer\")\r\n     */\r\n    private $id;\r\n\r\n    /**\r\n     * @ORM\\Column(type=\"string\", length=30)\r\n     */\r\n    private $name;\r\n\r\n    /**\r\n     * @ORM\\Column(type=\"float\")\r\n     */\r\n    private $price;\r\n\r\n    /**\r\n     * @ORM\\ManyToOne(targetEntity=CategoriePlats::class, inversedBy=\"plats\")\r\n     * @ORM\\JoinColumn(nullable=false)\r\n     */\r\n    private $categoriePlats;\r\n\r\n    /**\r\n     * @ORM\\ManyToOne(targetEntity=Restaurant::class, inversedBy=\"plats\")\r\n     * @ORM\\JoinColumn(nullable=true)\r\n     */\r\n    private $restaurant;\r\n\r\n    /**\r\n     * @ORM\\Column(type=\"integer\")\r\n     */\r\n    private $qte;\r\n\r\n    /**\r\n     * @ORM\\Column(type=\"string\", length=255, nullable=true)\r\n     */\r\n    private $image_file_plat;\r\n\r\n    /**\r\n     * @ORM\\OneToMany(targetEntity=CommandePlat::class, mappedBy=\"plats\")\r\n     */\r\n    private $commandePlats;\r\n\r\n    public function __construct()\r\n    {\r\n        $this->commande = new ArrayCollection();\r\n        $this->commandePlats = new ArrayCollection();\r\n    }\r\n\r\n    public function getId(): ?int\r\n    {\r\n        return $this->id;\r\n    }\r\n\r\n    public function getName(): ?string\r\n    {\r\n        return $this->name;\r\n    }\r\n\r\n    public function setName(string $name): self\r\n    {\r\n        $this->name = $name;\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function getPrice(): ?float\r\n    {\r\n        return $this->price;\r\n    }\r\n\r\n    public function setPrice(float $price): self\r\n    {\r\n        $this->price = $price;\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function getCategoriePlats(): ?CategoriePlats\r\n    {\r\n        return $this->categoriePlats;\r\n    }\r\n\r\n    public function setCategoriePlats(?CategoriePlats $categoriePlats): self\r\n    {\r\n        $this->categoriePlats = $categoriePlats;\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function getRestaurant(): ?Restaurant\r\n    {\r\n        return $this->restaurant;\r\n    }\r\n\r\n    public function setRestaurant(?Restaurant $restaurant): self\r\n    {\r\n        $this->restaurant = $restaurant;\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function getQte(): ?int\r\n    {\r\n        return $this->qte;\r\n    }\r\n\r\n    public function setQte(int $qte): self\r\n    {\r\n        $this->qte = $qte;\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function getImageFilePlat(): ?string\r\n    {\r\n        return $this->image_file_plat;\r\n    }\r\n\r\n    public function setImageFilePlat(?string $image_file_plat): self\r\n    {\r\n        $this->image_file_plat = $image_file_plat;\r\n\r\n        return $this;\r\n    }\r\n\r\n    /**\r\n     * @return Collection|CommandePlat[]\r\n     */\r\n    public function getCommandePlats(): Collection\r\n    {\r\n        return $this->commandePlats;\r\n    }\r\n\r\n    public function addCommandePlat(CommandePlat $commandePlat): self\r\n    {\r\n        if (!$this->commandePlats->contains($commandePlat)) {\r\n            $this->commandePlats[] = $commandePlat;\r\n            $commandePlat->setPlats($this);\r\n        }\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function removeCommandePlat(CommandePlat $commandePlat): self\r\n    {\r\n        if ($this->commandePlats->removeElement($commandePlat)) {\r\n            // set the owning side to null (unless already changed)\r\n            if ($commandePlat->getPlats() === $this) {\r\n                $commandePlat->setPlats(null);\r\n            }\r\n        }\r\n\r\n        return $this;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Entity/Plats.php b/src/Entity/Plats.php
+--- a/src/Entity/Plats.php	(revision 143151d19d947c5a1c38ca96024f01475c75e63d)
++++ b/src/Entity/Plats.php	(date 1614848776786)
+@@ -56,6 +56,11 @@
+      */
+     private $commandePlats;
+ 
++    /**
++     * @ORM\Column(type="string", length=255, nullable=true)
++     */
++    private $description;
++
+     public function __construct()
+     {
+         $this->commande = new ArrayCollection();
+@@ -166,6 +171,18 @@
+             }
+         }
+ 
++        return $this;
++    }
++
++    public function getDescription(): ?string
++    {
++        return $this->description;
++    }
++
++    public function setDescription(?string $description): self
++    {
++        $this->description = $description;
++
+         return $this;
+     }
+ }
+Index: src/Entity/Livreur.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Entity;\r\n\r\nuse App\\Repository\\LivreurRepository;\r\nuse Doctrine\\Common\\Collections\\ArrayCollection;\r\nuse Doctrine\\Common\\Collections\\Collection;\r\nuse Doctrine\\ORM\\Mapping as ORM;\r\n\r\n/**\r\n * @ORM\\Entity(repositoryClass=LivreurRepository::class)\r\n */\r\nclass Livreur\r\n{\r\n    /**\r\n     * @ORM\\Id\r\n     * @ORM\\GeneratedValue\r\n     * @ORM\\Column(type=\"integer\")\r\n     */\r\n    private $id;\r\n\r\n    /**\r\n     * @ORM\\Column(type=\"string\", length=15, nullable=true)\r\n     */\r\n    private $typeVehicule;\r\n\r\n    /**\r\n     * @ORM\\OneToOne(targetEntity=User::class, mappedBy=\"livreur\", cascade={\"persist\", \"remove\"})\r\n     */\r\n    private $utilisateur;\r\n\r\n    /**\r\n     * @ORM\\OneToMany(targetEntity=Livraison::class, mappedBy=\"livreur\")\r\n     */\r\n    private $livraisons;\r\n\r\n    /**\r\n     * @ORM\\Column(type=\"boolean\")\r\n     */\r\n    private $isDisponible;\r\n\r\n    public function __construct()\r\n    {\r\n        $this->livraisons = new ArrayCollection();\r\n    }\r\n\r\n    public function getId(): ?int\r\n    {\r\n        return $this->id;\r\n    }\r\n\r\n    public function getTypeVehicule(): ?string\r\n    {\r\n        return $this->typeVehicule;\r\n    }\r\n\r\n    public function setTypeVehicule(string $typeVehicule): self\r\n    {\r\n        $this->typeVehicule = $typeVehicule;\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function getUtilisateur(): ?User\r\n    {\r\n        return $this->utilisateur;\r\n    }\r\n\r\n    public function setUtilisateur(?User $utilisateur): self\r\n    {\r\n        // unset the owning side of the relation if necessary\r\n        if ($utilisateur === null && $this->utilisateur !== null) {\r\n            $this->utilisateur->setLivreur(null);\r\n        }\r\n\r\n        // set the owning side of the relation if necessary\r\n        if ($utilisateur !== null && $utilisateur->getLivreur() !== $this) {\r\n            $utilisateur->setLivreur($this);\r\n        }\r\n\r\n        $this->utilisateur = $utilisateur;\r\n\r\n        return $this;\r\n    }\r\n\r\n    /**\r\n     * @return Collection|Livraison[]\r\n     */\r\n    public function getLivraisons(): Collection\r\n    {\r\n        return $this->livraisons;\r\n    }\r\n\r\n    public function addLivraison(Livraison $livraison): self\r\n    {\r\n        if (!$this->livraisons->contains($livraison)) {\r\n            $this->livraisons[] = $livraison;\r\n            $livraison->setLivreur($this);\r\n        }\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function removeLivraison(Livraison $livraison): self\r\n    {\r\n        if ($this->livraisons->removeElement($livraison)) {\r\n            // set the owning side to null (unless already changed)\r\n            if ($livraison->getLivreur() === $this) {\r\n                $livraison->setLivreur(null);\r\n            }\r\n        }\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function getIsDisponible(): ?bool\r\n    {\r\n        return $this->isDisponible;\r\n    }\r\n\r\n    public function setIsDisponible(bool $isDisponible): self\r\n    {\r\n        $this->isDisponible = $isDisponible;\r\n\r\n        return $this;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Entity/Livreur.php b/src/Entity/Livreur.php
+--- a/src/Entity/Livreur.php	(revision 143151d19d947c5a1c38ca96024f01475c75e63d)
++++ b/src/Entity/Livreur.php	(date 1614848776803)
+@@ -39,6 +39,11 @@
+      */
+     private $isDisponible;
+ 
++    /**
++     * @ORM\Column(type="string", length=255, nullable=true)
++     */
++    private $description;
++
+     public function __construct()
+     {
+         $this->livraisons = new ArrayCollection();
+@@ -122,6 +127,18 @@
+     {
+         $this->isDisponible = $isDisponible;
+ 
++        return $this;
++    }
++
++    public function getDescription(): ?string
++    {
++        return $this->description;
++    }
++
++    public function setDescription(?string $description): self
++    {
++        $this->description = $description;
++
+         return $this;
+     }
+ }
+Index: .env
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># In all environments, the following files are loaded if they exist,\r\n# the latter taking precedence over the former:\r\n#\r\n#  * .env                contains default values for the environment variables needed by the app\r\n#  * .env.local          uncommitted file with local overrides\r\n#  * .env.$APP_ENV       committed environment-specific defaults\r\n#  * .env.$APP_ENV.local uncommitted environment-specific overrides\r\n#\r\n# Real environment variables win over .env files.\r\n#\r\n# DO NOT DEFINE PRODUCTION SECRETS IN THIS FILE NOR IN ANY OTHER COMMITTED FILES.\r\n#\r\n# Run \"composer dump-env prod\" to compile .env files for production use (requires symfony/flex >=1.2).\r\n# https://symfony.com/doc/current/best_practices.html#use-environment-variables-for-infrastructure-configuration\r\n\r\n###> symfony/framework-bundle ###\r\nAPP_ENV=dev\r\nAPP_SECRET=44c5717b8e2f84d9893d6753732fdabf\r\n###< symfony/framework-bundle ###\r\n\r\n###> symfony/mailer ###\r\n# MAILER_DSN=smtp://localhost\r\n###< symfony/mailer ###\r\n\r\n###> doctrine/doctrine-bundle ###\r\n# Format described at https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url\r\n# IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml\r\n#\r\n# DATABASE_URL=\"sqlite:///%kernel.project_dir%/var/data.db\"\r\nDATABASE_URL=\"mysql://root:password@127.0.0.1:3306/gastronhome\"\r\n# DATABASE_URL=\"postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8\"\r\n###< doctrine/doctrine-bundle ###\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.env b/.env
+--- a/.env	(revision 143151d19d947c5a1c38ca96024f01475c75e63d)
++++ b/.env	(date 1614848776821)
+@@ -27,6 +27,6 @@
+ # IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml
+ #
+ # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
+-DATABASE_URL="mysql://root:password@127.0.0.1:3306/gastronhome"
++DATABASE_URL="mysql://root:root@127.0.0.1:3306/gastronhome"
+ # DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
+ ###< doctrine/doctrine-bundle ###
+Index: src/Entity/Restaurant.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Entity;\r\n\r\nuse App\\Repository\\RestaurantRepository;\r\nuse Doctrine\\Common\\Collections\\ArrayCollection;\r\nuse Doctrine\\Common\\Collections\\Collection;\r\nuse Doctrine\\ORM\\Mapping as ORM;\r\n\r\n/**\r\n * @ORM\\Entity(repositoryClass=RestaurantRepository::class)\r\n */\r\nclass Restaurant\r\n{\r\n    public function __toString()\r\n    {\r\n        return $this->companyName;\r\n    }\r\n\r\n    /**\r\n     * @ORM\\Id\r\n     * @ORM\\GeneratedValue\r\n     * @ORM\\Column(type=\"integer\")\r\n     */\r\n    private $id;\r\n\r\n    /**\r\n     * @ORM\\Column(type=\"string\", length=255, nullable=true)\r\n     */\r\n    private $companyName;\r\n\r\n    /**\r\n     * @ORM\\OneToOne(targetEntity=User::class, mappedBy=\"restaurant\", cascade={\"persist\", \"remove\"})\r\n     */\r\n    private $utilisateur;\r\n\r\n    /**\r\n     * @ORM\\ManyToMany(targetEntity=CategorieRestaurant::class, mappedBy=\"restaurant\")\r\n     * @ORM\\JoinTable(name=\"categorie_restaurant_restaurant\",\r\n     *      joinColumns={@ORM\\JoinColumn(name=\"restaurant_id\", referencedColumnName=\"id\")},\r\n     *      inverseJoinColumns={@ORM\\JoinColumn(name=\"categorie_restaurant_id\", referencedColumnName=\"id\")}\r\n     *      )\r\n     */\r\n    private $categorieRestaurants;\r\n\r\n    /**\r\n     * @ORM\\OneToMany(targetEntity=Plats::class, mappedBy=\"restaurant\")\r\n     */\r\n    private $plats;\r\n\r\n    /**\r\n     * @ORM\\OneToMany(targetEntity=Commande::class, mappedBy=\"restaurant\")\r\n     */\r\n    private $commandes;\r\n\r\n    /**\r\n     * @ORM\\Column(type=\"string\", length=255, nullable=true)\r\n     */\r\n    private $image_file_restaurant;\r\n\r\n    public function __construct()\r\n    {\r\n        $this->categorieRestaurants = new ArrayCollection();\r\n        $this->plats = new ArrayCollection();\r\n        $this->commandes = new ArrayCollection();\r\n    }\r\n\r\n    public function getId(): ?int\r\n    {\r\n        return $this->id;\r\n    }\r\n\r\n    public function getCompanyName(): ?string\r\n    {\r\n        return $this->companyName;\r\n    }\r\n\r\n    public function setCompanyName(string $companyName): self\r\n    {\r\n        $this->companyName = $companyName;\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function getUtilisateur(): ?User\r\n    {\r\n        return $this->utilisateur;\r\n    }\r\n\r\n    public function setUtilisateur(?User $utilisateur): self\r\n    {\r\n        // unset the owning side of the relation if necessary\r\n        if ($utilisateur === null && $this->utilisateur !== null) {\r\n            $this->utilisateur->setRestaurant(null);\r\n        }\r\n\r\n        // set the owning side of the relation if necessary\r\n        if ($utilisateur !== null && $utilisateur->getRestaurant() !== $this) {\r\n            $utilisateur->setRestaurant($this);\r\n        }\r\n\r\n        $this->utilisateur = $utilisateur;\r\n\r\n        return $this;\r\n    }\r\n\r\n    /**\r\n     * @return Collection|CategorieRestaurant[]\r\n     */\r\n    public function getCategorieRestaurants(): Collection\r\n    {\r\n        return $this->categorieRestaurants;\r\n    }\r\n\r\n    public function addCategorieRestaurant(CategorieRestaurant $categorieRestaurant): self\r\n    {\r\n        if (!$this->categorieRestaurants->contains($categorieRestaurant)) {\r\n            $this->categorieRestaurants[] = $categorieRestaurant;\r\n            $categorieRestaurant->addRestaurant($this);\r\n        }\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function removeCategorieRestaurant(CategorieRestaurant $categorieRestaurant): self\r\n    {\r\n        if ($this->categorieRestaurants->removeElement($categorieRestaurant)) {\r\n            $categorieRestaurant->removeRestaurant($this);\r\n        }\r\n\r\n        return $this;\r\n    }\r\n\r\n    /**\r\n     * @return Collection|Plats[]\r\n     */\r\n    public function getPlats(): Collection\r\n    {\r\n        return $this->plats;\r\n    }\r\n\r\n    public function addPlat(Plats $plat): self\r\n    {\r\n        if (!$this->plats->contains($plat)) {\r\n            $this->plats[] = $plat;\r\n            $plat->setRestaurant($this);\r\n        }\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function removePlat(Plats $plat): self\r\n    {\r\n        if ($this->plats->removeElement($plat)) {\r\n            // set the owning side to null (unless already changed)\r\n            if ($plat->getRestaurant() === $this) {\r\n                $plat->setRestaurant(null);\r\n            }\r\n        }\r\n\r\n        return $this;\r\n    }\r\n\r\n    /**\r\n     * @return Collection|Commande[]\r\n     */\r\n    public function getCommandes(): Collection\r\n    {\r\n        return $this->commandes;\r\n    }\r\n\r\n    public function addCommande(Commande $commande): self\r\n    {\r\n        if (!$this->commandes->contains($commande)) {\r\n            $this->commandes[] = $commande;\r\n            $commande->setRestaurant($this);\r\n        }\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function removeCommande(Commande $commande): self\r\n    {\r\n        if ($this->commandes->removeElement($commande)) {\r\n            // set the owning side to null (unless already changed)\r\n            if ($commande->getRestaurant() === $this) {\r\n                $commande->setRestaurant(null);\r\n            }\r\n        }\r\n\r\n        return $this;\r\n    }\r\n\r\n    public function getImageFileRestaurant(): ?string\r\n    {\r\n        return $this->image_file_restaurant;\r\n    }\r\n\r\n    public function setImageFileRestaurant(?string $image_file_restaurant): self\r\n    {\r\n        $this->image_file_restaurant = $image_file_restaurant;\r\n\r\n        return $this;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Entity/Restaurant.php b/src/Entity/Restaurant.php
+--- a/src/Entity/Restaurant.php	(revision 143151d19d947c5a1c38ca96024f01475c75e63d)
++++ b/src/Entity/Restaurant.php	(date 1614848776905)
+@@ -58,6 +58,11 @@
+      */
+     private $image_file_restaurant;
+ 
++    /**
++     * @ORM\Column(type="string", length=255, nullable=true)
++     */
++    private $description;
++
+     public function __construct()
+     {
+         $this->categorieRestaurants = new ArrayCollection();
+@@ -200,6 +205,18 @@
+     {
+         $this->image_file_restaurant = $image_file_restaurant;
+ 
++        return $this;
++    }
++
++    public function getDescription(): ?string
++    {
++        return $this->description;
++    }
++
++    public function setDescription(?string $description): self
++    {
++        $this->description = $description;
++
+         return $this;
+     }
+ }
+Index: src/Form/RestaurantType.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Form;\r\n\r\nuse App\\Entity\\Restaurant;\r\nuse Symfony\\Component\\Form\\AbstractType;\r\nuse Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType;\r\nuse Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType;\r\nuse Symfony\\Component\\Form\\FormBuilderInterface;\r\nuse Symfony\\Component\\OptionsResolver\\OptionsResolver;\r\nuse Symfony\\Component\\Validator\\Constraints\\File;\r\n\r\nclass RestaurantType extends AbstractType\r\n{\r\n    public function buildForm(FormBuilderInterface $builder, array $options)\r\n    {\r\n        $builder\r\n            ->add('companyName')\r\n            ->add('categorieRestaurants')\r\n            ->add('imageResto', FileType::class, [\r\n                'label' => 'Image de Restaurant',\r\n                'mapped' => false,\r\n                'required' => false,\r\n                'constraints' => [\r\n                    new File([\r\n                        'maxSize' => '2048k',\r\n                        'mimeTypes' => [\r\n                            'image/jpeg',\r\n                            'image/png'\r\n                        ],\r\n                        'mimeTypesMessage' => 'Seulement des fichiers de type .jpg, .jpeg ou png 2MB max.'\r\n                    ])\r\n                ]\r\n            ])\r\n\r\n        ;\r\n    }\r\n\r\n    public function configureOptions(OptionsResolver $resolver)\r\n    {\r\n        $resolver->setDefaults([\r\n            'data_class' => Restaurant::class,\r\n        ]);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Form/RestaurantType.php b/src/Form/RestaurantType.php
+--- a/src/Form/RestaurantType.php	(revision 143151d19d947c5a1c38ca96024f01475c75e63d)
++++ b/src/Form/RestaurantType.php	(date 1614848776926)
+@@ -17,6 +17,7 @@
+         $builder
+             ->add('companyName')
+             ->add('categorieRestaurants')
++            ->add('description')
+             ->add('imageResto', FileType::class, [
+                 'label' => 'Image de Restaurant',
+                 'mapped' => false,
+Index: src/Form/Plats1Type.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Form;\r\n\r\nuse App\\Entity\\Plats;\r\nuse Symfony\\Component\\Form\\AbstractType;\r\nuse Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType;\r\nuse Symfony\\Component\\Form\\FormBuilderInterface;\r\nuse Symfony\\Component\\OptionsResolver\\OptionsResolver;\r\nuse Symfony\\Component\\Validator\\Constraints\\File;\r\n\r\nclass Plats1Type extends AbstractType\r\n{\r\n    public function buildForm(FormBuilderInterface $builder, array $options)\r\n    {\r\n        $builder\r\n            ->add('name')\r\n            ->add('price')\r\n            ->add('qte')\r\n            ->add('categoriePlats')\r\n            ->add('image', FileType::class, [\r\n                'label' => 'Image de plat',\r\n                'mapped' => false,\r\n                'required' => false,\r\n                'constraints' => [\r\n                    new File([\r\n                        'maxSize' => '2048k',\r\n                        'mimeTypes' => [\r\n                            'image/jpeg',\r\n                            'image/png'\r\n                        ],\r\n                        'mimeTypesMessage' => 'Seulement des fichiers de type .jpg, .jpeg ou png 2MB max.'\r\n                    ])\r\n                ]\r\n            ])\r\n        ;\r\n    }\r\n\r\n    public function configureOptions(OptionsResolver $resolver)\r\n    {\r\n        $resolver->setDefaults([\r\n            'data_class' => Plats::class,\r\n        ]);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Form/Plats1Type.php b/src/Form/Plats1Type.php
+--- a/src/Form/Plats1Type.php	(revision 143151d19d947c5a1c38ca96024f01475c75e63d)
++++ b/src/Form/Plats1Type.php	(date 1614848776948)
+@@ -18,6 +18,7 @@
+             ->add('price')
+             ->add('qte')
+             ->add('categoriePlats')
++            ->add('description')
+             ->add('image', FileType::class, [
+                 'label' => 'Image de plat',
+                 'mapped' => false,
+Index: templates/plats/_form.html.twig
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{{ form_start(form, {'attr':{'class':'form-group'}}) }}\r\n<div class=\"d-flex justify-content-around\">\r\n    <div class=\"col\">\r\n        {{ form_row(form.name, {'attr':{'class':'form-control'}}) }}\r\n    </div>\r\n    <div class=\"col\">\r\n        {{ form_row(form.price, {'attr':{'class':'form-control'}}) }}\r\n    </div>\r\n</div>\r\n<div class=\"d-flex justify-content-around\">\r\n    <div class=\"col\">\r\n        {{ form_row(form.qte, {'attr':{'class':'form-control'}}) }}\r\n    </div>\r\n    <div class=\"col\">\r\n        {{ form_row(form.categoriePlats, {'attr':{'class':'form-control'}}) }}\r\n    </div>\r\n</div>\r\n<div>\r\n    {{ form_row(form.image, {'attr':{'class':'form-control'}}) }}\r\n</div>\r\n<div class=\"d-flex justify-content-center\">\r\n    <button class=\"btn btn-primary mt-5\">{{ button_label|default('Mettre à jour') }}</button>\r\n</div>\r\n{{ form_end(form) }}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/plats/_form.html.twig b/templates/plats/_form.html.twig
+--- a/templates/plats/_form.html.twig	(revision 143151d19d947c5a1c38ca96024f01475c75e63d)
++++ b/templates/plats/_form.html.twig	(date 1614848776970)
+@@ -16,6 +16,9 @@
+     </div>
+ </div>
+ <div>
++    <div class="col">
++        {{ form_row(form.description, {'attr':{'class':'form-control'}}) }}
++    </div>
+     {{ form_row(form.image, {'attr':{'class':'form-control'}}) }}
+ </div>
+ <div class="d-flex justify-content-center">
+Index: src/Form/LivreurType.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\nnamespace App\\Form;\r\n\r\nuse App\\Entity\\Livreur;\r\nuse Symfony\\Component\\Form\\AbstractType;\r\nuse Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType;\r\nuse Symfony\\Component\\Form\\FormBuilderInterface;\r\nuse Symfony\\Component\\OptionsResolver\\OptionsResolver;\r\n\r\nclass LivreurType extends AbstractType\r\n{\r\n    public function buildForm(FormBuilderInterface $builder, array $options)\r\n    {\r\n        $builder\r\n            ->add('typeVehicule')\r\n            ->add('isDisponible', CheckboxType::class, [\r\n                'label'=> \"Êtes vous disponible ?\"\r\n            ])\r\n        ;\r\n    }\r\n\r\n    public function configureOptions(OptionsResolver $resolver)\r\n    {\r\n        $resolver->setDefaults([\r\n            'data_class' => Livreur::class,\r\n        ]);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Form/LivreurType.php b/src/Form/LivreurType.php
+--- a/src/Form/LivreurType.php	(revision 143151d19d947c5a1c38ca96024f01475c75e63d)
++++ b/src/Form/LivreurType.php	(date 1614848776991)
+@@ -7,6 +7,7 @@
+ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+ use Symfony\Component\Form\FormBuilderInterface;
+ use Symfony\Component\OptionsResolver\OptionsResolver;
++use function Sodium\add;
+ 
+ class LivreurType extends AbstractType
+ {
+@@ -14,6 +15,7 @@
+     {
+         $builder
+             ->add('typeVehicule')
++            ->add('description')
+             ->add('isDisponible', CheckboxType::class, [
+                 'label'=> "Êtes vous disponible ?"
+             ])

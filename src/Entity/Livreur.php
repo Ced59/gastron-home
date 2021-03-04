@@ -39,6 +39,11 @@ class Livreur
      */
     private $isDisponible;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->livraisons = new ArrayCollection();
@@ -121,6 +126,18 @@ class Livreur
     public function setIsDisponible(bool $isDisponible): self
     {
         $this->isDisponible = $isDisponible;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

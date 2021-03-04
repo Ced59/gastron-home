@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Sodium\add;
 
 class LivreurType extends AbstractType
 {
@@ -14,6 +15,7 @@ class LivreurType extends AbstractType
     {
         $builder
             ->add('typeVehicule')
+            ->add('description')
             ->add('isDisponible', CheckboxType::class, [
                 'label'=> "Êtes vous disponible ?"
             ])
