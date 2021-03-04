@@ -24,7 +24,14 @@
                     <td>{{ plat.price | format_currency('EUR') }}</td>
                     <td>{{ plat.categoriePlats }}</td>
                     <td>
-                        <a href="{{ path('panier_add', {'id':plat.id, 'idRestaurant':plat.restaurant.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+                        {% if app.session.get('panier')[plat.id] is defined %}
+                            {% if app.session.get('panier')[plat.id] == plat.qte %}
+                                {% set disabled = ' disabled' %}
+                            {% endif %}
+                        {% endif %}
+
+                        <a href="{{ path('panier_add', {'id':plat.id, 'idRestaurant':plat.restaurant.id}) }}"
+                           class="btn btn-primary {{ disabled | default('') }}">Ajouter au panier</a>
                     </td>
                 </tr>
             {% endfor %}
