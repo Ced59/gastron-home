@@ -40,11 +40,11 @@
                 </table>
             {% else %}
                 <h3 class="text-center mt-5">Aucun Plat trouvé, veuillez en ajouter</h3>
+            {% endif %}
 
                 <div class="d-flex justify-content-end mt-3">
                     <a href="{{ path('plats_new') }}" class="btn btn-primary">Ajouter un plat</a>
                 </div>
-            {% endif %}
         </div>
     {% else %}
         <h1 class="text-center">Veuillez finaliser votre inscription avant de gérer vos plats!</h1>
