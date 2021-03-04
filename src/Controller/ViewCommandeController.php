@@ -126,7 +126,15 @@ class ViewCommandeController extends AbstractController
         $commande = $repository->find($id);
         $plats = $commande->getCommandePlats();
 
+        $idSecteur = $this->getUser()->getVille()->getSecteur()->getId();
+
+        $repoLivreur = $this->getDoctrine()->getRepository(Livreur::class);
+        $livreurs = $repoLivreur->findByDispoAndSecteur($idSecteur);
+
+        $idLivreur = array_rand($livreurs);
+
         return $this->render('view_commande/show-commande.html.twig', [
+            'livreurs' => $livreurs[$idLivreur],
             'commande' => $commande,
             'plats' => $plats,
             'title' => 'Détail de la commande'
