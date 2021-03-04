@@ -3,19 +3,47 @@
 {% block title %} Bonjour, {{ app.user.firstName }} ! {% endblock %}
 
 {% block body %}
-    {#TODO: Faire la page d'accueil de l'administrateur#}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="offset-3 col-8 mt-4">
+        <div class="col-9">
+            <div class="card">
+                <img class="card-img-top"  src="{{ asset('img/resources/gestion-de-donnée.jpg') }}"
+                     alt="Commandes">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                <div class="card-body">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/BIENVENUE/PhpstormProjects/projet-mars-2021/src/Controller/AccueilAdminController.php'|file_link(0) }}">src/Controller/AccueilAdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/BIENVENUE/PhpstormProjects/projet-mars-2021/templates/accueil_admin/index.html.twig'|file_link(0) }}">templates/accueil_admin/index.html.twig</a></code></li>
-    </ul>
-</div>
+                    <h5 class="card-title text-center">
+                        Gestion des Données
+                    </h5>
+
+
+                    <div class="row mt-1">
+                        <p class="font-weight-bolder col-8">Gérer les catégories de plats : </p>
+                        <p class="col-1">  </p>
+                        <a href="{{ path('categorie_plats_index') }}" class="btn btn-primary col-1">Voir</a>
+                    </div>
+                    <div class="row mt-1">
+                        <p class="font-weight-bolder col-8">Gérer les catégories de restaurants : </p>
+                        <p class="col-1">  </p>
+                        <a href="{{ path('categorie_restaurant_index') }}" class="btn btn-primary col-1">Voir</a>
+                    </div>
+                    <div class="row mt-1">
+                        <p class="font-weight-bolder col-8">Gérer les secteurs : </p>
+                        <p class="col-1">  </p>
+                        <a href="{{ path('secteur_index') }}" class="btn btn-primary col-1">Voir</a>
+                    </div>
+                    <div class="row mt-1">
+                        <p class="font-weight-bolder col-8">Gérer les villes : </p>
+                        <p class="col-1">  </p>
+                        <a href="{{ path('ville_index') }}" class="btn btn-primary col-1">Voir</a>
+                    </div>
+                    <div class="row mt-1">
+                        <p class="font-weight-bolder col-8">Votre Profil : </p>
+                        <p class="col-1">  </p>
+                        <a href="{{ path('profil_page') }}" class="btn btn-primary col-1">Voir</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 {% endblock %}
