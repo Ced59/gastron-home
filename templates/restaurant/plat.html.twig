@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilClientController!{% endblock %}
+{% block title %}Menu{% endblock %}
 
 
 {% block body %}
@@ -10,6 +10,7 @@
         <table class="table table-hover mt-5">
             <thead>
             <tr>
+                <th>Image</th>
                 <th>Nom du plat</th>
                 <th>Description du plat</th>
                 <th>Prix du plat</th>
@@ -20,6 +21,7 @@
             <tbody>
             {% for plat in plats %}
                 <tr>
+                    <td>{{ plat.image_file_plat }}</td>
                     <td>{{ plat.name }}</td>
                     <td>{{ plat.description }}</td>
                     <td>{{ plat.price | format_currency('EUR') }}</td>
