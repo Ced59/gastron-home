@@ -1,40 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Secteur index{% endblock %}
+{% block title %}Liste des secteurs{% endblock %}
 
 {% block body %}
-<div class="offset-2 col-8">
-    <h1 class="text-center">Secteur index</h1>
-
-    <table class="table table-hover text-center">
-        <thead>
-        <tr>
-            <th>NomSecteur</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for secteur in secteurs %}
+<div class="offset-2 col-8 mt-5">
+    <h1 class="text-center">Liste des secteurs</h1>
+    {% if secteurs is not empty %}
+        <table class="table table-hover text-center mt-4">
+            <thead>
             <tr>
-                <td>{{ secteur.nomSecteur }}</td>
-                <td>
-                    <a href="{{ path('secteur_show', {'id': secteur.id}) }}" class="btn btn-info">Voir</a>
-
-                </td>
-                <td>
-                    <a href="{{ path('secteur_edit', {'id': secteur.id}) }}" class="btn btn-success">Modifier le secteur</a>
-                </td>
+                <th>Nom des secteurs</th>
+                <th></th>
+                <th></th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">Aucun secteur trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for secteur in secteurs %}
+                <tr>
+                    <td>{{ secteur.nomSecteur }}</td>
+                    <td>
+                        <a href="{{ path('secteur_show', {'id': secteur.id}) }}" class="btn btn-info">Voir</a>
 
-    <div class="d-flex justify-content-end">
+                    </td>
+                    <td>
+                        <a href="{{ path('secteur_edit', {'id': secteur.id}) }}" class="btn btn-success">Modifier le
+                            secteur</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+            <h3 class="text-center mt-3">Aucun secteur trouvé</h3>
+    {% endif %}
+    <div class="d-flex justify-content-end mt-4">
         <a href="{{ path('secteur_new') }}" class="btn btn-primary">Ajouter un secteur</a>
     </div>
     {% endblock %}
