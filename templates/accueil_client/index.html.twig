@@ -39,7 +39,7 @@
             </div>
         {% endif %}
         <h3 class="text-center mt-3"> Votre adresse : {{ app.user.adress }} {{ app.user.ville.nomVille }}</h3>
-        <div class="d-flex justify-content-around mt-5">
+        <div class="d-flex flex-wrap justify-content-around  mt-5">
             {% for restaurant in restaurants %}
                 {% set imagePath = 'img/restaurant/' ~ restaurant.imageFileRestaurant %}
 

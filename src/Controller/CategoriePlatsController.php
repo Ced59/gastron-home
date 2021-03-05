@@ -66,7 +66,7 @@ class CategoriePlatsController extends AbstractController
         $form = $this->createForm(CategoriePlatsType::class, $categoriePlat);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('categorie_plats_index');

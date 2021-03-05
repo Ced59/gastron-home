@@ -20,7 +20,7 @@ class ViewCommandeController extends AbstractController
     {
         $user = $this->getUser()->getRestaurant()->getId();
         $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commandes = $repo->findBy(['restaurant' => $user, "status" => "Attente"]);
+        $commandes = $repo->findBy(['restaurant' => $user, "status" => "Attente", 'order']);
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
