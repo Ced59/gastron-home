@@ -21,7 +21,7 @@
             <tbody>
             {% for plat in plats %}
                 <tr>
-                    <td>{{ plat.image_file_plat }}</td>
+                    <td><img src="{{ asset('img/plat/' ~ plat.imageFilePlat) }}" style="max-width: 60px"></td>
                     <td>{{ plat.name }}</td>
                     <td>{{ plat.description }}</td>
                     <td>{{ plat.price | format_currency('EUR') }}</td>
