@@ -1,14 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Ville{% endblock %}
+{% block title %}Ajouter une ville{% endblock %}
 
 {% block body %}
-<div class="offset-2 col-8">
-    <h1>Ajouter une ville</h1>
+<div class="offset-2 col-8 mt-5">
+    <h1 class="mb-3 text-center">Ajouter une ville</h1>
 
     {{ include('ville/_form.html.twig', {'button_label': 'Ajouter'}) }}
-    <div class="d-flex justify-content-center">
-        <a href="{{ path('ville_index') }}" class="btn btn-danger">Retour à la liste</a>
-    </div>
 </div>
 {% endblock %}

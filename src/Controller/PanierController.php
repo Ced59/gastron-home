@@ -44,9 +44,15 @@ class PanierController extends AbstractController
             $total += $totalItem;
         }
 
+        $tva = 10;
+
         $sousTotal = $total;
 
-        $total += $fraisLivraisons;
+        $totalTva = $total + ($total * $tva / 100);
+
+        $sousTotalTTC = $totalTva;
+
+        $totalTva += $fraisLivraisons;
 
         $idSecteur = $this->getUser()->getVille()->getSecteur()->getId();
 
@@ -62,11 +68,13 @@ class PanierController extends AbstractController
 
         return $this->render('panier/index.html.twig', [
             'controller_name' => 'PanierController',
+            'tva' => $tva,
             'livreurs' => $livreur,
             'items' => $panierData,
-            'total' => $total,
             'sousTotal' => $sousTotal,
-            'fraisLivraisons' => $fraisLivraisons
+            'fraisLivraisons' => $fraisLivraisons,
+            'totalTva' => $totalTva,
+            'sousTotalTTC' => $sousTotalTTC
         ]);
     }
 

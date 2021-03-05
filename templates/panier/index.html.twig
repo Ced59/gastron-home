@@ -38,13 +38,23 @@
                 <td></td>
             </tr>
             <tr>
+                <td colspan="3" class="text-right">TVA : </td>
+                <td>{{ tva }} %</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right">Sous Total TTC : </td>
+                <td>{{ sousTotalTTC | format_currency('EUR') }}</td>
+                <td></td>
+            </tr>
+            <tr>
                 <td colspan="3" class="text-right">Frais de livraison : </td>
                 <td>{{ fraisLivraisons | format_currency('EUR') }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td colspan="3" class="text-right">Total : </td>
-                <td>{{ total | format_currency('EUR') }}</td>
+                <td>{{ totalTva | format_currency('EUR') }}</td>
                 <td></td>
             </tr>
             </tfoot>
