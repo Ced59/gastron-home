@@ -18,7 +18,7 @@
                 {% if commande.status == 'Attente' %}
 
                     <div class="text-center">
-                        <a href="{{ path('accept_command', {'id': commande.id}) }}" class="btn btn-primary text-center  {{ livreurs is empty? 'disabled' : '' }}">Accepter</a>
+                        <a href="{{ path('accept_command', {'id': commande.id}) }}" class="btn btn-primary text-center  {{ livreurs is empty? 'disabled' : '' }}">{{ livreurs is empty? 'Pas de livreur disponible' : 'Accepter' }}</a>
                     </div>
 
                     {% elseif commande.status == 'Acceptée' %}

@@ -29,7 +29,12 @@ class Plats1Type extends AbstractType
                     'placeholder'=>'Entrez le prix du plat'
                 ]
             ])
-            ->add('qte',IntegerType::class,['label'=>'Quantité'])
+            ->add('qte',IntegerType::class,[
+                'label'=>'Quantité',
+                'attr'=>[
+                    'min'=> 0
+                ]
+                ])
             ->add('categoriePlats')
             ->add('description', TextType::class,[
                 'label'=>'Description',
