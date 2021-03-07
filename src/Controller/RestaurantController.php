@@ -32,7 +32,7 @@ class RestaurantController extends AbstractController
 
         $user = $this->getUser();
 
-        if ($user->getRestaurant()->getId() != $request->query->get('id'))
+        if (strval($user->getRestaurant()->getId()) != $request->query->get('id'))
         {
             return $this->redirectToRoute('anti_rageux');
         }
