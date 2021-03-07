@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Cart;
+namespace App\Service\Panier;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 

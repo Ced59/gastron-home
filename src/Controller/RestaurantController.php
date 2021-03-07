@@ -30,6 +30,13 @@ class RestaurantController extends AbstractController
         $form = $this->createForm(RestaurantType::class, $restaurant);
         $form->handleRequest($request);
 
+        $user = $this->getUser();
+
+        if ($user->getRestaurant()->getId() != $request->query->get('id'))
+        {
+            return $this->redirectToRoute('anti_rageux');
+        }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
