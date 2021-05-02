@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commande;
 use App\Entity\CommandePlat;
+use App\Entity\Livreur;
 use App\Repository\PlatsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,32 +28,53 @@ class PanierController extends AbstractController
 
         $panierData = [];
 
-        foreach ($panier as $id => $quantity){
-            $panierData[]=[
+        foreach ($panier as $id => $quantity) {
+            $panierData[] = [
                 'plat' => $platsRepository->find($id),
                 'quantity' => $quantity
             ];
         }
 
-        $total = 0 ;
+        $total = 0;
 
         $fraisLivraisons = 3;
 
-        foreach ($panierData as $item){
+        foreach ($panierData as $item) {
             $totalItem = $item['plat']->getPrice() * $item['quantity'];
             $total += $totalItem;
         }
 
+        $tva = 10;
+
         $sousTotal = $total;
 
-        $total += $fraisLivraisons;
+        $totalTva = $total + ($total * $tva / 100);
+
+        $sousTotalTTC = $totalTva;
+
+        $totalTva += $fraisLivraisons;
+
+        $idSecteur = $this->getUser()->getVille()->getSecteur()->getId();
+
+        $repoLivreur = $this->getDoctrine()->getRepository(Livreur::class);
+        $livreurs = $repoLivreur->findByDispoAndSecteur($idSecteur);
+
+        if (!empty($livreurs)) {
+            $idLivreur = array_rand($livreurs);
+            $livreur = $livreurs[$idLivreur];
+        } else {
+            $livreur = [];
+        }
 
         return $this->render('panier/index.html.twig', [
             'controller_name' => 'PanierController',
+            'tva' => $tva,
+            'livreurs' => $livreur,
             'items' => $panierData,
-            'total' => $total,
             'sousTotal' => $sousTotal,
-            'fraisLivraisons' => $fraisLivraisons
+            'fraisLivraisons' => $fraisLivraisons,
+            'totalTva' => $totalTva,
+            'sousTotalTTC' => $sousTotalTTC
         ]);
     }
 
@@ -75,7 +97,7 @@ class PanierController extends AbstractController
 
         $session->set('panier', $panier);
 
-        return $this->redirectToRoute('restaurant_menu', ['id'=>$idRestaurant]);
+        return $this->redirectToRoute('restaurant_menu', ['id' => $idRestaurant]);
     }
 
     /**
@@ -88,10 +110,10 @@ class PanierController extends AbstractController
     {
         $panier = $session->get('panier', []);
 
-        if (!empty($panier[$id])){
+        if (!empty($panier[$id])) {
             $panier[$id]--;
         }
-        if($panier[$id] == 0){
+        if ($panier[$id] == 0) {
             unset($panier[$id]);
         }
 
@@ -112,18 +134,18 @@ class PanierController extends AbstractController
 
         $panier = $session->get('panier', []);
 
-        foreach ($panier as $id => $quantity){
-            $panierData[]=[
+        foreach ($panier as $id => $quantity) {
+            $panierData[] = [
                 'plat' => $platsRepository->find($id),
                 'quantity' => $quantity
             ];
         }
 
-        $total = 0 ;
+        $total = 0;
 
         $fraisLivraisons = 3;
 
-        foreach ($panierData as $item){
+        foreach ($panierData as $item) {
             $totalItem = $item['plat']->getPrice() * $item['quantity'];
             $total += $totalItem;
         }
@@ -141,7 +163,7 @@ class PanierController extends AbstractController
         $entityManager->flush();
 
 
-        foreach ($panierData as $item){
+        foreach ($panierData as $item) {
             $commandePlat = new CommandePlat();
             $commandePlat->setCommande($commande);
             $commandePlat->setPlats($item['plat']);

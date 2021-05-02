@@ -21,6 +21,7 @@ class AcceuilLivreurController extends AbstractController
     public function index(): Response
     {
         $livreur = $this->getUser()->getLivreur();
+
         return $this->render('acceuil_livreur/accueil.html.twig', [
             'livreur' => $livreur
         ]);

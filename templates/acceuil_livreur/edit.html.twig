@@ -1,15 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AcceuilLivreurController!{% endblock %}
+{% block title %} Modification de votre profil Livreur {% endblock %}
 
 {% block body %}
     <div class="offset-2 col-8">
         {{ form_start(form, {'attr':{'class':'form-group'}}) }}
         {{ form_row(form.typeVehicule, {'attr':{'class':'form-control'}}) }}
-        <div class="d-flex justify-content-around">
-            {{ form_label(form.isDisponible) }}
-            {{ form_widget(form.isDisponible, {'attr':{'class':'switch-custom'}}) }}
-        </div>
+        {{ form_row(form.description, {'attr':{'class':'form-control'}}) }}
         <div class="d-flex justify-content-center">
             <button class="btn btn-primary mt-5">{{ button_label|default('Mettre à jour') }}</button>
         </div>

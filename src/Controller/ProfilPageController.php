@@ -59,8 +59,6 @@ class ProfilPageController extends AbstractController
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
                 $user->setImageFileName($newFilename);
-            } else {
-                $user->setImageFileName('profil-default.jpg');
             }
 
             $this->getDoctrine()->getManager()->flush();

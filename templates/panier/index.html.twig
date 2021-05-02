@@ -38,19 +38,29 @@
                 <td></td>
             </tr>
             <tr>
+                <td colspan="3" class="text-right">TVA : </td>
+                <td>{{ tva }} %</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right">Sous Total TTC : </td>
+                <td>{{ sousTotalTTC | format_currency('EUR') }}</td>
+                <td></td>
+            </tr>
+            <tr>
                 <td colspan="3" class="text-right">Frais de livraison : </td>
                 <td>{{ fraisLivraisons | format_currency('EUR') }}</td>
                 <td></td>
             </tr>
             <tr>
                 <td colspan="3" class="text-right">Total : </td>
-                <td>{{ total | format_currency('EUR') }}</td>
+                <td>{{ totalTva | format_currency('EUR') }}</td>
                 <td></td>
             </tr>
             </tfoot>
         </table>
         <div class="d-flex justify-content-end mr-2 mt-5">
-            <a href="{{ path('panier_validate') }}" class="btn btn-success">Valider la commande</a>
+            <a href="{{ path('panier_validate') }}" class="btn btn-success {{ livreurs is empty? 'disabled' : '' }}">{{ livreurs is empty? 'Pas de livreur disponible' : 'Valider la commande' }}</a>
         </div>
 
     {% else %}

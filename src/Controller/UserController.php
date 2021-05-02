@@ -17,4 +17,13 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+
+    /**
+     * @Route("/anti-rageux", name="anti_rageux")
+     */
+    public function antirageux(): Response
+    {
+        return $this->render('user/anti-rageux.html.twig', [
+        ]);
+    }
 }

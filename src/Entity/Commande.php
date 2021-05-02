@@ -102,6 +102,11 @@ class Commande
         {
             $this->totalPrice += $commandePlat->getPlats()->getPrice() * $commandePlat->getQuantite();
         }
+
+        $this->totalPrice += $this->totalPrice * 10 /100;
+
+        $this->totalPrice = number_format($this->totalPrice,2);
+
         $this->totalPrice += 3;
 
         return $this->totalPrice;

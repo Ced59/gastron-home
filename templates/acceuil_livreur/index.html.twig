@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AcceuilLivreurController!{% endblock %}
+{% block title %}Liste de vos livraisons{% endblock %}
 
 {% block body %}
     {% if livraisons is not empty %}
@@ -25,7 +25,7 @@
                     <td>{{ livraison.commande.id }}</td>
                     {% if livraison.status == "Prête" %}
                         <td>
-                            <a href="{{ path('take_commande', {'id' : livraison.id})}}" class="btn btn-primary">Valider la livraison</a>
+                            <a href="{{ path('take_commande', {'id' : livraison.id})}}" class="btn btn-primary">Prendre la commande</a>
                         </td>
                     {% elseif livraison.status == "Prise en charge" %}
                     <td>
@@ -38,7 +38,7 @@
             </tbody>
         </table>
     {% else %}
-        <h2 class="text-center">Vous n'avez pas de commande a livrer</h2>
+        <h2 class="text-center mt-5">Vous n'avez pas de commande à livrer</h2>
     {% endif %}
 
 {% endblock %}

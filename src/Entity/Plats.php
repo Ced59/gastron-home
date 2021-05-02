@@ -6,6 +6,7 @@ use App\Repository\PlatsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PlatsRepository::class)
@@ -20,7 +21,7 @@ class Plats
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
@@ -43,6 +44,7 @@ class Plats
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive(message="Votre stock doit être positif")
      */
     private $qte;
 
@@ -57,7 +59,7 @@ class Plats
     private $commandePlats;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 

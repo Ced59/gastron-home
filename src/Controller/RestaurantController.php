@@ -24,11 +24,19 @@ class RestaurantController extends AbstractController
      * @param SluggerInterface $slugger
      * @return Response
      */
-    public function edit(Request $request, Restaurant $restaurant, SluggerInterface $slugger): Response
+    public function edit(Request $request, Restaurant $restaurant, SluggerInterface $slugger, $id): Response
     {
 
         $form = $this->createForm(RestaurantType::class, $restaurant);
         $form->handleRequest($request);
+
+        $user = $this->getUser();
+
+
+        if (strval($user->getRestaurant()->getId()) != $request->attributes->get('id'))
+        {
+            return $this->redirectToRoute('anti_rageux');
+        }
 
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -36,11 +44,10 @@ class RestaurantController extends AbstractController
 
             $imageFile = $form->get('imageResto')->getData();
 
-            if($imageFile)
-            {
+            if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
                 try {
                     $imageFile->move(
                         $this->getParameter('restaurant_directory'),
@@ -53,16 +60,11 @@ class RestaurantController extends AbstractController
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
                 $restaurant->setImageFileRestaurant($newFilename);
+            } else {
+                if ($restaurant->getImageFileRestaurant() == 'restaurant-default.jpg') {
+                    $restaurant->setImageFileRestaurant('restaurant-default.jpg');
+                }
             }
-            else
-            {
-                $restaurant->setImageFileRestaurant('restaurant-default.jpg');
-            }
-//            $datacate = $form->get('categorieRestaurants')->getData();
-//
-//            dd($datacate);
-//
-//            $categorieRepo = $this->getDoctrine()->getRepository(CategorieRestaurant::class);
 
             $this->getDoctrine()->getManager()->flush();
 

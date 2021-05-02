@@ -122,9 +122,8 @@ class PlatsController extends AbstractController
             // updates the 'brochureFilename' property to store the PDF file name
             // instead of its contents
             $plat->setImageFilePlat($newFilename);
-        } else {
-            $plat->setImageFilePlat('plat-default.jpg');
         }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('plats_index');

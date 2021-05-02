@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Entity\CommandePlat;
 use App\Entity\Livraison;
 use App\Entity\Livreur;
+use App\Entity\Plats;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +20,7 @@ class ViewCommandeController extends AbstractController
     {
         $user = $this->getUser()->getRestaurant()->getId();
         $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commandes = $repo->findBy(['restaurant'=>$user, "status" => "Attente"]);
+        $commandes = $repo->findBy(['restaurant' => $user, "status" => "Attente", 'order']);
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
@@ -33,7 +35,7 @@ class ViewCommandeController extends AbstractController
     {
         $user = $this->getUser()->getRestaurant()->getId();
         $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commandes = $repo->findBy(['restaurant'=>$user, "status" => "Acceptée"]);
+        $commandes = $repo->findBy(['restaurant' => $user, "status" => "Acceptée"]);
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
@@ -48,7 +50,7 @@ class ViewCommandeController extends AbstractController
     {
         $user = $this->getUser()->getRestaurant()->getId();
         $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commandes = $repo->findBy(['restaurant'=>$user, "status" => "Prête"]);
+        $commandes = $repo->findBy(['restaurant' => $user, "status" => "Prête"]);
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
@@ -63,7 +65,7 @@ class ViewCommandeController extends AbstractController
     {
         $user = $this->getUser()->getRestaurant()->getId();
         $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commandes = $repo->findBy(['restaurant'=>$user, "status" => "Prise en charge"]);
+        $commandes = $repo->findBy(['restaurant' => $user, "status" => "Prise en charge"]);
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
             'title' => 'prises en charges'
@@ -77,7 +79,7 @@ class ViewCommandeController extends AbstractController
     {
         $user = $this->getUser()->getRestaurant()->getId();
         $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commandes = $repo->findBy(['restaurant'=>$user, "status" => "Livré"]);
+        $commandes = $repo->findBy(['restaurant' => $user, "status" => "Livré"]);
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
@@ -92,7 +94,7 @@ class ViewCommandeController extends AbstractController
     {
         $user = $this->getUser()->getRestaurant()->getId();
         $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commandes = $repo->findBy(['restaurant'=>$user]);
+        $commandes = $repo->findBy(['restaurant' => $user]);
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
@@ -107,7 +109,7 @@ class ViewCommandeController extends AbstractController
     {
         $user = $this->getUser()->getId();
         $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commandes = $repo->findBy(['utilisateur'=>$user], ['id'=>'DESC']);
+        $commandes = $repo->findBy(['utilisateur' => $user], ['id' => 'DESC']);
 
         return $this->render('view_commande/index.html.twig', [
             'commandes' => $commandes,
@@ -126,7 +128,20 @@ class ViewCommandeController extends AbstractController
         $commande = $repository->find($id);
         $plats = $commande->getCommandePlats();
 
+        $idSecteur = $this->getUser()->getVille()->getSecteur()->getId();
+
+        $repoLivreur = $this->getDoctrine()->getRepository(Livreur::class);
+        $livreurs = $repoLivreur->findByDispoAndSecteur($idSecteur);
+
+        if (!empty($livreurs)){
+            $idLivreur = array_rand($livreurs);
+            $livreur = $livreurs[$idLivreur];
+        } else {
+            $livreur = [];
+        }
+
         return $this->render('view_commande/show-commande.html.twig', [
+            'livreurs' => $livreur,
             'commande' => $commande,
             'plats' => $plats,
             'title' => 'Détail de la commande'
@@ -138,10 +153,36 @@ class ViewCommandeController extends AbstractController
      */
     public function acceptCommand(int $id): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commande = $repo->find($id);
+        $repoCommand = $this->getDoctrine()->getRepository(Commande::class);
+        $commande = $repoCommand->find($id);
+
+        $idCommand = $commande->getId();
 
         $commande->setStatus('Acceptée');
+
+        $repoCommandPlat = $this->getDoctrine()->getRepository(CommandePlat::class);
+        $commandPlat = $repoCommandPlat->findBy(['commande' => $idCommand]);
+        $plats = [];
+
+        foreach ($commandPlat as $item) {
+            $plats[] = [
+                'plat' => $item->getPlats(),
+                'quantity' => $item->getQuantite()
+            ];
+        }
+
+        $repoPlat = $this->getDoctrine()->getRepository(Plats::class);
+        foreach ($plats as $plate) {
+            $quantite = $plate['quantity'];
+            $plat = $repoPlat->find($plate['plat']->getId());
+            $qte = $plat->getQte();
+            $qte -= $quantite;
+            $plat->setQte($qte);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($plat);
+            $entityManager->flush();
+        }
+
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($commande);
@@ -151,7 +192,7 @@ class ViewCommandeController extends AbstractController
         $cpLivraison = $commande->getUtilisateur()->getVille()->getCodePostal();
         $villeLivraison = $commande->getUtilisateur()->getVille();
 
-        $finalAdress = $adresseLivraison." ".$cpLivraison." ".$villeLivraison;
+        $finalAdress = $adresseLivraison . " " . $cpLivraison . " " . $villeLivraison;
 
         $idSecteur = $this->getUser()->getVille()->getSecteur()->getId();
 
@@ -191,7 +232,7 @@ class ViewCommandeController extends AbstractController
 
         $idLivraison = $commande->getLivraison()->getId();
         $repoLivraison = $this->getDoctrine()->getRepository(Livraison::class);
-        $livraison = $repoLivraison->find($idLivraison) ;
+        $livraison = $repoLivraison->find($idLivraison);
         $livraison->setStatus("Prête");
 
         $entityManager = $this->getDoctrine()->getManager();

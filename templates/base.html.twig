@@ -43,6 +43,9 @@
             </li>
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ path('admin') }}">Administrateur</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ path('categorie_plats_index') }}">Gérer les catégories de plats</a>
                 </li>
                 <li class="nav-item">
@@ -78,9 +81,6 @@
                     <a class="nav-link" href="{{ path('livreur_commande') }}">Voir livraison</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Historique livraison</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{ path('profil_page') }}">Votre Profil</a>
                 </li>
             {% endif %}
@@ -90,9 +90,6 @@
                 </li>
             {% endif %}
             {% if is_granted('ROLE_RESTO') and app.user.restaurant.companyName != null %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Historique commandes</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('plats_index') }}">Gérer vos plats</a>
                 </li>

@@ -35,6 +35,7 @@
         </div>
     </div>
     {{ form_row(registrationForm.userType, {'attr':{'class':'form-control'}}) }}
+    {{ form_row(registrationForm.image, {'attr':{'class':'form-control-file'}}) }}
     {{ form_row(registrationForm.agreeTerms) }}
 
     <button type="submit" class="btn btn-primary">Inscription</button>
