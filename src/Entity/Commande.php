@@ -57,13 +57,14 @@ class Commande
     private $livraison;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Plats::class, mappedBy="commande")
+     * @ORM\OneToMany(targetEntity=CommandePlat::class, mappedBy="commande")
      */
-    private $plats;
+    private $commandePlats;
 
     public function __construct()
     {
         $this->plats = new ArrayCollection();
+        $this->commandePlats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,6 +98,17 @@ class Commande
 
     public function getTotalPrice(): ?float
     {
+        foreach ($this->commandePlats as $commandePlat)
+        {
+            $this->totalPrice += $commandePlat->getPlats()->getPrice() * $commandePlat->getQuantite();
+        }
+
+        $this->totalPrice += $this->totalPrice * 10 /100;
+
+        $this->totalPrice = number_format($this->totalPrice,2);
+
+        $this->totalPrice += 3;
+
         return $this->totalPrice;
     }
 
@@ -149,29 +161,33 @@ class Commande
     }
 
     /**
-     * @return Collection|Plats[]
+     * @return Collection|CommandePlat[]
      */
-    public function getPlats(): Collection
+    public function getCommandePlats(): Collection
     {
-        return $this->plats;
+        return $this->commandePlats;
     }
 
-    public function addPlat(Plats $plat): self
+    public function addCommandePlat(CommandePlat $commandePlat): self
     {
-        if (!$this->plats->contains($plat)) {
-            $this->plats[] = $plat;
-            $plat->addCommande($this);
+        if (!$this->commandePlats->contains($commandePlat)) {
+            $this->commandePlats[] = $commandePlat;
+            $commandePlat->setCommande($this);
         }
 
         return $this;
     }
 
-    public function removePlat(Plats $plat): self
+    public function removeCommandePlat(CommandePlat $commandePlat): self
     {
-        if ($this->plats->removeElement($plat)) {
-            $plat->removeCommande($this);
+        if ($this->commandePlats->removeElement($commandePlat)) {
+            // set the owning side to null (unless already changed)
+            if ($commandePlat->getCommande() === $this) {
+                $commandePlat->setCommande(null);
+            }
         }
 
         return $this;
     }
+
 }

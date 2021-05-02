@@ -16,6 +16,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    public function __toString()
+    {
+        return $this->firstName." ".$this->lastName;
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -79,6 +84,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=20)
      */
     private $userType;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageFileName;
 
     public function __construct()
     {
@@ -275,6 +285,18 @@ class User implements UserInterface
     public function setUserType(string $userType): self
     {
         $this->userType = $userType;
+
+        return $this;
+    }
+
+    public function getImageFileName(): ?string
+    {
+        return $this->imageFileName;
+    }
+
+    public function setImageFileName(?string $imageFileName): self
+    {
+        $this->imageFileName = $imageFileName;
 
         return $this;
     }

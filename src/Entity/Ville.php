@@ -40,6 +40,11 @@ class Ville
      */
     private $Secteur;
 
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $codePostal;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -100,6 +105,18 @@ class Ville
     public function setSecteur(?Secteur $Secteur): self
     {
         $this->Secteur = $Secteur;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?string
+    {
+        return $this->codePostal;
+    }
+
+    public function setCodePostal(?string $codePostal): self
+    {
+        $this->codePostal = $codePostal;
 
         return $this;
     }

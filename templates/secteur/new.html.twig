@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Secteur{% endblock %}
+{% block title %}Créer un nouveau secteur{% endblock %}
 
 {% block body %}
-    <h1>Create new Secteur</h1>
+    <div class="offset-2 col-8 mt-5">
+        <h1 class="text-center mb-3">Créer un nouveau secteur</h1>
 
-    {{ include('secteur/_form.html.twig') }}
-
-    <a href="{{ path('secteur_index') }}">back to list</a>
+        {{ include('secteur/_form.html.twig', {'button_label': 'Ajouter'}) }}
+    </div>
 {% endblock %}

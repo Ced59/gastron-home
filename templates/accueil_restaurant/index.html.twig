@@ -1,20 +1,115 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilRestaurantController!{% endblock %}
+{% block title %} Bonjour, {{ app.user.firstName }} ! {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="offset-2 col-8 mt-5">
+        {% if restaurant.companyName is not null %}
+            <div class="row mb-5">
+                <div class="col-3">
+                    <div class="card text-center">
+                        <img class="card-img-top" src="{{ asset('img/restaurant/' ~ restaurant.imageFileRestaurant) }}" alt="Card image cap">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                        <div class="card-body">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/33667/Desktop/projet/projet-mars-2021/src/Controller/AccueilRestaurantController.php'|file_link(0) }}">src/Controller/AccueilRestaurantController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/33667/Desktop/projet/projet-mars-2021/templates/accueil_restaurant/index.html.twig'|file_link(0) }}">templates/accueil_restaurant/index.html.twig</a></code></li>
-    </ul>
-</div>
+                            <h5 class="card-title">
+                                {{ restaurant.companyName }}
+                            </h5>
+
+                            <p class="card-text">{{ restaurant.description }}</p>
+                            <p class="card-text">{{ restaurant.utilisateur.adress }}</p>
+                            <p class="card-text">{{ restaurant.utilisateur.ville.nomVille }}</p>
+
+
+                            <a href="{{ path('edit_restaurant', {'id': restaurant.id}) }}" class="btn btn-primary">Modifier
+                                votre
+                                restaurant</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <p class="font-weight-bolder">Catégories de votre restaurant :</p>
+                            <div class="d-flex justify-content-around">
+                                {% for categorie in restaurant.categorieRestaurants %}
+                                    <div>{{ categorie.libelle }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ asset('img/resources/service-de-livraison.jpg') }}"
+                             alt="Commandes">
+
+                        <div class="card-body">
+
+                            <h5 class="card-title text-center">
+                                Récapitulatif commandes
+                            </h5>
+
+                            {% set nbreCommandesAtente = 0 %}
+                            {% set nbreCommandesAcceptees = 0 %}
+                            {% set nbreCommandesPretes = 0 %}
+                            {% set nbreCommandesPriseEnCharge = 0 %}
+                            {% set nbreCommandesLivrees = 0 %}
+                            {% set nbreCommandesTotales = 0 %}
+
+                            {% for command in restaurant.commandes %}
+                                {% if command.status == "Livré" %}
+                                    {% set nbreCommandesLivrees = nbreCommandesLivrees + 1 %}
+                                {% elseif command.status == "Attente" %}
+                                    {% set nbreCommandesAtente = nbreCommandesAtente + 1 %}
+                                {% elseif command.status == "Prête" %}
+                                    {% set nbreCommandesPretes = nbreCommandesPretes + 1 %}
+                                {% elseif command.status == "Acceptée" %}
+                                    {% set nbreCommandesAcceptees = nbreCommandesAcceptees + 1 %}
+                                {% elseif command.status == "Prise en charge" %}
+                                    {% set nbreCommandesPriseEnCharge = nbreCommandesPriseEnCharge + 1 %}
+                                {% endif %}
+
+                                {% set nbreCommandesTotales = nbreCommandesTotales + 1 %}
+                            {% endfor %}
+
+                            <div class="row mt-1">
+                                <p class="font-weight-bolder col-8">Commandes en attente : </p>
+                                <p class="col-1"> {{ nbreCommandesAtente }} </p>
+                                <a href="{{ path('view_commandes_attente') }}" class="btn btn-primary col-1">Voir</a>
+                            </div>
+                            <div class="row mt-1">
+                                <p class="font-weight-bolder col-8">Commandes acceptées : </p>
+                                <p class="col-1"> {{ nbreCommandesAcceptees }} </p>
+                                <a href="{{ path('view_commandes_acceptee') }}" class="btn btn-primary col-1">Voir</a>
+                            </div>
+                            <div class="row mt-1">
+                                <p class="font-weight-bolder col-8">Commandes prête : </p>
+                                <p class="col-1"> {{ nbreCommandesPretes }} </p>
+                                <a href="{{ path('view_commandes_pretes') }}" class="btn btn-primary col-1">Voir</a>
+                            </div>
+                            <div class="row mt-1">
+                                <p class="font-weight-bolder col-8">Commandes prise en charge par le livreur : </p>
+                                <p class="col-1"> {{ nbreCommandesPriseEnCharge }} </p>
+                                <a href="{{ path('view_commandes_pec') }}" class="btn btn-primary col-1">Voir</a>
+                            </div>
+                            <div class="row mt-1">
+                                <p class="font-weight-bolder col-8">Commandes livrées : </p>
+                                <p class="col-1"> {{ nbreCommandesLivrees }} </p>
+                                <a href="{{ path('view_commandes_livree') }}" class="btn btn-primary col-1">Voir</a>
+                            </div>
+                            <div class="row mt-1">
+                                <p class="font-weight-bolder col-8">Commandes totales : </p>
+                                <p class="col-1"> {{ nbreCommandesTotales }} </p>
+                                <a href="{{ path('view_commandes_totales') }}" class="btn btn-primary col-1">Voir</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <h1 class="text-center">Merci de finaliser votre inscription en tant que restaurateur en suivant ce lien
+                :</h1>
+
+            <a href="{{ path('edit_restaurant', {'id': restaurant.id}) }}"
+               class="btn btn-primary d-flex justify-content-center ml-5 mr-5 mt-5">Poursuivre votre enregistrement</a>
+        {% endif %}
+    </div>
 {% endblock %}

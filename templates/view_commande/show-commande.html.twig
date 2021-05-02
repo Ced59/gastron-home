@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block body %}
+    <div class="card offset-3 col-6 mt-4">
+        <img class="card-img-top" src="{{ asset('img/resources/commander-en-ligne.jpg') }}"
+             alt="Card image cap">
+
+        <div class="card-body">
+
+            <h5 class="card-title text-center">
+                Commande n° {{ commande.id }}
+            </h5>
+
+            {% if is_granted('ROLE_RESTO') %}
+
+                {% if commande.status == 'Attente' %}
+
+                    <div class="text-center">
+                        <a href="{{ path('accept_command', {'id': commande.id}) }}" class="btn btn-primary text-center  {{ livreurs is empty? 'disabled' : '' }}">{{ livreurs is empty? 'Pas de livreur disponible' : 'Accepter' }}</a>
+                    </div>
+
+                    {% elseif commande.status == 'Acceptée' %}
+
+                        <div class="text-center">
+                            <a href="{{ path('ready_command', {'id': commande.id}) }}" class="btn btn-primary text-center">Afficher comme prête</a>
+                        </div>
+
+                {% endif %}
+            {% endif %}
+
+            <p class="card-text">Statut : {{ commande.status }}</p>
+
+            <p class="card-text">Prix total : {{ commande.totalPrice | format_currency('EUR') }}</p>
+
+
+            <p class="card-text">Liste des plats</p>
+            <p class="card-text">
+
+            <div class="d-flex justify-content-around flex-wrap">
+                {% for command in commande.commandePlats %}
+
+                    <div class="card col-5 mt-4">
+                        <img class="card-img-top" src="{{ asset('img/plat/' ~  command.plats.imageFilePlat) }}"
+                             alt="image">
+
+                        <h4 class="card-title text-center mt-2"> {{ command.plats.name }} </h4>
+
+                        <div class="card-body">
+
+                            <div class="col-12"> Quantité : {{ command.quantite }}</div>
+
+                        </div>
+
+
+                    </div>
+
+                {% endfor %}
+            </div>
+
+
+            </p>
+        </div>
+    </div>
+{% endblock %}

@@ -3,24 +3,27 @@
 {% block title %}Secteur{% endblock %}
 
 {% block body %}
-    <h1>Secteur</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ secteur.id }}</td>
-            </tr>
-            <tr>
-                <th>NomSecteur</th>
-                <td>{{ secteur.nomSecteur }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="offset-2 col-8 mt-5">
+        <h1 class="text-center">Secteur :</h1>
 
-    <a href="{{ path('secteur_index') }}">back to list</a>
+        <div class="d-flex justify-content-center mt-4">
+            <div class="card border-danger mb-3" style="max-width: 18rem;">
+                <h4 class="card-header">{{ secteur.nomSecteur }}</h4>
+                <div class="card-body text-danger">
+                    <p class="card-text">
+                        {% for villes in secteur.villes %}
+                    <h6>{{ villes.nomVille }} </h6>
+                    {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-around mt-4">
+        <a href="{{ path('secteur_index') }}" class="btn btn-primary">Retour à la liste</a>
 
-    <a href="{{ path('secteur_edit', {'id': secteur.id}) }}">edit</a>
-
-    {{ include('secteur/_delete_form.html.twig') }}
+        <a href="{{ path('secteur_edit', {'id': secteur.id}) }}" class="btn btn-success">Modifier le secteur</a>
+    </div>
+    </div>
 {% endblock %}

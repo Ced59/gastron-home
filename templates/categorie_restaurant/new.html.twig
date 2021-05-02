@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New CategorieRestaurant{% endblock %}
+{% block title %}Ajouter une catégorie de restaurant{% endblock %}
 
 {% block body %}
-    <h1>Create new CategorieRestaurant</h1>
+    <div class="offset-2 col-8 mt-5">
+        <h1 class="mb-3 text-center">Créer une nouvelle catégorie de restaurant</h1>
 
-    {{ include('categorie_restaurant/_form.html.twig') }}
-
-    <a href="{{ path('categorie_restaurant_index') }}">back to list</a>
+        {{ include('categorie_restaurant/_form.html.twig', {'button_label': 'Ajouter'}) }}
+    </div>
 {% endblock %}

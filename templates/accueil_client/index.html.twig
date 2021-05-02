@@ -1,32 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilClientController!{% endblock %}
+{% block title %} Bonjour, {{ app.user.firstName }} ! {% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('navbarLeft') }}
+{% endblock %}
 
 {% block body %}
+    <div class="vertical-nav" id="sidebar">
+        <ul class="nav flex-column mb-0 text-center">
 
-
-    <div>
-        <h1> Connecté </h1>
-
-        <a href="a_definir_le_chemin.html.twig">Profils</a>
-        <a href="a_definir_le_chemin.html.twig">Historique des Commandes</a>
-        <a href="a_definir_le_chemin.html.twig">Se Déconnecter</a>
-
-    </div>
-    <div>
-        <table>
-            <thead>
-            <tr>
-                <th>Adresse</th>
-                // récupérer les catégories restaurants
-                <th></th>
-
-
-            </tr>
-            </thead>
-
-        </table>
-
+            <li class="nav-item mt-3">
+                <a class="nav-link font-italic" href="{{ path('client') }}">
+                    Toutes catégories
+                </a>
+            </li>
+            {% for categorieRestaurant in categorieRestaurants %}
+                <li class="nav-item">
+                    <a class="nav-link font-italic" href="{{ path('view_resto', {'id': categorieRestaurant.id}) }}">
+                        {{ categorieRestaurant.libelle }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 
+    <div class="page-content">
+        {% set lastCommande = commandUser | last %}
+        {% if lastCommande != "Livré" and lastCommande is not empty %}
+            <div class="d-flex justify-content-center mt-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class=" card-title text-center">Votre commande ayant le numéro {{ lastCommande.id }}
+                            a le statut {{ lastCommande.status }}</h5>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <h3 class="text-center mt-3"> Votre adresse : {{ app.user.adress }} {{ app.user.ville.nomVille }}</h3>
+        <div class="d-flex flex-wrap justify-content-around  mt-5">
+            {% for restaurant in restaurants %}
+                {% set imagePath = 'img/restaurant/' ~ restaurant.imageFileRestaurant %}
+
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ asset(imagePath) }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ restaurant.companyName }}</h5>
+                        <p class="card-text">{{ restaurant.description }}</p>
+                        <p class="card-text">{{ restaurant.utilisateur.adress }}</p>
+                        <p>{{ restaurant.utilisateur.ville.nomVille }}</p>
+                        <a href="{{ path('restaurant_menu', {'id': restaurant.id}) }}" class="btn btn-primary">Voir la
+                            carte</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="d-flex justify-content-around">
+                            {% for rest in restaurant.categorieRestaurants %}
+                                <div>{{ rest.libelle }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

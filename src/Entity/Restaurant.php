@@ -25,7 +25,7 @@ class Restaurant
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $companyName;
 
@@ -35,7 +35,11 @@ class Restaurant
     private $utilisateur;
 
     /**
-     * @ORM\ManyToMany(targetEntity=CategorieRestaurant::class, mappedBy="restaurant")
+     * @ORM\ManyToMany(targetEntity=CategorieRestaurant::class, mappedBy="restaurant", cascade={"persist"})
+     * @ORM\JoinTable(name="categorie_restaurant_restaurant",
+     *      joinColumns={@ORM\JoinColumn(name="restaurant_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="categorie_restaurant_id", referencedColumnName="id")}
+     *      )
      */
     private $categorieRestaurants;
 
@@ -48,6 +52,16 @@ class Restaurant
      * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="restaurant")
      */
     private $commandes;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image_file_restaurant;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
 
     public function __construct()
     {
@@ -178,6 +192,30 @@ class Restaurant
                 $commande->setRestaurant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImageFileRestaurant(): ?string
+    {
+        return $this->image_file_restaurant;
+    }
+
+    public function setImageFileRestaurant(?string $image_file_restaurant): self
+    {
+        $this->image_file_restaurant = $image_file_restaurant;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

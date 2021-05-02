@@ -1,35 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ville index{% endblock %}
+{% block title %}Liste des villes{% endblock %}
 
 {% block body %}
-    <h1>Ville index</h1>
+    <div class="offset-2 col-8 mt-5">
+        <h1 class="text-center mt-4">Liste des villes</h1>
+        {% if villes is not empty %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom_ville</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for ville in villes %}
-            <tr>
-                <td>{{ ville.id }}</td>
-                <td>{{ ville.nomVille }}</td>
-                <td>
-                    <a href="{{ path('ville_show', {'id': ville.id}) }}">show</a>
-                    <a href="{{ path('ville_edit', {'id': ville.id}) }}">edit</a>
-                </td>
-            </tr>
+            <table class="table table-hover text-center mt-4">
+                <thead>
+                <tr>
+                    <th>Nom Ville</th>
+                    <th>Secteur</th>
+                    <th>Code Postal</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ville in villes %}
+                    <tr>
+                        <td>{{ ville.nomVille }}</td>
+                        <td>{{ ville.Secteur.nomSecteur }}</td>
+                        <td>{{ ville.codePostal }}</td>
+                        <td>
+                            <a href="{{ path('ville_show', {'id': ville.id}) }}" class="btn btn-info">Voir</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('ville_edit', {'id': ville.id}) }}" class="btn btn-success">Editer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('ville_new') }}">Create new</a>
+            <h3 class="mt-4 text-center">Aucune ville trouvée</h3>
+        {% endif %}
+        <div class="d-flex justify-content-end mt-3">
+            <a href="{{ path('ville_new') }}" class="btn btn-primary">Ajouter une ville</a>
+        </div>
+    </div>
 {% endblock %}

@@ -20,7 +20,7 @@ class Livreur
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $typeVehicule;
 
@@ -38,6 +38,11 @@ class Livreur
      * @ORM\Column(type="boolean")
      */
     private $isDisponible;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
 
     public function __construct()
     {
@@ -121,6 +126,18 @@ class Livreur
     public function setIsDisponible(bool $isDisponible): self
     {
         $this->isDisponible = $isDisponible;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

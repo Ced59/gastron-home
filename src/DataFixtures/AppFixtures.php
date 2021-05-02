@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\CategoriePlats;
 use App\Entity\CategorieRestaurant;
 use App\Entity\Commande;
+use App\Entity\CommandePlat;
 use App\Entity\Livraison;
 use App\Entity\Livreur;
 use App\Entity\Plats;
@@ -32,7 +33,8 @@ class AppFixtures extends Fixture
         $faker = Factory::create('fr_FR');
 
         $ville = new Ville();
-        $ville->setNomVille('Somain');
+        $ville->setNomVille('Somain')
+        ->setCodePostal('59490');
         $manager->persist($ville);
 
         $secteur1 = new Secteur();
@@ -47,7 +49,8 @@ class AppFixtures extends Fixture
 
         $ville1 = new Ville();
         $ville1->setNomVille('Bruay sur Escaut')
-            ->setSecteur($secteur2);
+            ->setSecteur($secteur2)
+            ->setCodePostal('59320');
         $manager->persist($ville1);
 
         $user = new  User();
@@ -59,7 +62,8 @@ class AppFixtures extends Fixture
             ->setEmail('user@fake.com')
             ->setAdress('25 rue de moi')
             ->setVille($ville1)
-            ->setUserType('CLIENT');
+            ->setUserType('CLIENT')
+            ->setImageFileName('vincent.jpg');
 
 
         $manager->persist($user);
@@ -67,7 +71,8 @@ class AppFixtures extends Fixture
 
         $ville2 = new Ville();
         $ville2->setNomVille('Valenciennes')
-            ->setSecteur($secteur2);
+            ->setSecteur($secteur2)
+            ->setCodePostal('59300');
         $manager->persist($ville2);
 
         $user1 = new  User();
@@ -79,7 +84,8 @@ class AppFixtures extends Fixture
             ->setEmail('livreur@fake.com')
             ->setAdress('25 rue de moi')
             ->setVille($ville2)
-            ->setUserType('LIVREUR');
+            ->setUserType('LIVREUR')
+            ->setImageFileName('theo.jpg');
 
         $manager->persist($user1);
 
@@ -87,13 +93,15 @@ class AppFixtures extends Fixture
 
         $ville3 = new Ville();
         $ville3->setNomVille('Anzin')
-            ->setSecteur($secteur2);
+            ->setSecteur($secteur2)
+            ->setCodePostal('59350');
         $manager->persist($ville3);
 
 
         $ville4 = new Ville();
         $ville4->setNomVille('St-Saulve')
-            ->setSecteur($secteur2);
+            ->setSecteur($secteur2)
+            ->setCodePostal('59421');
         $manager->persist($ville4);
 
         $user2 = new  User();
@@ -105,7 +113,8 @@ class AppFixtures extends Fixture
             ->setEmail('admin@fake.com')
             ->setAdress('25 rue de moi')
             ->setVille($ville4)
-            ->setUserType('ADMIN');
+            ->setUserType('ADMIN')
+            ->setImageFileName('ced.jpg');
 
         $manager->persist($user2);
 
@@ -118,7 +127,8 @@ class AppFixtures extends Fixture
             ->setEmail('resto@fake.com')
             ->setAdress('25 rue de moi')
             ->setVille($ville3)
-            ->setUserType('RESTO');
+            ->setUserType('RESTO')
+            ->setImageFileName('charlotte.jpg');
 
         $manager->persist($user3);
 
@@ -159,21 +169,24 @@ class AppFixtures extends Fixture
         $plat1->setPrice(5)
             ->setName('Sushis saumons 12 pc')
             ->setCategoriePlats($categoryPlats1)
-            ->setQte(50);
+            ->setQte(50)
+            ->setImageFilePlat('sushi-603f9720290ee.jpg');
         $manager->persist($plat1);
 
         $plat2 = new Plats();
         $plat2->setPrice(17)
             ->setName('Maki saumon 12 pc')
             ->setCategoriePlats($categoryPlats2)
-            ->setQte(10);
+            ->setQte(10)
+            ->setImageFilePlat('maki-saumon.jpg');
         $manager->persist($plat2);
 
         $plat3 = new Plats();
         $plat3->setPrice(15)
             ->setName('Canard à l\'orange')
             ->setCategoriePlats($categoryPlats3)
-            ->setQte(0);
+            ->setQte(0)
+            ->setImageFilePlat('magret-canard-orange.jpg');;
         $manager->persist($plat3);
 
 
@@ -184,27 +197,36 @@ class AppFixtures extends Fixture
             ->addPlat($plat1)
             ->addPlat($plat2)
             ->addPlat($plat3)
-            ->setCompanyName('Gronichonyah')
-            ->setUtilisateur($user);
+            ->setCompanyName('Au bonheur asiatique')
+            ->setUtilisateur($user3)
+            ->setImageFileRestaurant('restaurant-default.jpg');
 
 
         $command1 = new Commande();
 
+        $commandPlat1 = new CommandePlat();
+        $commandPlat1->setPlats($plat1)
+            ->setQuantite(6);
+
+        $manager->persist($commandPlat1);
+
+
+        $commandPlat2 = new CommandePlat();
+        $commandPlat2->setPlats($plat2)
+            ->setQuantite(12);
+
+        $manager->persist($commandPlat2);
+
         $dateCommand1 = $faker->dateTimeBetween('2019-03-20T00:00:00.012345Z', 'now');
         $command1->setHeureCommande($dateCommand1)
-            ->setStatus('Prête')
+            ->setStatus('Prise en charge')
             ->setUtilisateur($user)
             ->setRestaurant($restoChinois)
-            ->addPlat($plat1)
-            ->addPlat($plat1)
-            ->addPlat($plat2);
+            ->addCommandePlat($commandPlat1)
+            ->addCommandePlat($commandPlat2);
 
         $prixTotal = 0;
-        foreach ($command1->getPlats() as $plat)
-        {
-            $prixTotal += $plat->getPrice();
-        }
-        $prixTotal += 3;
+
 
         $command1->setTotalPrice($prixTotal);
 

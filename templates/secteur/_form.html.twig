@@ -1,4 +1,7 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr':{'class':'form-group'}}) }}
+    {{ form_row(form.nomSecteur, {'attr':{'class':'form-control'}}) }}
+<div class="d-flex justify-content-around mt-4">
+    <button class="btn btn-primary">{{ button_label|default('Mettre à jour') }}</button>
+    <a href="{{ path('secteur_index') }}" class="btn btn-danger">Retour à la liste</a>
+</div>
 {{ form_end(form) }}
