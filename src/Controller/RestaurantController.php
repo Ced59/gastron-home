@@ -24,7 +24,7 @@ class RestaurantController extends AbstractController
      * @param SluggerInterface $slugger
      * @return Response
      */
-    public function edit(Request $request, Restaurant $restaurant, SluggerInterface $slugger): Response
+    public function edit(Request $request, Restaurant $restaurant, SluggerInterface $slugger, $id): Response
     {
 
         $form = $this->createForm(RestaurantType::class, $restaurant);
@@ -32,7 +32,8 @@ class RestaurantController extends AbstractController
 
         $user = $this->getUser();
 
-        if (strval($user->getRestaurant()->getId()) != $request->query->get('id'))
+
+        if (strval($user->getRestaurant()->getId()) != $request->attributes->get('id'))
         {
             return $this->redirectToRoute('anti_rageux');
         }
