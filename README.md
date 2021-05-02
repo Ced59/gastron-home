@@ -1,6 +1,6 @@
 Gastron-home (Mon Resto)
 
-Projet Symfony réalisé dans le cadre de ma formation Concepteur Développeur d'Application (Bac+3) lors d'une semaine projet.
+Projet Symfony réalisé dans le cadre de ma formation Concepteur Développeur d'Application (Bac+3) lors d'une semaine projet (mars 2021).
 
 
 
